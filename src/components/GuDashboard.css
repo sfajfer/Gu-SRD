@@ -39,6 +39,60 @@ body {
   min-height: 100vh;
 }
 
+/* KEYWORD TAG TOOLTIPS */
+.keyword-tag-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.keyword-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 1px; /* space between tooltip and tag */
+  width: max-content;
+  max-width: 250px; 
+  max-height: 150px; 
+  overflow-y: auto; /* enables scrolling */
+  background-color: #2b2b2b;
+  color: #ededed;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 100;
+  text-align: left;
+  white-space: normal;
+}
+
+/* Tooltip arrow */
+.keyword-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #2b2b2b transparent transparent transparent;
+}
+
+@media (max-width: 768px) {
+  .keyword-tooltip {
+    max-width: 85vw; 
+    left: -150px; 
+    transform: none; 
+  }
+
+  .keyword-tooltip::after {
+    left: 20px; 
+  }
+}
+
 .gu-topbar {
   display: flex;
   align-items: center;
