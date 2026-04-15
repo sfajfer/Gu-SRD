@@ -20,6 +20,14 @@ const TYPES = [
   'Concealment','Tonic','Container','Catalyst','Carver',
 ];
 
+const FOOD_COSTS_GENERIC = [
+  "3",
+  "25",
+  "300",
+  "8,000",
+  "350,000",
+]
+
 const KEYWORD_FILTERS = [
   { key: 'Deductive',      label: 'Deductive',       match: kws => kws.some(k => k.toLowerCase() === 'deductive') },
   { key: 'Dao',            label: 'Dao',             match: kws => kws.some(k => k.toLowerCase() === 'dao') },
@@ -204,7 +212,7 @@ const GuDashboard = () => {
   const [sidebarOpen,    setSidebarOpen]    = useState(false);
   const [screenWidth,    setScreenWidth]    = useState(window.innerWidth);
   const [filterPath,     setFilterPath]     = useState('');
-  const [filterRank,     setFilterRank]     = useState('');
+  const [filterRank,     setFilterRank]     = useState(new Set());  
   const [filterType,     setFilterType]     = useState('');
   const [filterKeywords, setFilterKeywords] = useState(new Set());
 
@@ -232,6 +240,15 @@ const GuDashboard = () => {
     });
   };
 
+  const toggleRank = (val) => {
+    setFilterRank(prev => {
+      const next = new Set(prev);
+      const numVal = Number(val); 
+      next.has(numVal) ? next.delete(numVal) : next.add(numVal);
+      return next;
+    });
+  };
+
   const requestSort = (key) => {
     setSortConfig(prev => ({
       key,
@@ -241,7 +258,7 @@ const GuDashboard = () => {
 
   const clearAll = () => {
     setFilterPath('');
-    setFilterRank('');
+    setFilterRank(new Set());
     setFilterType('');
     setSearch('');
     setFilterKeywords(new Set());
@@ -262,8 +279,7 @@ const GuDashboard = () => {
         gu.keywords?.some(k => k.toLowerCase().includes(q))
       );
       const matchPath = !filterPath || gu.path === filterPath;
-      const matchRank = !filterRank ||
-        (gu.rank && gu.rank.some(r => Number(r) === Number(filterRank)));
+      const matchRank = filterRank.size === 0 || (gu.rank && gu.rank.some(r => filterRank.has(Number(r))));
       const matchType = !filterType || gu.type === filterType;
 
       // ALL selected keywords must be present on the gu
@@ -347,6 +363,15 @@ const GuDashboard = () => {
     return out;
   }, [guList, search, sortConfig, filterPath, filterRank, filterType, filterKeywords]);
 
+  const getFood = (rank) => {
+    if (rank.length > 1) {
+      return "{" + rank.map(r => FOOD_COSTS_GENERIC[r - 1]).join(", ") + "} Primeval Stones";
+    }
+    else {
+      return FOOD_COSTS_GENERIC[rank[0] - 1] + ' Primeval Stones';
+    }
+  }
+
   const rankOptions = RANKS.map(r => ({ value: String(r), label: `Rank ${r}` }));
   const pathOptions = PATHS.map(p => ({ value: p, label: p.replace(' Path', '') }));
 
@@ -396,13 +421,24 @@ const GuDashboard = () => {
             placeholder="All paths"
           />
 
-          <FilterDropdown
-            label="Rank"
-            value={filterRank}
-            onChange={setFilterRank}
-            options={rankOptions}
-            placeholder="All ranks"
-          />
+          <div className="gu-filter-group">
+            <span className="gu-filter-label">Ranks</span>
+            <div className="keyword-checkbox-grid">
+              {RANKS.map(r => {
+                const checked = filterRank.has(r);
+                return (
+                  <label key={r} className={`keyword-checkbox-label${checked ? ' checked' : ''}`}>
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggleRank(r)}
+                    />
+                    {` Rank ${r}`}
+                  </label>
+                );
+              })}
+            </div>
+          </div>
 
           <FilterDropdown
             label="Type"
@@ -456,9 +492,19 @@ const GuDashboard = () => {
                       <td className="cell-name">{gu.name}</td>
                       <td className="cell-path">{gu.path}</td>
                       <td className="cell-rank">
-                        {gu.rank?.length > 1
-                          ? `${gu.rank[0]}–${gu.rank[gu.rank.length - 1]}`
-                          : gu.rank?.[0]}
+                        {(() => {
+                          if (!gu.rank || gu.rank.length === 0) return "-";
+                          if (gu.rank.length === 1) return gu.rank[0];
+
+                          // Check if the ranks are consecutive (e.g., [1, 2, 3])
+                          const isConsecutive = gu.rank.every((val, i) => 
+                            i === 0 || val === gu.rank[i - 1] + 1
+                          );
+
+                          return isConsecutive
+                            ? `${gu.rank[0]}–${gu.rank[gu.rank.length - 1]}`
+                            : gu.rank.join(", ");
+                        })()}
                       </td>
                       {screenWidth >= 710 && (
                         <td><span className="type-badge">{gu.type}</span></td>
@@ -508,7 +554,7 @@ const GuDashboard = () => {
                                 <div className="meta-row">
                                   <div className="meta-chip">
                                     <span className="meta-chip-label">Food</span>
-                                    <span className="meta-chip-value">{gu.food || 'Unknown'}</span>
+                                    <span className="meta-chip-value">{gu.food !== "<!-- TODO ->" ? gu.food : getFood(gu.rank)}</span>
                                   </div>
                                   <div className="meta-chip" style={{ flex: 1 }}>
                                     <span className="meta-chip-label">Keywords</span>
