@@ -151,6 +151,60 @@ const KeywordCheckboxes = ({ selected, onToggle }) => (
   </div>
 );
 
+const EffectRenderer = ({ effect, guList, setExpandedId, clearAll }) => {
+  if (!effect) return null;
+  
+  const parts = Array.isArray(effect) ? effect : [effect];
+
+  const handleGuLinkClick = (guName) => {
+    const targetGu = guList.find(g => g.name.toLowerCase() === guName.toLowerCase());
+    
+    if (targetGu) {
+      clearAll();
+      
+      const targetId = targetGu.id || targetGu.name;
+      setExpandedId(targetId);
+
+      setTimeout(() => {
+        const element = document.getElementById(`gu-row-${targetId}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
+  };
+
+  return (
+    <div className="effect-container">
+      {parts.map((part, index) => {
+        const spanMatch = part.match(/<span>(.*?)<\/span>/);
+
+        if (spanMatch) {
+          const buttonText = spanMatch[1];
+          return (
+            <button 
+              key={index} 
+              className="effect-inline-button"
+              onClick={() => handleGuLinkClick(buttonText)}
+            >
+              {buttonText}
+            </button>
+          );
+        }
+
+        return (
+          <Markdown 
+            key={index} 
+            components={{ p: 'span' }} 
+          >
+            {part}
+          </Markdown>
+        );
+      })}
+    </div>
+  );
+};
+
 const SortTh = ({ label, sortKey, sortConfig, onSort, className }) => {
   const active = sortConfig.key === sortKey;
   return (
@@ -367,9 +421,7 @@ const GuDashboard = () => {
     if (rank.length > 1) {
       return "{" + rank.map(r => FOOD_COSTS_GENERIC[r - 1]).join(", ") + "} Primeval Stones";
     }
-    else {
-      return FOOD_COSTS_GENERIC[rank[0] - 1] + ' Primeval Stones';
-    }
+    return FOOD_COSTS_GENERIC[rank[0] - 1] + ' Primeval Stones';
   }
 
   const rankOptions = RANKS.map(r => ({ value: String(r), label: `Rank ${r}` }));
@@ -486,8 +538,9 @@ const GuDashboard = () => {
                 ) : processedGu.map(gu => (
                   <React.Fragment key={gu.id || gu.name}>
                     <tr
+                      id={`gu-row-${gu.id || gu.name}`}
                       className="gu-row"
-                      onClick={() => setExpandedId(expandedId === gu.id ? null : gu.id)}
+                      onClick={() => setExpandedId(expandedId === (gu.id || gu.name) ? null : (gu.id || gu.name))}
                     >
                       <td className="cell-name">{gu.name}</td>
                       <td className="cell-path">{gu.path}</td>
@@ -517,8 +570,7 @@ const GuDashboard = () => {
                         </>
                       )}
                     </tr>
-
-                    {expandedId === gu.id && (
+                    {expandedId === (gu.id || gu.name) && (
                       <tr className="gu-expanded-row">
                         <td colSpan="7">
                           <div className="gu-expanded-inner">
@@ -529,7 +581,7 @@ const GuDashboard = () => {
                                     <div className="mobile-stat-chip">
                                       <span className="mobile-stat-label">Cost</span>
                                       <span className="mobile-stat-value">{gu.cost}</span>
-                                    </div>
+                              </div>
                                   )}
                                   {gu.health && (
                                     <div className="mobile-stat-chip">
@@ -549,7 +601,12 @@ const GuDashboard = () => {
 
                                 <div className="expand-section-title">Effect</div>
                                 <div className="effect-box">
-                                  <Markdown>{gu.effect}</Markdown>
+                                  <EffectRenderer 
+                                    effect={gu.effect} 
+                                    guList={guList} 
+                                    setExpandedId={setExpandedId} 
+                                    clearAll={clearAll} 
+                                  />
                                 </div>
                                 <div className="meta-row">
                                   <div className="meta-chip">
@@ -559,17 +616,17 @@ const GuDashboard = () => {
                                   <div className="meta-chip" style={{ flex: 1 }}>
                                     <span className="meta-chip-label">Keywords</span>
                                     <div className="keyword-list">
-                                      {gu.keywords?.map(k => (
-                                        <KeywordTag key={k} keyword={k} />
-                                      ))}
-                                    </div>
-                                  </div>
+                                  {gu.keywords?.map(k => (
+                                    <KeywordTag key={k} keyword={k} />
+                                  ))}
                                 </div>
+                              </div>
+                            </div>
                               </div>
 
                               {gu.steed && (
                                 <div className="steed-block">
-                                  <div className="steed-header">
+                              <div className="steed-header">
                                     <span className="steed-header-label">Steed Statblock</span>
                                     <span className="steed-cr">CR {gu.steed.cr}</span>
                                   </div>
