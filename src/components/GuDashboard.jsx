@@ -55,7 +55,7 @@ const KEYWORD_DESCRIPTIONS = {
   'Deductive': 'When activated, [Deductive] Gu unlock a special Deduction action. To take it, you must spend 4 hours to deduce a specific subject or a killer move and make a Deduction skill test. Penalties and bonuses are determined by the amount of supporting information available to you. You can stack the effects of a number [Deductive] Gu to the same Deduction action according to your Wisdom Path Attainment {None: 1, Fundamental: 2, Intermediate: 3, Master: 5}. \n \n A specific subject can be something that occured in the past, such as who might have committed a murder, or something happening in the present or future, like why a rival clan may have purchased a huge amount of an unusual refinement material. At the GM\'s discretion, you can also deduce plans of action, such as moneymaking schemes or attack plans. Deductions cannot create information out of thin air, and a success does not necessarily mean your deduction is correct if you lack a key piece of evidence. For every degree of success beyond 1 on the check, however, you gain one additional conclusion about the subject. \n \n You may also use the Deduction action to create or improve refinement recipes. When you do so, you make the Refinement skill test like normal and add whatever effects are provided by the [Deductive] Gu you are using.',
   'Dao': 'Gu with the [Dao] keyword contain much higher traces of dao than most mortal Gu. Dao of different paths naturally conflict, and a Gu Master cannot gain the effect from a [Dao] Gu if they are already under the effect of a [Dao] Gu of a non-compatible path. Path compatibilites are located on page 35. If a Gu belonging to Transformation Path has the [Dao] keyword, it belongs wholly to transformation path and is compatible with all other paths. Transformation Path Gu may instead have the [Dao: [Path]] keyword, indicating that the Dao belongs to a different path and inherits that path\'s compatibilities. For example, Earth Chief Zombie Gu, which has the [Dao: Earth] keyword, can only be combined with [Dao] Gu of Metal, Transformation, or Wood Path. Using the same [Dao] Gu multiple times does not stack the effect. You may also not apply multiple [Dao] Gu to the same body part. Most [Dao] Gu will specify what body part they carve dao into, with a complete list of body parts on page 32. If the Gu does not list a body part then it has no body part restrictions.',
   'Defensive': '[Defensive] Gu can be activated as a Reaction to any event.',
-  'Expendable': '[Expendable] Gu are destroyed after X uses. If there is no number, the Gu can only be used a single time before it is destroyed.',
+  'Expendable X': '[Expendable X] Gu are destroyed after X uses. If there is no number, the Gu can only be used a single time before it is destroyed.',
   'Extinct': '[Extinct] Gu no longer appear naturally in the world and require extinct refinement materials for their most common recipes. Refinement and Deduction skill tests made to create a recipe for an [Extinct] Gu are made with an additional +60 penalty.',
   'Fast': '[Fast] Gu have a movement of 12 meters instead of 8.',
   'Ingredient': 'Unique to Food Path, [Ingredient] Gu can be used to apply effects to meals you prepare. To prepare a meal, you must spend an hour cooking; expend 1 primeval stone worth of materials and the total primeval essence cost of involved [Ingredient] Gu. The number of [Ingredient] Gu you can apply to the same meal is dependent on your Food Path Attainment {Fundamental: 2, Intermediate: 3, Master: 5}. You cannot prepare a meal unless you have at least Fundamental Food Path Attainment. Each meal can feed 5 creatures. The effects of a meal last for 8 hours, and a creature can only be under the effect of one meal at a time.',
@@ -227,6 +227,8 @@ const SortTh = ({ label, sortKey, sortConfig, onSort, className }) => {
 const KeywordTag = ({ keyword }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
+  let keywordParsed = keyword;
+
   // Close tooltip if tapped anywhere else on mobile
   useEffect(() => {
     const handleOutsideClick = () => setShowTooltip(false);
@@ -241,6 +243,10 @@ const KeywordTag = ({ keyword }) => {
     setShowTooltip(prev => !prev);
   };
 
+  if (keyword.toLowerCase().startsWith('expendable')) {
+    keywordParsed = 'Expendable X';
+  }
+
   return (
     <div 
       className="keyword-tag-container"
@@ -254,7 +260,7 @@ const KeywordTag = ({ keyword }) => {
           className="keyword-tooltip" 
           onClick={(e) => e.stopPropagation()} // Keep open if scrolling inside tooltip
         >
-          <strong>[{keyword}]</strong>: {KEYWORD_DESCRIPTIONS[keyword]}
+          <strong className='keyword-tooltip-title'>[{keyword}] - </strong> {KEYWORD_DESCRIPTIONS[keywordParsed]}
         </div>
       )}
     </div>

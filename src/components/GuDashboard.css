@@ -71,6 +71,10 @@ body {
   white-space: normal;
 }
 
+.keyword-tooltip::after {
+  visibility: hidden;
+}
+
 /* Tooltip arrow */
 .keyword-tooltip::after {
   content: '';
@@ -626,6 +630,10 @@ tr.gu-expanded-row {
 .mobile-stat-value {
   font-size: 14px;
   font-weight: 500;
+  color: var(--accent);
+}
+
+.keyword-tooltip-title {
   color: var(--accent);
 }
 
