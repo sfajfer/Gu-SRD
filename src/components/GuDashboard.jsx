@@ -127,27 +127,31 @@ const FilterDropdown = ({ label, value, onChange, options, placeholder }) => (
   </div>
 );
 
-const KeywordCheckboxes = ({ selected, onToggle }) => (
+const KeywordCheckboxes = ({ selected, onToggle, keywordsExpanded, setKeywordsExpanded }) => (
   <div className="gu-filter-group">
-    <span className="gu-filter-label">Keywords</span>
-    <div className="keyword-checkbox-grid">
-      {KEYWORD_FILTERS.map(({ key, label }) => {
-        const checked = selected.has(key);
-        return (
-          <label
-            key={key}
-            className={`keyword-checkbox-label${checked ? ' checked' : ''}`}
-          >
-            <input
-              type="checkbox"
-              checked={checked}
-              onChange={() => onToggle(key)}
-            />
-            {" " + label}
-          </label>
-        );
-      })}
-    </div>
+    <span className="gu-filter-dropdown-label gu-filter-label" onClick={() => setKeywordsExpanded(!keywordsExpanded)}>
+      Keywords {keywordsExpanded ? "▼" : "►"}
+    </span>
+    {keywordsExpanded && (
+      <div className="keyword-checkbox-grid">
+        {KEYWORD_FILTERS.map(({ key, label }) => {
+          const checked = selected.has(key);
+          return (
+            <label
+              key={key}
+              className={`keyword-checkbox-label${checked ? ' checked' : ''}`}
+            >
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => onToggle(key)}
+              />
+              {" " + label}
+            </label>
+          );
+        })}
+      </div>
+    )}
   </div>
 );
 
@@ -259,16 +263,19 @@ const KeywordTag = ({ keyword }) => {
 
 
 const GuDashboard = () => {
-  const [guList,         setGuList]         = useState(guData || []);
-  const [search,         setSearch]         = useState('');
-  const [sortConfig,     setSortConfig]     = useState({ key: 'name', direction: 'ascending' });
-  const [expandedId,     setExpandedId]     = useState(null);
-  const [sidebarOpen,    setSidebarOpen]    = useState(false);
-  const [screenWidth,    setScreenWidth]    = useState(window.innerWidth);
-  const [filterPath,     setFilterPath]     = useState('');
-  const [filterRank,     setFilterRank]     = useState(new Set());  
-  const [filterType,     setFilterType]     = useState('');
+  const [guList, setGuList] = useState(guData || []);
+  const [search, setSearch] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'ascending' });
+  const [expandedId, setExpandedId] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [filterPath, setFilterPath] = useState('');
+  const [filterRank, setFilterRank] = useState(new Set());  
+  const [filterType, setFilterType] = useState('');
   const [filterKeywords, setFilterKeywords] = useState(new Set());
+
+  const [rankExpanded, setRankExpanded] = useState(false);
+  const [keywordsExpanded, setKeywordsExpanded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setScreenWidth(window.innerWidth);
@@ -474,22 +481,24 @@ const GuDashboard = () => {
           />
 
           <div className="gu-filter-group">
-            <span className="gu-filter-label">Ranks</span>
-            <div className="keyword-checkbox-grid">
-              {RANKS.map(r => {
-                const checked = filterRank.has(r);
-                return (
-                  <label key={r} className={`keyword-checkbox-label${checked ? ' checked' : ''}`}>
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => toggleRank(r)}
-                    />
-                    {` Rank ${r}`}
-                  </label>
-                );
-              })}
-            </div>
+            <span className="gu-filter-label gu-filter-dropdown-label" onClick={() => setRankExpanded(!rankExpanded)}>Ranks {rankExpanded ? "▼" : "►"}</span>
+            {rankExpanded && (
+              <div className="keyword-checkbox-grid">
+                {RANKS.map(r => {
+                  const checked = filterRank.has(r);
+                  return (
+                    <label key={r} className={`keyword-checkbox-label${checked ? ' checked' : ''}`}>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => toggleRank(r)}
+                      />
+                      {` Rank ${r}`}
+                    </label>
+                  );
+                })}
+              </div>
+          )}
           </div>
 
           <FilterDropdown
@@ -503,6 +512,8 @@ const GuDashboard = () => {
           <KeywordCheckboxes
             selected={filterKeywords}
             onToggle={toggleKeyword}
+            keywordsExpanded={keywordsExpanded}
+            setKeywordsExpanded={setKeywordsExpanded}
           />
         </aside>
 
