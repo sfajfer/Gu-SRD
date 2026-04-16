@@ -86,7 +86,7 @@ body {
 @media (max-width: 768px) {
   .keyword-tooltip {
     max-width: 85vw; 
-    left: -150px; 
+    left: -170px; 
     transform: none; 
   }
 
@@ -389,6 +389,8 @@ table.gu-table {
   border: 1px solid var(--border);
   color: var(--text-muted);
   white-space: nowrap;
+  margin-bottom: 5px;
+  margin-top: -6px;
 }
 
 .gu-expanded-row td {
@@ -622,6 +624,10 @@ tr.gu-expanded-row {
 }
 
 @media (max-width: 1200px) {
+
+  .food {
+    max-width: 120px;
+  }
 
     .mobile-stats-row {
         display: flex;

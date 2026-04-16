@@ -590,14 +590,14 @@ const GuDashboard = () => {
                                     </div>
                                   )}
                                   {gu.range && (
-                                    <div className="mobile-stat-chip">
+                                    <div className="mobile-stat-chip range">
                                       <span className="mobile-stat-label">Range</span>
                                       <span className="mobile-stat-value">{gu.range}</span>
                                     </div>
                                   )}
-                                  <br />
-                                  <span className="type-badge">{gu.type}</span>
                                 </div>
+
+                                <span className="type-badge">{gu.type}</span>
 
                                 <div className="expand-section-title">Effect</div>
                                 <div className="effect-box">
@@ -609,7 +609,7 @@ const GuDashboard = () => {
                                   />
                                 </div>
                                 <div className="meta-row">
-                                  <div className="meta-chip">
+                                  <div className="meta-chip food">
                                     <span className="meta-chip-label">Food</span>
                                     <span className="meta-chip-value">{gu.food !== "<!-- TODO ->" ? gu.food : getFood(gu.rank)}</span>
                                   </div>
