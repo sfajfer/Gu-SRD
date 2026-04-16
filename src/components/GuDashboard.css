@@ -625,6 +625,11 @@ tr.gu-expanded-row {
 
 @media (max-width: 1200px) {
 
+  .keyword-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .food {
     max-width: 120px;
   }
