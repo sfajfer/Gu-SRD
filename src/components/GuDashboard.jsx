@@ -630,14 +630,16 @@ const GuDashboard = () => {
                                     <span className="meta-chip-label">Food</span>
                                     <span className="meta-chip-value">{gu.food !== "<!-- TODO ->" ? gu.food : getFood(gu.rank)}</span>
                                   </div>
-                                  <div className="meta-chip" style={{ flex: 1 }}>
-                                    <span className="meta-chip-label">Keywords</span>
-                                    <div className="keyword-list">
-                                  {gu.keywords?.map(k => (
-                                    <KeywordTag key={k} keyword={k} />
-                                  ))}
+                                  {gu.keywords && gu.keywords.length > 0 && (
+                                    <div className="meta-chip" style={{ flex: 1 }}>
+                                      <span className="meta-chip-label">Keywords</span>
+                                      <div className="keyword-list">
+                                    {gu.keywords?.map(k => (
+                                      <KeywordTag key={k} keyword={k} />
+                                    ))}
+                                  </div>
                                 </div>
-                              </div>
+                                )}
                             </div>
                               </div>
 
