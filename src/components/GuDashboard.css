@@ -641,6 +641,7 @@ tr.gu-expanded-row {
 
   .keyword-list {
     flex-direction: column;
+    gap: 6px;
     align-items: center;
   }
 
