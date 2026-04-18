@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import axios from 'axios';
 import guData from '../assets/gu-index.json';
 import './GuDashboard.css';
@@ -200,6 +201,7 @@ const EffectRenderer = ({ effect, guList, setExpandedId, clearAll }) => {
           <Markdown 
             key={index} 
             components={{ p: 'span' }} 
+            remarkPlugins={[remarkGfm]}
           >
             {part}
           </Markdown>
