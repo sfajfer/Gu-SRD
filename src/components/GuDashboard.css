@@ -475,6 +475,24 @@ tr.gu-expanded-row {
   em {
     color: var(--text-muted-ital);
   }
+
+  table {
+    th {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: auto;
+    }
+    th:hover {
+      color: var(--text-muted);
+    }
+    tr {
+      text-align: center;
+    }
+    td {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+    }
+  }
 }
 
 .meta-row {
