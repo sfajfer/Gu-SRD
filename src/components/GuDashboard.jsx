@@ -108,6 +108,19 @@ const extractNumber = (val) => {
   return match ? parseFloat(match[0]) : s;
 };
 
+const getCombatActions = (input) => {
+  if (!input) return [];
+
+  return input
+    .split(/\n\s*\n/)
+    .map(action => {
+      return action
+        .replace(/\s+/g, ' ') 
+        .trim();              
+    })
+    .filter(action => action.startsWith('**'));
+}
+
 const FilterDropdown = ({ label, value, onChange, options, placeholder }) => (
   <div className="gu-filter-group">
     <span className="gu-filter-label">{label}</span>
@@ -669,7 +682,12 @@ const GuDashboard = () => {
                                   {gu.steed.combatActions && (
                                     <div className="steed-actions">
                                       <div className="steed-actions-label">Combat Actions</div>
-                                      <p className="steed-actions-text">{gu.steed.combatActions}</p>
+                                      <p className="steed-actions-text">{getCombatActions(gu.steed.combatActions).map((action, index) => (
+                                        <>
+                                          <Markdown key={index}>{action}</Markdown>
+                                          <br />
+                                        </>
+                                      ))}</p>
                                     </div>
                                   )}
                                 </div>
