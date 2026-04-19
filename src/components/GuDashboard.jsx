@@ -75,7 +75,7 @@ const KEYWORD_DESCRIPTIONS = {
   'Small': 'The size of a child. Attack rolls against [Small] targets have a +20 penalty.',
   'Medium': 'The size of a man.',
   'Large': '[Large] things take up 4 squares when outside of your aperture. Attack rolls against [Large] targets have a -20 bonus.',
-  'Huge:': '[Huge] things take up 9 or more squares when outside of your aperture. Attack rolls against [Huge] targets have a -40 bonus.',
+  'Huge': '[Huge] things take up 9 or more squares when outside of your aperture. Attack rolls against [Huge] targets have a -40 bonus.',
 
 
   'Steed': '[Steed] Gu are typically larger than regular Gu and can be ridden while outside your aperture. They also come with a statblock, unlike most other Gu, as they are capable of fighting beyond just activating themselves. That being said, they do not have regular anatomy and are completely unaffected by injuries. It is impossible to sever a [Steed] Gu\’s limbs until it is dead, and it has immunity to the bleeding, blinded and deafened conditions. Unless a poison specifically states it works on Gu, Gu are immune to the poisoned condition. \n \n While mounted, you cannot move but instead move with the [Steed]. The [Steed] Gu shares your initiative and both of your turns are taken simultaneously. You decide what Reactions are taken by a refined [Steed] Gu, but each Reaction it takes expends one of your Reactions. If you take the Dodge Reaction while mounted, you must dismount and move at least one meter like normal, beginning by moving to a square adjacent to the mount. \n \n Wild [Steed] Gu are often difficult to refine as they act more similar to beasts than other Gu, but once refined they cease to move or attack and only act as your will directs them to. Controlling a refined [Steed] Gu is as easy moving your fingers and does not harm your soul.',
@@ -662,7 +662,7 @@ const GuDashboard = () => {
                                 <div className="steed-block">
                               <div className="steed-header">
                                     <span className="steed-header-label">Steed Statblock</span>
-                                    <span className="steed-cr">CR {gu.steed.cr}</span>
+                                    <span className="steed-cr">CR {gu.steed.cR}</span>
                                   </div>
                                   <div className="steed-stats-grid">
                                     <ul className="steed-stat-list">
