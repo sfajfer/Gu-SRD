@@ -7,7 +7,7 @@ import './GuDashboard.css';
 
 const PATHS = [
   'Blood Path','Dark Path','Earth Path','Enslavement Path','Fire Path',
-  'Food Path','Human Path','Ice Path','Information Path','Light Path',
+  'Food Path', 'Formation Path','Human Path','Ice Path','Information Path','Light Path',
   'Lightning Path','Luck Path','Metal Path','Poison Path','Refinement Path',
   'Rule Path','Soul Path','Sound Path','Space Path','Strength Path',
   'Sword Path','Theft Path','Time Path','Transformation Path','Water Path',
@@ -18,7 +18,7 @@ const RANKS = [1, 2, 3, 4, 5];
 
 const TYPES = [
   'Attack','Manifestation','Guard','Celerity','Divination',
-  'Concealment','Tonic','Container','Catalyst','Carver',
+  'Concealment','Tonic','Container','Catalyst','Carver', 'Trigger', 'Injector', 'Gate'
 ];
 
 const FOOD_COSTS_GENERIC = [
