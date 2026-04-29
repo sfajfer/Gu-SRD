@@ -290,12 +290,12 @@ const GuDashboard = () => {
   const [expandedId, setExpandedId] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [filterPath, setFilterPath] = useState('');
-  const [filterRank, setFilterRank] = useState(new Set());  
+  const [filterPath, setFilterPath] = useState(new Set());  const [filterRank, setFilterRank] = useState(new Set());  
   const [filterType, setFilterType] = useState('');
   const [filterKeywords, setFilterKeywords] = useState(new Set());
 
   const [rankExpanded, setRankExpanded] = useState(false);
+  const [pathExpanded, setPathExpanded] = useState(false);
   const [keywordsExpanded, setKeywordsExpanded] = useState(false);
 
   useEffect(() => {
@@ -313,6 +313,14 @@ const GuDashboard = () => {
       })
       .catch(err => console.error('Fetch error:', err));
   }, []);
+
+  const togglePath = (path) => {
+    setFilterPath(prev => {
+      const next = new Set(prev);
+      next.has(path) ? next.delete(path) : next.add(path);
+      return next;
+    });
+  };
 
   const toggleKeyword = (key) => {
     setFilterKeywords(prev => {
@@ -339,7 +347,7 @@ const GuDashboard = () => {
   };
 
   const clearAll = () => {
-    setFilterPath('');
+    setFilterPath(new Set());
     setFilterRank(new Set());
     setFilterType('');
     setSearch('');
@@ -347,7 +355,10 @@ const GuDashboard = () => {
   };
 
   const activeFilterCount =
-    [filterPath, filterRank, filterType].filter(Boolean).length + filterKeywords.size;
+    [filterType].filter(Boolean).length + 
+    filterPath.size + 
+    filterRank.size + 
+    filterKeywords.size;
 
   const processedGu = useMemo(() => {
     if (!guList.length) return [];
@@ -360,7 +371,7 @@ const GuDashboard = () => {
         gu.type?.toLowerCase().includes(q) ||
         gu.keywords?.some(k => k.toLowerCase().includes(q))
       );
-      const matchPath = !filterPath || gu.path === filterPath;
+      const matchPath = filterPath.size === 0 || filterPath.has(gu.path);
       const matchRank = filterRank.size === 0 || (gu.rank && gu.rank.some(r => filterRank.has(Number(r))));
       const matchType = !filterType || gu.type === filterType;
 
@@ -493,13 +504,31 @@ const GuDashboard = () => {
             )}
           </div>
 
-          <FilterDropdown
-            label="Path"
-            value={filterPath}
-            onChange={setFilterPath}
-            options={pathOptions}
-            placeholder="All paths"
-          />
+          <div className="gu-filter-group">
+            <span 
+              className="gu-filter-label gu-filter-dropdown-label" 
+              onClick={() => setPathExpanded(!pathExpanded)}
+            >
+              Paths {pathExpanded ? "▼" : "►"}
+            </span>
+            {pathExpanded && (
+              <div className="keyword-checkbox-grid">
+                {PATHS.map(p => {
+                  const checked = filterPath.has(p);
+                  return (
+                    <label key={p} className={`keyword-checkbox-label${checked ? ' checked' : ''}`}>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => togglePath(p)}
+                      />
+                      {" " + p.replace(' Path', '')}
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           <div className="gu-filter-group">
             <span className="gu-filter-label gu-filter-dropdown-label" onClick={() => setRankExpanded(!rankExpanded)}>Ranks {rankExpanded ? "▼" : "►"}</span>
