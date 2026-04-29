@@ -14,6 +14,37 @@ const PATHS = [
   'Wind Path','Wisdom Path','Wood Path',
 ];
 
+const PATH_COMPATIBILITIES = {
+  Blood: ['Enslavement', 'Water', 'Wood'],
+  Dark: ['Poison', 'Space', 'Theft'],
+  Earth: ['Metal', 'Wood'],
+  Enslavement: ['Blood', 'Soul', 'Theft'],
+  Fire: ['Food', 'Light', 'Lightning', 'Metal', 'Wind'],
+  Food: ['Fire', 'Poison', 'Strength'],
+  Formation: ['Information', 'Rule', 'Space'],
+  Ice: ['Water', 'Wind'],
+  Information: ['Formation', 'Rule', 'Wisdom'],
+  Light: ['Fire', 'Lightning', 'Sound'],
+  Lightning: ['Fire', 'Light', 'Wind'],
+  Luck: ['Rule'],
+  Metal: ['Earth', 'Fire', 'Strength', 'Sword'],
+  Poison: ['Dark', 'Food', 'Wood'],
+  Refinement: ['Soul', 'Wisdom'],
+  Rule: ['Formation', 'Information', 'Luck'],
+  Soul: ['Enslavement', 'Refinement', 'Strength', 'Wisdom'],
+  Sound: ['Light', 'Sword'],
+  Space: ['Dark', 'Formation', 'Time'],
+  Strength: ['Food', 'Metal', 'Soul'],
+  Sword: ['Metal', 'Sound'],
+  Theft: ['Dark', 'Enslavement'],
+  Time: ['Space', 'Wisdom'],
+  Transformation: ['Blood', 'Dark', 'Earth', 'Enslavement', 'Fire', 'Food', 'Formation', 'Human', 'Ice', 'Information', 'Light', 'Lightning', 'Luck', 'Metal', 'Poison', 'Refinement', 'Rule', 'Soul', 'Sound', 'Space', 'Strength', 'Sword', 'Theft', 'Time', 'Water', 'Wind', 'Wisdom', 'Wood'],
+  Water: ['Blood', 'Ice', 'Wood'],
+  Wind: ['Fire', 'Ice', 'Lightning'],
+  Wisdom: ['Information', 'Refinement', 'Soul', 'Time'],
+  Wood: ['Earth', 'Poison', 'Water'],
+}
+
 const RANKS = [1, 2, 3, 4, 5];
 
 const TYPES = [
@@ -293,6 +324,7 @@ const GuDashboard = () => {
   const [filterPath, setFilterPath] = useState(new Set());  const [filterRank, setFilterRank] = useState(new Set());  
   const [filterType, setFilterType] = useState('');
   const [filterKeywords, setFilterKeywords] = useState(new Set());
+  const [daoFilterPath, setDaoFilterPath] = useState('');
 
   const [rankExpanded, setRankExpanded] = useState(false);
   const [pathExpanded, setPathExpanded] = useState(false);
@@ -352,6 +384,12 @@ const GuDashboard = () => {
     setFilterType('');
     setSearch('');
     setFilterKeywords(new Set());
+    setDaoFilterPath('');
+  };
+
+  const handleDaoFilterChange = (path) => {
+    clearAll();
+    setDaoFilterPath(path);
   };
 
   const activeFilterCount =
@@ -360,10 +398,27 @@ const GuDashboard = () => {
     filterRank.size + 
     filterKeywords.size;
 
-  const processedGu = useMemo(() => {
+const processedGu = useMemo(() => {
     if (!guList.length) return [];
 
     let out = guList.filter(gu => {
+      // Dao compatibility logic
+      if (daoFilterPath) {
+        const hasDao = gu.keywords?.some(k => k.toLowerCase() === 'dao');
+        if (!hasDao) return false;
+
+        const cleanSelected = daoFilterPath.replace(' Path', '');
+        const compatibles = PATH_COMPATIBILITIES[cleanSelected] || [];
+        const cleanGuPath = (gu.path || '').replace(' Path', '');
+
+        const isSamePath = gu.path === daoFilterPath;
+        const isCompatible = compatibles.includes(cleanGuPath);
+        const isTransformation = gu.path === 'Transformation Path';
+
+        return isSamePath || isCompatible || isTransformation;
+      }
+
+
       const q = search.toLowerCase();
       const matchSearch = !q || (
         gu.name?.toLowerCase().includes(q) ||
@@ -375,7 +430,6 @@ const GuDashboard = () => {
       const matchRank = filterRank.size === 0 || (gu.rank && gu.rank.some(r => filterRank.has(Number(r))));
       const matchType = !filterType || gu.type === filterType;
 
-      // ALL selected keywords must be present on the gu
       const matchKeywords = filterKeywords.size === 0 || (
         gu.keywords && [...filterKeywords].every(key => {
           const filter = KEYWORD_FILTERS.find(f => f.key === key);
@@ -454,7 +508,7 @@ const GuDashboard = () => {
       });
     }
     return out;
-  }, [guList, search, sortConfig, filterPath, filterRank, filterType, filterKeywords]);
+  }, [guList, search, sortConfig, filterPath, filterRank, filterType, filterKeywords, [daoFilterPath]]);
 
   const getFood = (rank) => {
     if (rank.length > 1) {
@@ -503,6 +557,14 @@ const GuDashboard = () => {
               <button className="gu-clear-btn" onClick={clearAll}>Clear all</button>
             )}
           </div>
+
+          <FilterDropdown
+            label={<>View all compatible [<strong>Dao</strong>] Gu</>}
+            value={daoFilterPath}
+            onChange={handleDaoFilterChange}
+            options={pathOptions}
+            placeholder="Select a Path..."
+          />
 
           <div className="gu-filter-group">
             <span 
