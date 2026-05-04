@@ -696,6 +696,8 @@ const processedGu = useMemo(() => {
                                     setExpandedId={setExpandedId} 
                                     clearAll={clearAll} 
                                   />
+                                  <br />
+                                  <Markdown remarkPlugins={[remarkGfm]}>{gu.description}</Markdown>
                                 </div>
                                 <div className="meta-row">
                                   <div className="meta-chip food">
