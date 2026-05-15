@@ -74,12 +74,12 @@ const KEYWORD_FILTERS = [
   { key: 'Piercing',       label: 'Piercing',        match: kws => kws.some(k => k.toLowerCase() === 'piercing') },
   { key: 'Shield',         label: 'Shield',          match: kws => kws.some(k => k.toLowerCase() === 'shield') },
   { key: 'Size',           label: 'Size',            match: kws => kws.some(k => ['small','medium','large','huge'].includes(k.toLowerCase())) },
+  { key: 'Split Second',  label: 'Split Second',     match: kws => kws.some(k => k.toLowerCase() === 'split second') },
   { key: 'Steed',          label: 'Steed',           match: kws => kws.some(k => k.toLowerCase() === 'steed') },
   { key: 'Supplementary',  label: 'Supplementary',   match: kws => kws.some(k => k.toLowerCase().startsWith('supplement')) },
   { key: 'Sustained',      label: 'Sustained',       match: kws => kws.some(k => k.toLowerCase() === 'sustained') },
   { key: 'Transformation', label: 'Transformation',  match: kws => kws.some(k => k.toLowerCase() === 'transformation') },
   { key: 'Undodgeable',    label: 'Undodgeable',     match: kws => kws.some(k => k.toLowerCase() === 'undodgeable') },
-  { key: 'Unreactable',    label: 'Unreactable',     match: kws => kws.some(k => k.toLowerCase() === 'unreactable') },
   { key: 'Unrefinable',    label: 'Unrefinable',     match: kws => kws.some(k => k.toLowerCase() === 'unrefinable') },
   { key: 'Vital',          label: 'Vital',           match: kws => kws.some(k => k.toLowerCase() === 'vital') },
 ];
