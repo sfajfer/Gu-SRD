@@ -26,6 +26,26 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+.rule-heading {
+  color: var(--accent);
+  font-size: 40px;
+  text-align: left;
+  text-indent: 40px;
+}
+
+.rule-text {
+  text-align: left;
+  text-indent: 40px;
+  margin-bottom: 15px;
+}
+
+.rule-subheading {
+  color: var(--accent);
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 12px;
+}
+
 body {
   background: var(--bg-base);
   color: var(--text-primary);
@@ -86,6 +106,22 @@ body {
   border-style: solid;
   border-color: #2b2b2b transparent transparent transparent;
 }
+
+.rule-directory-button {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  text-wrap: wrap;
+  max-width: 120px;
+  border-radius: var(--radius-sm);
+  padding: 7px 12px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.rule-directory-button:hover { border-color: var(--accent); color: var(--accent); }
 
 @media (max-width: 768px) {
   .keyword-tooltip {

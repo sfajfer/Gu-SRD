@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import axios from 'axios';
 import guData from '../assets/gu-index.json';
-import './GuDashboard.css';
+import './Styles.css';
 import KEYWORD_DESCRIPTIONS from '../assets/KEYWORD_DESCRIPTIONS';
 
 const PATHS = [
@@ -493,6 +494,14 @@ const processedGu = useMemo(() => {
           <div className="gu-title">GU INDEX</div>
           <div className="gu-subtitle">click rows to expand</div>
         </div>
+
+        <Link 
+          to="/rules" 
+          className="rule-directory-button" 
+          style={{ textDecoration: 'none' }}
+        >
+          Rules Directory
+        </Link>
 
         <input
           type="text"
