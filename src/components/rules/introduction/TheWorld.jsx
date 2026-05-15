@@ -19,12 +19,12 @@ const TheWorld = () => {
 
                 <h1 className="rule-heading">The World</h1>
                 <p className="rule-text">
-                    The Gu world is a massive, flat disc, consisting of 5 regions. The source material is pretty inconsistent with size, but it is safe to say each region is at least 6 or 7 times the surface area of the Earth. 
-                        •	Northern Plains: Flat grassland dotted with nomadic tribes of various sizes. Conflict is commonplace and the Gu Masters here are the most adept at fighting.
-                        •	Western Desert: A dry wasteland with cities gathered around its oases. Lone cultivators are very uncommon.
-                        •	Southern Border: An uneven, mountainous region with familial clans settling on mountainsides. The setting of this system.
-                        •	Eastern Sea: Vast ocean dotted with archipelagos. Conflict is less common due to difficulty in reaching other settlements, allowing its inhabitants to focus on cultivation and gaining wealth. Many lone cultivators.
-                        •	Central Continent: The most powerful of the five regions and home to the Heavenly Court. Has a mix of the other four regions’ geography (i.e. a normal continent).
+                    The Gu world is a massive, flat disc, consisting of 5 regions. The source material is pretty inconsistent with size, but it is safe to say each region is at least 6 or 7 times the surface area of the Earth.<br />
+                        •	<strong>Northern Plains:</strong> Flat grassland dotted with nomadic tribes of various sizes. Conflict is commonplace and the Gu Masters here are the most adept at fighting.<br />
+                        •	<strong>Western Desert:</strong> A dry wasteland with cities gathered around its oases. Lone cultivators are very uncommon.<br />
+                        •	<strong>Southern Border:</strong> An uneven, mountainous region with familial clans settling on mountainsides. The setting of this system.<br />
+                        •	<strong>Eastern Sea:</strong> Vast ocean dotted with archipelagos. Conflict is less common due to difficulty in reaching other settlements, allowing its inhabitants to focus on cultivation and gaining wealth. Many lone cultivators.<br />
+                        •	<strong>Central Continent:</strong> The most powerful of the five regions and home to the Heavenly Court. Has a mix of the other four regions’ geography (i.e. a normal continent).
                 </p>
                 <p className="rule-text">
                     Since the world is a disc, Southern Border does not border Northern Plains, but it does border the other regions. The same goes for the other outer regions, with only Central Continent connecting to all of them.
