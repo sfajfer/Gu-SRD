@@ -26,11 +26,11 @@ const Cultivation = () => {
     ];
 
     const modifierData = [
-        { rank: "1", mod: "-20" },
-        { rank: "2", mod: "-10" },
+        { rank: "1", mod: "-40" },
+        { rank: "2", mod: "-20" },
         { rank: "3", mod: "none" },
-        { rank: "4", mod: "+10" },
-        { rank: "5", mod: "+20" },
+        { rank: "4", mod: "+20" },
+        { rank: "5", mod: "+40" },
     ];
 
     return (
@@ -147,7 +147,11 @@ const Cultivation = () => {
                 </div>
 
                 <p className="rule-text">
-                    Taking any breaks from the process gives your aperture time to fully heal, meaning you need to restart from the beginning. Every 2 hours you spend cultivating to break through a large realm, make a Cultivation skill test. On a failure, you take 1 damage to your soul.
+                    If your Aptitude is too low to break through to the next rank, you must either increase your Aptitude to a higher grade or consume primeval stones to make up for the difference.
+                </p>
+
+                <p className="rule-text">
+                    Taking any breaks from the process gives your aperture time to fully heal, meaning you need to restart from the beginning. Every 2 hours you spend cultivating to break through a large realm, make a Cultivation skill test. On a failure, you take damage to your soul equal to the number of degrees of failure on the test. On a fumble, you take an additional point of damage to your soul.
                 </p>
                 <p className="rule-text">
                     Whether you are breaking through a large realm or a small realm, all Cultivation skill tests are made with a penalty or bonus according to the following table:
