@@ -23,9 +23,6 @@ const Attributes = () => {
                     Primary attributes are a generalized measure of your body and mind. The base values of each of your skills are derived from these attributes. All Attribute scores start at 20 before you spend any experience to improve them. Improving an attribute also increases the value of all derived <Link className="rule-link" to="/rules/skills">skills</Link> and secondary attributes.
                 </p>
                 <p className="rule-text">
-                    When you create your character, pick a primary attribute as your <strong>Tagged Attribute</strong>. Whenever you spend experience to increase the tagged attribute, you gain twice as many points as you normally would.
-                </p>
-                <p className="rule-text">
                     <strong className="rule-bold">Agility</strong> - Agility is used to dodge attacks, fight in close quarters, and to maneuver in the air.
                 </p>
                 <p className="rule-text">

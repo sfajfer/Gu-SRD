@@ -21,6 +21,10 @@ const CharacterCreation = () => {
                     In this game, you will create and play a Gu Master. Gu Masters are humans or variant-humans who have awakened their aperture, a kind of extradimensional space within the stomach that can contain Gu and primeval essence. The first thing to mark down is your starting rank. For first-time players, it is recommended to start at rank 1 initial stage. You, your group, and the game master should also determine if you want to follow the righteous path, living and working with a clan, or if you’d like to tread the demonic path, living free in the world with no masters. Your path can always be changed later on, as demonic Gu Masters seek safety and resources, and righteous Gu Masters grow disillusioned and yearn for freedom.
                 </p>
 
+                <p className="rule-text">
+                    Once you know what each primary <Link className="rule-link" to="/rules/attributes">Attribute</Link> does, pick one as your <strong>Tagged Attribute</strong>. Whenever you spend experience to increase the tagged primary attribute, you gain twice as many points as you normally would.
+                </p>
+
                 <p className="rule-subheading">Experience</p>
                 <p className="rule-text">
                     You start with 500 experience to spend on character creation. Any experience left over afterwards is removed from the game, so that you start your first session with 0 experience. Experience can be spent to increase your <Link className="rule-link" to="/rules/attributes">Attributes</Link> and <Link className="rule-link" to="/rules/skills">Skills</Link>, as well as to purchase <Link className="rule-link" to="/rules/talents">Talents</Link>. Talents cannot be purchased and <Link className="rule-link" to="/rules/attainment">Attainments</Link> cannot be invested in until after character creation. At character creation, attributes cannot be raised above 50.

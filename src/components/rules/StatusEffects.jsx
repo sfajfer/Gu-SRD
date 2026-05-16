@@ -22,37 +22,38 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Ablaze</p>
                     <p className="rule-text">
-                    A creature with the ablaze condition is completely engulfed in flames. An ablaze creature cannot have or gain the burning condition. If a creature with the burning condition gains the ablaze condition, the burning condition is removed. At the start of each of their turns, the creature takes 30 heat damage. If a human or variant human takes heat damage to their hit points on a turn from the ablaze condition, at the end of the turn they must succeed a Perseverance attribute test or else fall unconscious. For creatures and Gu invulnerable or resistant to heat damage, consider damage dealt by the ablaze condition to be of the rank of the Gu that applied the ablaze condition, or rank 1 if the fire was natural. Being submerged in water removes the ablaze condition.
+                    A creature with the <i>ablaze</i> condition is completely engulfed in flames. An <i>ablaze</i> creature cannot have or gain the burning condition. If a creature with the <i>burning</i> condition gains the <i>ablaze</i> condition, the <i>burning</i> condition is removed. At the start of each of their turns, the creature takes 30 heat damage. If a human or variant human takes heat damage to their hit points on a turn from the <i>ablaze</i> condition, at the end of the turn they must succeed a Perseverance attribute test or else fall unconscious. For creatures and Gu invulnerable or resistant to heat damage, consider damage dealt by the <i>ablaze</i> condition to be of the rank of the Gu that applied the <i>ablaze</i> condition, or rank 1 if the fire was natural. Being submerged in water removes the <i>ablaze</i> condition.
                     </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Airborne</p>
                     <p className="rule-text">
-                    An airborne creature cannot move or take the Dodge Reaction. If a creature has a flying speed when it becomes airborne from anything other than the Take Flight Maneuver, it may immediately fly up to half its flying speed in any direction. If a creature does not have a flying speed when it becomes airborne, it immediately falls up to 500 meters. If the creature is still falling, it falls 500 meters at the end of each of its turns until it hits the ground.
+                    An <i>airborne</i> creature cannot use movement or take the Dodge Reaction. If a creature has a flying speed when it becomes <i>airborne</i> from anything other than the Take Flight Maneuver, it may immediately fly up to half its flying speed in any direction. If a creature does not have a flying speed when it becomes <i>airborne</i>, it immediately falls up to 500 meters. If the creature is still falling, it falls 500 meters at the end of each of its turns until it hits the ground.
                     </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Bleeding X</p>
-                    <p className="rule-text"></p>
-                    Bleeding creatures take 1 damage directly to their hit points at the start of each of their turns for every stack of bleeding. This damage has no type and cannot be reduced by Gu, unless the bleeding condition is explicitly stated. Levels of bleeding can stack additively from the same or different sources. For every 5 hit points a bleeding creature restores, reduce the number of bleeding stacks they have by 1. If a creature is restored to their maximum hit points, they lose the bleeding condition.
+                    <p className="rule-text">
+                    <i>Bleeding</i> creatures take 1 damage directly to their hit points at the start of each of their turns for every stack of <i>bleeding</i>. This damage has no type and cannot be reduced by Gu, unless the <i>bleeding</i> condition is explicitly stated. Levels of <i>bleeding</i> can stack additively from the same or different sources. If a creature's current hit points are equal to their maximum hit points, they are immune to the <i>bleeding</i> condition; if a source does damage and applies the <i>bleeding</i> condition, the condition is applied after the damage, circumventing this immunity. For every 5 hit points a <i>bleeding</i> creature restores, reduce the number of <i>bleeding</i> stacks they have by 1. If a creature is restored to their maximum hit points, they lose the <i>bleeding</i> condition.
+                    </p>
                 </div>
                 <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Blinded</p>
                     <p className="rule-text">
-                    Blinded creatures cannot see, have a +40 penalty to Dodge, Close Combat, and Ranged Attack skill tests, and cannot make Awareness skill tests that rely on sight. 
+                    <i>Blinded</i> creatures cannot see, have a +40 penalty to Dodge, Close Combat, and Ranged Attack skill tests, and cannot make Awareness skill tests that rely on sight. 
                     </p>
                     <p className="rule-text">
-                    Some effects like smoke and steam may say they obscure the vision of creatures inside. This does not give the creature the blinded condition; it means all other targets have full cover from them, until the creature leaves the area of effect or uses an [Investigative: Sight] Gu to see through the effect.
+                    Some effects like smoke and steam may say they obscure the vision of creatures inside. This does not give the creature the <i>blinded</i> condition; it means all other targets have full cover from them, until the creature leaves the area of effect or uses an [<strong>Investigative: Sight</strong>] Gu to see through the effect.
                     </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Burning</p>
                     <p className="rule-text">
-                    Burning creatures take 10 heat damage at the start of each of their turns. For creatures and Gu invulnerable or resistant to heat damage, consider damage dealt by the burning condition to be of the rank of the Gu that applied the burning condition, or rank 1 if the fire was natural. Being submerged in water removes the burning condition. A creature can use their Combat Action to roll around on the ground, removing the burning condition.
+                    Burning creatures take 10 heat damage at the start of each of their turns. For targets invulnerable or resistant to heat damage, consider damage dealt by the burning condition to be of the rank of the Gu that applied the burning condition, or rank 1 if the fire was natural. Being submerged in water removes the burning condition. A creature can use their Combat Action to roll around on the ground, removing the burning condition.
                     </p>
                 </div>
                  <br />

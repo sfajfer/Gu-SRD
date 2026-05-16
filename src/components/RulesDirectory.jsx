@@ -49,23 +49,27 @@ const RulesDirectory = () => {
             <React.Fragment key={groupIdx}>
               <div className="rules-group" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {group.map((rule) => (
-                  <Link 
-                    key={rule} 
-                    to={`/rules/${slugify(rule)}`}
-                    className="rule-link"
-                    style={{ 
-                      color: '#e0e0e0', 
-                      textDecoration: 'none', 
-                      fontSize: '1.1rem',
-                      padding: '4px 8px',
-                      borderRadius: '4px',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.target.style.background = '#333'}
-                    onMouseLeave={(e) => e.target.style.background = 'transparent'}
-                  >
-                    {rule}
-                  </Link>
+                  rule === "Combat" ? (
+                    <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#c19b41' }}>Combat</div>
+                  ) : (
+                    <Link 
+                      key={rule} 
+                      to={`/rules/${slugify(rule)}`}
+                      className="rule-link"
+                      style={{ 
+                        color: '#e0e0e0', 
+                        textDecoration: 'none', 
+                        fontSize: '1.1rem',
+                        padding: '4px 8px',
+                        borderRadius: '4px',
+                        transition: 'background 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = '#333'}
+                      onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                    >
+                      {rule}
+                    </Link>
+                )
                 ))}
               </div>
               {groupIdx < groups.length - 1 && (
