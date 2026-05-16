@@ -46,6 +46,19 @@
   margin-bottom: 12px;
 }
 
+.rule-link {
+  color: #00ffa2;
+  text-decoration: underline;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition);
+}
+
+.rule-bold {
+  color: #c19b41;
+  display: block; 
+  margin-bottom: 10px;
+}
+
 body {
   background: var(--bg-base);
   color: var(--text-primary);

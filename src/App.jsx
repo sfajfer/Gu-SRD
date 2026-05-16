@@ -4,6 +4,7 @@ import RulesDirectory from './components/RulesDirectory';
 
 // Introduction / Rule Lookup Components
 import Attainment from './components/rules/introduction/Attainment';
+import Attributes from './components/rules/introduction/Attributes';
 import CharacterCreation from './components/rules/introduction/CharacterCreation';
 import Cultivation from './components/rules/introduction/Cultivation';
 import Downtime from './components/rules/introduction/Downtime';
@@ -11,6 +12,7 @@ import PrimevalEssence from './components/rules/introduction/PrimevalEssence';
 import PrimevalStones from './components/rules/introduction/PrimevalStones';
 import RefinementTechniques from './components/rules/introduction/RefinementTechniques';
 import RunningTheGame from './components/rules/introduction/RunningTheGame';
+import Skills from './components/rules/introduction/Skills';
 import Talents from './components/rules/introduction/Talents';
 import TheAperture from './components/rules/introduction/TheAperture';
 import TheDiceMechanic from './components/rules/introduction/TheDiceMechanic';
@@ -61,7 +63,9 @@ function App() {
           <Route path="/rules/the-world" element={<TheWorld />} />
           <Route path="/rules/the-dice-mechanic" element={<TheDiceMechanic />} />
           <Route path="/rules/running-the-game" element={<RunningTheGame />} />
-          <Route path="/rules/character-creation-attributes-and-skills" element={<CharacterCreation />} />
+          <Route path="/rules/character-creation" element={<CharacterCreation />} />
+          <Route path="/rules/attributes" element={<Attributes />} />
+          <Route path="/rules/skills" element={<Skills />} />
           <Route path="/rules/cultivation" element={<Cultivation />} />
           <Route path="/rules/downtime" element={<Downtime />} />
           <Route path="/rules/talents" element={<Talents />} />

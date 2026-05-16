@@ -22,7 +22,7 @@ const PrimevalStones = () => {
                 Small, smooth stones naturally formed from primeval essence, primeval stones are the main currency in the Gu world. On your turn, you can absorb the essence of a number of primeval stones equal to the number of hands you have as a Combat Action. You must have one hand free for each stone being absorbed.
             </p>
             <p className="rule-text">
-                For each primeval stone being absorbed, you gain {"{5, 4, 3, 2, 1}"}¹ portion(s) of primeval essence, and the stone is destroyed in the process, crumbling into dust.
+                For each primeval stone being absorbed, you gain {"{30, 20, 10, 4, 1}"}¹ portion(s) of primeval essence, and the stone is destroyed in the process, crumbling into dust.
             </p>
             <p className="rule-text">
                 You can carry up to 250 primeval stones on your person, but many storage type Gu exist to hold additional stones.

@@ -12,7 +12,7 @@ const RulesDirectory = () => {
     [
       "The Aperture", "Primeval Essence", "Primeval Stones", 
       "The World", "The Dice Mechanic", "Running the Game", 
-      "Character Creation, Attributes, and Skills", "Cultivation", 
+      "Character Creation", "Attributes", "Skills", "Cultivation", 
       "Downtime", "Talents", "Refinement Techniques", "Attainment"
     ],
     [
