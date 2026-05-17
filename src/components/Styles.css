@@ -59,6 +59,14 @@
   margin-bottom: 10px;
 }
 
+.compatibility-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  justify-content: center;
+}
+
 body {
   background: var(--bg-base);
   color: var(--text-primary);

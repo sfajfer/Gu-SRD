@@ -27,6 +27,7 @@ import RefinementRecipes from './components/rules/gu/RefinementRecipes';
 import GuHouses from './components/rules/gu/GuHouses';
 import Formations from './components/rules/gu/Formations';
 import EnslavementPath from './components/rules/gu/EnslavementPath';
+import GuKeywords from './components/rules/gu/GuKeywords';
 
 // Combat Components
 import ActionsAndTheTurn from './components/rules/combat/ActionsAndTheTurn';
@@ -76,6 +77,7 @@ function App() {
           <Route path="/rules/gu" element={<Gu />} />
           <Route path="/rules/refinement-recipes" element={<RefinementRecipes />} />
           <Route path="/rules/creating-unique-gu" element={<CreatingGu />} />
+          <Route path="/rules/gu-keywords" element={<GuKeywords />} />
           <Route path="/rules/path-compatibilities" element={<PathCompatibilities />} />
           <Route path="/rules/enslavement-path-unfinished" element={<EnslavementPath />} />
           <Route path="/rules/killer-moves" element={<KillerMoves />} />

@@ -28,7 +28,7 @@ const PrimevalStones = () => {
                 You can carry up to 250 primeval stones on your person, but many storage type Gu exist to hold additional stones.
             </p>
 
-            <i>¹ When you see curly brace notation, it represents your rank, or the rank of the Gu if it appears in a Gu’s description. In this case, it means expending a primeval stone restores 5 primeval essence if you are rank 1, 4 if you are rank 2, and so on.</i>
+            <i>¹ When you see curly brace notation, it represents your rank, or the rank of the Gu if it appears in a Gu’s description. In this case, it means expending a primeval stone restores 30 portions of primeval essence if you are rank 1, 20 portions if you are rank 2, and so on.</i>
 
             </main>
         </div>

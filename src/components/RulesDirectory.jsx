@@ -16,7 +16,7 @@ const RulesDirectory = () => {
       "Downtime", "Talents", "Refinement Techniques", "Attainment"
     ],
     [
-      "Gu", "Refinement Recipes", "Creating Unique Gu", "Path Compatibilities", 
+      "Gu", "Refinement Recipes", "Creating Unique Gu", "Gu Keywords", "Path Compatibilities", 
       "Enslavement Path (Unfinished)", "Killer Moves", 
       "Formations (Unfinished)", "Gu Houses (Unfinished)"
     ],

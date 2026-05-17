@@ -2,31 +2,58 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../Styles.css';
 
-const TheAperture = () => {
+const Flying = () => {
     return (
         <div className="gu-shell">
             <header className="gu-topbar">
-            <div>
-                <div className="gu-title">The Aperture</div>
-                <div className="gu-subtitle">Master of Gu SRD</div>
-            </div>
-            <Link to="/rules" className="rule-directory-button" style={{ textDecoration: 'none' }}>
-                ← Back to Directory
-            </Link>
+                <div>
+                    <div className="gu-title">Flying</div>
+                    <div className="gu-subtitle">Master of Gu SRD</div>
+                </div>
+                <Link to="/rules" className="rule-directory-button" style={{ textDecoration: 'none' }}>
+                    ← Back to Directory
+                </Link>
             </header>
 
             <main className="gu-main" style={{ padding: '20px' }}>
+                <h1 className="rule-heading">Maneuvers</h1>
+                <p className="rule-text">
+                    You may only execute a Maneuver if you have a flying speed. With the exception of Take Flight, you must be airborne to execute a maneuver. While airborne, you make Dodge skill tests with your Flying skill until you return to the ground, and use your flying speed when dodging. Penalties to your Dodge skill tests also apply to Flying skill tests made to dodge attacks.
+                </p>
 
-            <h1 className="rule-heading">The Aperture</h1>
-            <p className="rule-text">
-The aperture is a sort of extra-dimensional space located in a Gu Master’s stomach. Around the age of puberty, people can awaken their aperture by coming into contact with Hope Gu. Not everyone is lucky enough to be able to awaken their aperture, but those that do are henceforth called Gu Masters. People without an awakened aperture are called mortals, and are just regular people.
-The aperture is a simple sphere bounded by walls and filled with a sea of primeval essence, a resource used to activate Gu as well as to cultivate. Cultivation consists of attacking your aperture walls with this primeval essence, eventually breaking them and moving on to a new realm. Gu Masters begin at rank 1 and can cultivate to rank 5. Each rank is considered a large realm, and are subdivided into 4 small realms: initial stage, middle stage, upper stage, and peak stage. After rank 5, there are still ranks 6 through 9, but that is the realm of Gu Immortals and the rules change massively. In this system, the maximum rank attainable is rank 5 peak stage.
-You can store Gu in your aperture no matter their size, and there is no limit to the number of Gu that can be stored in your aperture. The aperture is accessible to its owner at any time through their thoughts, but other creatures can only access someone else’s aperture after they are dead or through the use of special Gu.
-            </p>
+                <p className="rule-subheading">Take Flight</p>
+                <p className="rule-text">
+                    Taking flight can only be done when on the ground. You rise a number of meters into the air equal to half your flying speed, rounded down, and are now airborne.
+                </p>
 
+                <p className="rule-subheading">Fly</p>
+                <p className="rule-text">
+                    You move a number of meters equal to your flying speed in a straight line in any direction.
+                </p>
+
+                <p className="rule-subheading">Dive</p>
+                <p className="rule-text">
+                    You must be at least 5 meters above the ground to perform a Dive. Make a Flying skill test. On a success, you dive down a distance of up to triple your flying speed, and can move up to your flying speed in meters forward. When you finish a Dive, you may make a single weapon or punch attack or activate a Gu with a range of touch targeting a creature within your melee range. Whether you do or not, you can try to execute a Land maneuver or else rise 1 meter directly upward at the end of the dive.
+                </p>
+                <p className="rule-text">
+                    If you make a weapon or punch attack at the end of your dive, it deals additional force damage equal to your flying speed.
+                </p>
+                <p className="rule-text">
+                    If you fail the test, you dive directly downward a number of meters equal to your flying speed before regaining control. If this would cause you to hit the ground, you do so, are no longer airborne, and take 4 force damage for every meter you dove.
+                </p>
+
+                <p className="rule-subheading">Evade</p>
+                <p className="rule-text">
+                    Make a Flying skill test. On a success, all skill tests made to hit you with an attack are made with a penalty equal to +(50% of your flying skill, rounded down to the nearest multiple of 5) until the start of your next turn. You can only make one Evade Maneuver each turn.
+                </p>
+
+                <p className="rule-subheading">Land</p>
+                <p className="rule-text">
+                    You land on solid ground. If executed at the end of a dive or atop Difficult Terrain, you must succeed a Flying skill test or else land prone.
+                </p>
             </main>
         </div>
     );
 };
 
-export default TheAperture;
+export default Flying;

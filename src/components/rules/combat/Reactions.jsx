@@ -2,31 +2,68 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../Styles.css';
 
-const TheAperture = () => {
+const Reactions = () => {
     return (
         <div className="gu-shell">
             <header className="gu-topbar">
-            <div>
-                <div className="gu-title">The Aperture</div>
-                <div className="gu-subtitle">Master of Gu SRD</div>
-            </div>
-            <Link to="/rules" className="rule-directory-button" style={{ textDecoration: 'none' }}>
-                ← Back to Directory
-            </Link>
+                <div>
+                    <div className="gu-title">Reactions</div>
+                    <div className="gu-subtitle">Master of Gu SRD</div>
+                </div>
+                <Link to="/rules" className="rule-directory-button" style={{ textDecoration: 'none' }}>
+                    ← Back to Directory
+                </Link>
             </header>
 
             <main className="gu-main" style={{ padding: '20px' }}>
+                <h1 className="rule-heading">Reactions</h1>
+                <p className="rule-text">
+                    You can react to any action, event, or effect that you perceive. You may do so at any time, during your own or another creature's turn. Your total Reactions are replenished at the start of each of your turns up to your maximum (base 2). You cannot use multiple Reactions to the same trigger, for example, dodging and activating a shield Gu when an attack hits you.                </p>
 
-            <h1 className="rule-heading">The Aperture</h1>
-            <p className="rule-text">
-The aperture is a sort of extra-dimensional space located in a Gu Master’s stomach. Around the age of puberty, people can awaken their aperture by coming into contact with Hope Gu. Not everyone is lucky enough to be able to awaken their aperture, but those that do are henceforth called Gu Masters. People without an awakened aperture are called mortals, and are just regular people.
-The aperture is a simple sphere bounded by walls and filled with a sea of primeval essence, a resource used to activate Gu as well as to cultivate. Cultivation consists of attacking your aperture walls with this primeval essence, eventually breaking them and moving on to a new realm. Gu Masters begin at rank 1 and can cultivate to rank 5. Each rank is considered a large realm, and are subdivided into 4 small realms: initial stage, middle stage, upper stage, and peak stage. After rank 5, there are still ranks 6 through 9, but that is the realm of Gu Immortals and the rules change massively. In this system, the maximum rank attainable is rank 5 peak stage.
-You can store Gu in your aperture no matter their size, and there is no limit to the number of Gu that can be stored in your aperture. The aperture is accessible to its owner at any time through their thoughts, but other creatures can only access someone else’s aperture after they are dead or through the use of special Gu.
-            </p>
+                <p className="rule-subheading">Activate a [Defensive] Gu</p>
+                <p className="rule-text">
+                    [Defensive] Gu can be activated as a Reaction, including after its determined an attack has hit you, but only before the damage has been dealt.
+                </p>
 
+                <p className="rule-subheading">Dodge</p>
+                <p className="rule-text">
+                    The Dodge Reaction can be taken when its determined an attack has hit you and before the damage has been rolled. Make a Dodge skill test; if you succeed, you successfully dodge the attack and take no damage. If you fail, you are hit and take the full damage of the attack.
+                </p>
+                <p className="rule-text">
+                    When you succeed a Dodge Reaction, you MUST move at least 1 meter and at most half of your movement (rounded down) in any direction. If you are unable to move, you are also unable to take the Dodge Reaction. If half of your movement is insufficient to escape an area of effect attack, you are struck by the attack regardless.
+                </p>
+                <p className="rule-text">
+                    If you use a Reaction to dodge for any trigger except an attack hitting you, you immediately move at least 1 meter and at most 1/2 your movement in any direction.
+                </p>
+                <p className="rule-text">
+                    Dodging  by moving out of a creature's melee range provokes attacks of opportunity, but the attack is made with disadvantage.
+                </p>
+
+                <p className="rule-subheading">Parry</p>
+                <p className="rule-text">
+                    The Parry Reaction can only be taken when its determined a melee attack has hit you and before the damage has been rolled. Make a Close Combat skill test with a +10 penalty, opposing the opponent’s attack roll. If you win, you take no damage from the attack and can make your own melee attack against the opponent in turn as long as they are within your melee range. You can parry attacks made as part of the Parry Reaction.
+                </p>
+
+                <p className="rule-subheading">Make an Attack of Opportunity</p>
+                <p className="rule-text">
+                    You may make a melee attack as an attack of opportunity when a creature moves from inside your melee range to a square outside your melee range, or if a creature inside your melee range makes a Ranged Attack attack roll against a creature other than you. If you make an unarmed attack, it cannot be a kicking attack.
+                </p>
+                <p className="rule-text">
+                    Flying out of a creature’s melee range still provokes attacks of opportunity.
+                </p>
+
+                <p className="rule-subheading">Trigger a Held Action</p>
+                <p className="rule-text">
+                    When the trigger you specified upon holding a Combat Action occurs, you may take this Reaction to use said action.
+                </p>
+
+                <p className="rule-subheading">Detonate Gu Worms</p>
+                <p className="rule-text">
+                    As a Reaction or for free at any time during their turn, a Gu Master can self-detonate any Gu owned and refined by them with a single thought. The Gu Master must be conscious to do so, and can detonate as many or as few Gu as they want, from any distance. If the Gu is being suppressed, for example by the land spirit of a blessed land, the Gu Master cannot self-detonate it. Otherwise, the chosen Gu instantly die, with no other effects. If the Gu has a self-detonation ability, it does not trigger, since the Gu was not activated.
+                </p>
             </main>
         </div>
     );
 };
 
-export default TheAperture;
+export default Reactions;
