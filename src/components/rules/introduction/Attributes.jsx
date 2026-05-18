@@ -32,7 +32,7 @@ const Attributes = () => {
                     <strong className="rule-bold">Cognition</strong> - Your intelligence and reasoning skills. Used to create refinement recipes, remember information, and to fight in both close and ranged combat.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Wisdom</strong> - Wisdom increases your speed of cultivation, how often you succeed when refining Gu, and awareness of your surroundings.
+                    <strong className="rule-bold">Wisdom</strong> - Wisdom increases your speed of cultivation, how often you succeed when refining Gu, and <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> of your surroundings.
                 </p>
                 <p className="rule-text">
                     <strong className="rule-bold">Attitude</strong> - Attitude represents your understanding of human nature, relationships, and emotions. A higher attitude makes it easier to deceive and persuade others, and to know when others are deceiving you. It also is a minor factor in your Perseverance.

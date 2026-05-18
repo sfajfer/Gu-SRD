@@ -43,7 +43,7 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Blinded</p>
                     <p className="rule-text">
-                    <i>Blinded</i> creatures cannot see, have a +40 penalty to <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link>, <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link>, and <Link className="rule-link" to="/rules/skills#ranged-attack">Ranged Attack</Link> skill tests, and cannot make Awareness skill tests that rely on sight. 
+                    <i>Blinded</i> creatures cannot see, have a +40 penalty to <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link>, <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link>, and <Link className="rule-link" to="/rules/skills#ranged-attack">Ranged Attack</Link> skill tests, and cannot make <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> skill tests that rely on sight. 
                     </p>
                     <p className="rule-text">
                     Some effects like smoke and steam may say they obscure the vision of creatures inside. This does not give the creature the <i>blinded</i> condition; it means all other targets have full cover from them, until the creature leaves the area of effect or uses an [<strong>Investigative: Sight</strong>] Gu to see through the effect.
@@ -60,14 +60,14 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Dazed</p>
                     <p className="rule-text">
-                    A dazed creature has their Activations attribute reduced by 2 and gains a +10 penalty to all Dodge skill tests. At the end of their turn, they lose the dazed condition.
+                    A dazed creature has their Activations attribute reduced by 2 and gains a +10 penalty to all <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> skill tests. At the end of their turn, they lose the dazed condition.
                     </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Deafened</p>
                     <p className="rule-text">
-                    A deafened creature cannot hear, has resistance to sonic damage regardless of the rank of the effect, and cannot make Awareness tests that rely on hearing.
+                    A deafened creature cannot hear, has resistance to sonic damage regardless of the rank of the effect, and cannot make <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> tests that rely on hearing.
                     </p>
                 </div>
                  <br />
@@ -81,14 +81,14 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Fatigued</p>
                     <p className="rule-text">
-                    A fatigued creature’s movement is reduced by 3 meters and makes all Dodge, Cultivation, and Athletics skill tests with a +30 penalty. The fatigued condition lasts until the creature rests for at least an hour.
+                    A fatigued creature’s movement is reduced by 3 meters and makes all <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link>, Cultivation, and <Link className="rule-link" to="/rules/skills#athletics">Athletics</Link> skill tests with a +30 penalty. The fatigued condition lasts until the creature rests for at least an hour.
                     </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Invisible</p>
                     <p className="rule-text">
-                    Both creatures and objects can be invisible, meaning they cannot be seen or targeted with attacks. Dodge tests made to avoid attacks from an invisible creature are made with a +40 penalty. Dodge tests to avoid attacks made with an invisible weapon or effect are made with a +20 penalty. These penalties can stack with each other, but only apply if the target cannot see invisible things with an [Investigative: Sight] Gu of high enough rank.
+                    Both creatures and objects can be invisible, meaning they cannot be seen or targeted with attacks. <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> skill tests made to avoid attacks from an invisible creature are made with a +40 penalty. <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> skill tests to avoid attacks made with an invisible weapon or effect are made with a +20 penalty. These penalties can stack with each other, but only apply if the target cannot see invisible things with an [Investigative: Sight] Gu of high enough rank.
                     </p>
                     <p className="rule-text">
                     If a creature can detect an invisible creature via hearing, smell, or detect [Investigative] Gu, the Dodge penalty against their attacks is reduced to +20, and they become a valid target for attacks; attack rolls made against a detected invisible creature are made with a +20 penalty.
@@ -105,14 +105,14 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Prone</p>
                     <p className="rule-text">
-                    A prone creature has a +30 penalty to all skill tests and can only move 1 meter when they succeed a Dodge skill test. <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link> skill tests made to hit a prone creature are made with a -10 bonus. Ranged Attack skill tests made to hit a prone creature are made with a +10 penalty. A creature can expend half their movement to stand up.
+                    A prone creature has a +30 penalty to all skill tests and can only move 1 meter when they succeed a <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> skill test. <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link> skill tests made to hit a prone creature are made with a -10 bonus. Ranged Attack skill tests made to hit a prone creature are made with a +10 penalty. A creature can expend half their movement to stand up.
                     </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Restrained</p>
                     <p className="rule-text">
-                    A restrained creature’s movement is 0. A restrained creature automatically fails all Dodge and Flying skill tests.
+                    A restrained creature’s movement is 0. A restrained creature automatically fails all <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> and Flying skill tests.
                     </p>
                 </div>
                  <br />

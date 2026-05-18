@@ -46,7 +46,7 @@ const Reactions = () => {
 
                 <p className="rule-subheading">Make an Attack of Opportunity</p>
                 <p className="rule-text">
-                    You may make a melee attack as an attack of opportunity when a creature moves from inside your melee range to a square outside your melee range, or if a creature inside your melee range makes a Ranged Attack attack roll against a creature other than you. If you make an unarmed attack, it cannot be a kicking attack.
+                    You may make a melee attack as an attack of opportunity when a creature moves from inside your melee range to a square outside your melee range, or if a creature inside your melee range makes a <Link className="rule-link" to="/rules/skills#ranged-attack">Ranged Attack</Link> attack roll against a creature other than you. If you make an unarmed attack, it cannot be a kicking attack.
                 </p>
                 <p className="rule-text">
                     Flying out of a creature’s melee range still provokes attacks of opportunity.

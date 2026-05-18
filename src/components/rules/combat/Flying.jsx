@@ -18,7 +18,7 @@ const Flying = () => {
             <main className="gu-main" style={{ padding: '20px' }}>
                 <h1 className="rule-heading">Maneuvers</h1>
                 <p className="rule-text">
-                    You may only execute a Maneuver if you have a flying speed. With the exception of Take Flight, you must be airborne to execute a maneuver. While airborne, you make Dodge skill tests with your Flying skill until you return to the ground, and use your flying speed when dodging. Penalties to your Dodge skill tests also apply to Flying skill tests made to dodge attacks.
+                    You may only execute a Maneuver if you have a flying speed. With the exception of Take Flight, you must be airborne to execute a maneuver. While airborne, you make <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> skill tests with your Flying skill until you return to the ground, and use your flying speed when dodging. Penalties to your <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> skill tests also apply to Flying skill tests made to dodge attacks.
                 </p>
 
                 <p className="rule-subheading">Take Flight</p>

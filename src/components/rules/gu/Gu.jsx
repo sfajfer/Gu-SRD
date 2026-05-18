@@ -139,7 +139,7 @@ const Gu = () => {
 
                 <p className="rule-subheading">Wild Gu</p>
                 <p className="rule-text">
-                    Wild Gu are found in the wilderness, typically in an environment rich with Dao of the Gu’s path. Wild Gu have a speed of 8 meters (except [Steed] Gu with their own movement statistic) and will attempt to evade capture, including by activating themselves using natural primeval essence. Wild Gu can see through concealments of a lower rank than itself, and have an Awareness skill of 10 * rank.
+                    Wild Gu are found in the wilderness, typically in an environment rich with Dao of the Gu’s path. Wild Gu have a speed of 8 meters (except [Steed] Gu with their own movement statistic) and will attempt to evade capture, including by activating themselves using natural primeval essence. Wild Gu can see through concealments of a lower rank than itself, and have an <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> skill of 20 * rank.
                 </p>
 
                 <p className="rule-subheading">Refining Gu</p>

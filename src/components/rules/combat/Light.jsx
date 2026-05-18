@@ -19,7 +19,7 @@ const Light = () => {
 
             <h1 className="rule-heading">Light</h1>
             <p className="rule-text">
-                Light sources specify how many meters of bright light they create in a radius around them. Dim light is emitted in a radius equal to twice the radius of bright light. For example, Little Light Gu emits 3 meters of bright light at all times, which means any square within 3 meters is in bright light, and any square between 4 and 6 meters away would be in dim light, with any squares beyond 6 meters still being in darkness. A creature in total darkness is considered invisible to any creatures that cannot see through that darkness. Awareness skill tests made to see a target in dim light are made with a +20 penalty.
+                Light sources specify how many meters of bright light they create in a radius around them. Dim light is emitted in a radius equal to twice the radius of bright light. For example, Little Light Gu emits 3 meters of bright light at all times, which means any square within 3 meters is in bright light, and any square between 4 and 6 meters away would be in dim light, with any squares beyond 6 meters still being in darkness. A creature in total darkness is considered invisible to any creatures that cannot see through that darkness. <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> skill tests made to see a target in dim light are made with a +20 penalty.
             </p>
 
             </main>

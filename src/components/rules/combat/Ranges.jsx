@@ -33,7 +33,7 @@ const Ranges = () => {
 
                 <p className="rule-subheading">Area of Effect Attacks</p>
                 <p className="rule-text" style={{ marginBottom: '30px' }}>
-                    When a creature is caught in an area of effect, they can use the <strong>Dodge Reaction</strong>, escaping the area of effect if they succeed and are able to move outside the area of effect.
+                    When a creature is caught in an area of effect, they can use the <strong><Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> Reaction</strong>, escaping the area of effect if they succeed and are able to move outside the area of effect.
                 </p>
 
                 {/* Grid Layout for AoE shapes and their diagrams */}

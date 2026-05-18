@@ -19,7 +19,7 @@ const HighGround = () => {
 
             <h1 className="rule-heading">High Ground</h1>
             <p className="rule-text">
-                Ranged Attack skill tests are made with a -10 bonus if the target is at least 2 meters lower than the attacker in elevation.
+                <Link className="rule-link" to="/rules/skills#ranged-attack">Ranged Attack</Link> skill tests are made with a -10 bonus if the target is at least 2 meters lower than the attacker in elevation.
             </p>
 
             </main>
