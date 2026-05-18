@@ -20,7 +20,7 @@ const ActionsAndTheTurn = () => {
 
                 <p className="rule-subheading">Actions and the Initiative</p>
                 <p className="rule-text">
-                    At the beginning of combat, an initiative is rolled. If an enemy is within 2 meters of you, roll Close Combat. If not, roll Ranged Attack. The player with the most degrees of success goes first. In the case of ties, the lower number on the die goes first. If this is still tied, creatures controlled by a player go before non player characters. If the tied creatures are all player characters, they decide amongst themselves who goes first; if all are NPCs, the GM chooses. Continue this process for the rest of the combatants.
+                    At the beginning of combat, an initiative is rolled. If an enemy is within 2 meters of you, roll <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link>. If not, roll Ranged Attack. The player with the most degrees of success goes first. In the case of ties, the lower number on the die goes first. If this is still tied, creatures controlled by a player go before non player characters. If the tied creatures are all player characters, they decide amongst themselves who goes first; if all are NPCs, the GM chooses. Continue this process for the rest of the combatants.
                 </p>
 
                 <p className="rule-subheading">Surprise</p>
@@ -45,7 +45,7 @@ const ActionsAndTheTurn = () => {
 
                 <p className="rule-subheading">Action Economy</p>
                 <p className="rule-text">
-                    Gu Masters can take a Combat Action, two Reactions, a Bonus Action, and a movement on each of their turns. Bonus Actions generally fast and low-effort, such as giving an ally a Gu from your aperture, opening an unlocked door, or pulling a lever.
+                    Gu Masters can take a Combat Action, two Reactions, a Bonus Action, and a movement on each of their turns. Bonus Actions are generally fast and low-effort, such as giving an ally a Gu from your aperture, opening an unlocked door, or pulling a lever.
                 </p>
             </main>
         </div>

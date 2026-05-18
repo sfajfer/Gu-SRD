@@ -43,7 +43,7 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Blinded</p>
                     <p className="rule-text">
-                    <i>Blinded</i> creatures cannot see, have a +40 penalty to Dodge, Close Combat, and Ranged Attack skill tests, and cannot make Awareness skill tests that rely on sight. 
+                    <i>Blinded</i> creatures cannot see, have a +40 penalty to <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link>, <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link>, and <Link className="rule-link" to="/rules/skills#ranged-attack">Ranged Attack</Link> skill tests, and cannot make Awareness skill tests that rely on sight. 
                     </p>
                     <p className="rule-text">
                     Some effects like smoke and steam may say they obscure the vision of creatures inside. This does not give the creature the <i>blinded</i> condition; it means all other targets have full cover from them, until the creature leaves the area of effect or uses an [<strong>Investigative: Sight</strong>] Gu to see through the effect.
@@ -81,7 +81,7 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Fatigued</p>
                     <p className="rule-text">
-                    A fatigued creature’s movement is reduced by 3 meters and makes all Dodge, Cultivation, and Athletics skill tests with a -30 penalty. The fatigued condition lasts until the creature rests for at least an hour.
+                    A fatigued creature’s movement is reduced by 3 meters and makes all Dodge, Cultivation, and Athletics skill tests with a +30 penalty. The fatigued condition lasts until the creature rests for at least an hour.
                     </p>
                 </div>
                  <br />
@@ -105,7 +105,7 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Prone</p>
                     <p className="rule-text">
-                    A prone creature has a +30 penalty to all skill tests and can only move 1 meter when they succeed a Dodge skill test. Close Combat skill tests made to hit a prone creature are made with a -10 bonus. Ranged Attack skill tests made to hit a prone creature are made with a +10 penalty. A creature can expend half their movement to stand up.
+                    A prone creature has a +30 penalty to all skill tests and can only move 1 meter when they succeed a Dodge skill test. <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link> skill tests made to hit a prone creature are made with a -10 bonus. Ranged Attack skill tests made to hit a prone creature are made with a +10 penalty. A creature can expend half their movement to stand up.
                     </p>
                 </div>
                  <br />

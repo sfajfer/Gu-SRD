@@ -47,7 +47,7 @@ const RefinementRecipes = () => {
                     On a failure, you lose all non-Gu refinement materials used in the refinement; you and all Gu being used in the refinement process take a backlash. If the failure was caused by a 1 on the failure die, the backlash is negated. Otherwise, you take damage to your soul equal to the degrees of failure. Every Gu being used in the refinement takes the same amount of damage to their health. If your Vital Gu would be killed in this manner, instead it drops to 1 hit point.
                 </p>
                 <p className="rule-text">
-                    Refinement is an extremely precise and involved effort. For every 4 hours you spend refining Gu without a rest, you take 1 damage to your soul as you become fatigued.
+                    Refinement is an extremely precise and involved effort. For every 4 hours you spend refining Gu without a rest, you take 1 damage to your soul as your mind tires.
                 </p>
 
                 <p className="rule-subheading">Creating a Recipe</p>

@@ -41,7 +41,7 @@ const Reactions = () => {
 
                 <p className="rule-subheading">Parry</p>
                 <p className="rule-text">
-                    The Parry Reaction can only be taken when its determined a melee attack has hit you and before the damage has been rolled. Make a Close Combat skill test with a +10 penalty, opposing the opponent’s attack roll. If you win, you take no damage from the attack and can make your own melee attack against the opponent in turn as long as they are within your melee range. You can parry attacks made as part of the Parry Reaction.
+                    The Parry Reaction can only be taken when its determined a melee attack has hit you and before the damage has been rolled. Make a <Link className="rule-link" to="/rules/skills#close-combat">Close Combat</Link> skill test with a +10 penalty, opposing the opponent’s attack roll. If you win, you take no damage from the attack and can make your own melee attack against the opponent in turn as long as they are within your melee range. You can parry attacks made as part of the Parry Reaction.
                 </p>
 
                 <p className="rule-subheading">Make an Attack of Opportunity</p>
