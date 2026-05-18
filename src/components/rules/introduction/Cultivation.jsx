@@ -47,6 +47,8 @@ const Cultivation = () => {
 
             <main className="gu-main" style={{ padding: '20px' }}>
                 <h1 className="rule-heading">Cultivating</h1>
+                <p className="rule-text" style={{fontStyle: 'italic', color: 'gray'}}> Note: Curly braces in this section refer to the target rank you are cultivating to. If you're breaking through a small realm, its just your current rank. Otherwise, its the rank you're breaking through to. For example, if you are rank 1 peak stage and cultivating to break through to rank 2, you make your Cultivation skill tests with a -20 bonus since all Cultivation skill tests have a {"{-40, -20, 0, +20, +40}"} bonus/penalty.</p>
+
                 <p className="rule-text">
                     The process of increasing your rank in small and large realms is called cultivating. To cultivate, you must meditate and will the primeval essence in your aperture to attack and weaken the aperture walls.
                 </p>
@@ -154,27 +156,8 @@ const Cultivation = () => {
                     Taking any breaks from the process gives your aperture time to fully heal, meaning you need to restart from the beginning. Every 2 hours you spend cultivating to break through a large realm, make a Cultivation skill test. On a failure, you take damage to your soul equal to the number of degrees of failure on the test. On a fumble, you take an additional point of damage to your soul.
                 </p>
                 <p className="rule-text">
-                    Whether you are breaking through a large realm or a small realm, all Cultivation skill tests are made with a penalty or bonus according to the following table:
+                    Whether you are breaking through a large realm or a small realm, all Cultivation skill tests are made with a {"{-40, -20, 0, +20, +40}"} bonus/penalty.
                 </p>
-
-                <div className="gu-table-wrap" style={{ marginTop: '20px', marginBottom: '30px' }}>
-                    <table className="gu-table">
-                        <thead>
-                            <tr>
-                                <th style={{ backgroundColor: '#e67e22', color: 'black', textAlign: 'center' }}>Target Rank</th>
-                                <th style={{ backgroundColor: '#2980b9', color: 'black', textAlign: 'center' }}>Modifier</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {modifierData.map((row, idx) => (
-                                <tr key={idx} className="gu-row">
-                                    <td style={{ textAlign: 'center' }}>{row.rank}</td>
-                                    <td style={{ textAlign: 'center' }}>{row.mod}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
 
                 <p className="rule-text">
                     When you break through a large realm, your primeval sea is completely emptied of the previous rank’s primeval essence and your maximum primeval essence is reset to your aptitude.

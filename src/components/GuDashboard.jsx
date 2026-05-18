@@ -75,7 +75,7 @@ const KEYWORD_FILTERS = [
   { key: 'Piercing',       label: 'Piercing',        match: kws => kws.some(k => k.toLowerCase() === 'piercing') },
   { key: 'Shield',         label: 'Shield',          match: kws => kws.some(k => k.toLowerCase() === 'shield') },
   { key: 'Size',           label: 'Size',            match: kws => kws.some(k => ['small','medium','large','huge'].includes(k.toLowerCase())) },
-  { key: 'Split Second',  label: 'Split Second',     match: kws => kws.some(k => k.toLowerCase() === 'split second') },
+  { key: 'Split Second',   label: 'Split Second',    match: kws => kws.some(k => k.toLowerCase() === 'split second') },
   { key: 'Steed',          label: 'Steed',           match: kws => kws.some(k => k.toLowerCase() === 'steed') },
   { key: 'Supplementary',  label: 'Supplementary',   match: kws => kws.some(k => k.toLowerCase().startsWith('supplement')) },
   { key: 'Sustained',      label: 'Sustained',       match: kws => kws.some(k => k.toLowerCase() === 'sustained') },
@@ -365,7 +365,7 @@ const GuDashboard = () => {
     filterRank.size + 
     filterKeywords.size;
 
-const processedGu = useMemo(() => {
+  const processedGu = useMemo(() => {
     if (!guList.length) return [];
 
     let out = guList.filter(gu => {
@@ -391,8 +391,13 @@ const processedGu = useMemo(() => {
         gu.name?.toLowerCase().includes(q) ||
         gu.path?.toLowerCase().includes(q) ||
         gu.type?.toLowerCase().includes(q) ||
-        gu.keywords?.some(k => k.toLowerCase().includes(q))
+        gu.keywords?.some(k => k.toLowerCase().includes(q)) ||
+        (Array.isArray(gu.effect)
+          ? gu.effect.some(e => typeof e === 'string' && e.toLowerCase().includes(q))
+          : (typeof gu.effect === 'string' && gu.effect.toLowerCase().includes(q))
+        )
       );
+      
       const matchPath = filterPath.size === 0 || filterPath.has(gu.path);
       const matchRank = filterRank.size === 0 || (gu.rank && gu.rank.some(r => filterRank.has(Number(r))));
       const matchType = !filterType || gu.type === filterType;
@@ -585,7 +590,7 @@ const processedGu = useMemo(() => {
                   );
                 })}
               </div>
-          )}
+            )}
           </div>
 
           <FilterDropdown
@@ -679,7 +684,7 @@ const processedGu = useMemo(() => {
                                     <div className="mobile-stat-chip">
                                       <span className="mobile-stat-label">Cost</span>
                                       <span className="mobile-stat-value">{gu.cost}</span>
-                              </div>
+                                    </div>
                                   )}
                                   {gu.health && (
                                     <div className="mobile-stat-chip">
