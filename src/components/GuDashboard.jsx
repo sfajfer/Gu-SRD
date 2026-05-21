@@ -166,28 +166,10 @@ const KeywordCheckboxes = ({ selected, onToggle, keywordsExpanded, setKeywordsEx
   </div>
 );
 
-const EffectRenderer = ({ effect, guList, setExpandedId, clearAll }) => {
+const EffectRenderer = ({ effect, onGuClick }) => {
   if (!effect) return null;
   
   const parts = Array.isArray(effect) ? effect : [effect];
-
-  const handleGuLinkClick = (guName) => {
-    const targetGu = guList.find(g => g.name.toLowerCase() === guName.toLowerCase());
-    
-    if (targetGu) {
-      clearAll();
-      
-      const targetId = targetGu.id || targetGu.name;
-      setExpandedId(targetId);
-
-      setTimeout(() => {
-        const element = document.getElementById(`gu-row-${targetId}`);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 100);
-    }
-  };
 
   return (
     <div className="effect-container">
@@ -200,7 +182,7 @@ const EffectRenderer = ({ effect, guList, setExpandedId, clearAll }) => {
             <button 
               key={index} 
               className="effect-inline-button"
-              onClick={() => handleGuLinkClick(buttonText)}
+              onClick={() => onGuClick(buttonText)}
             >
               {buttonText}
             </button>
@@ -357,6 +339,24 @@ const GuDashboard = () => {
   const handleDaoFilterChange = (path) => {
     clearAll();
     setDaoFilterPath(path);
+  };
+
+  const handleGuLinkClick = (guName) => {
+    const targetGu = guList.find(g => g.name.toLowerCase() === guName.toLowerCase());
+    
+    if (targetGu) {
+      clearAll();
+      
+      const targetId = targetGu.id || targetGu.name;
+      setExpandedId(targetId);
+
+      setTimeout(() => {
+        const element = document.getElementById(`gu-row-${targetId}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
   };
 
   const activeFilterCount =
@@ -706,12 +706,48 @@ const GuDashboard = () => {
                                 <div className="effect-box">
                                   <EffectRenderer 
                                     effect={gu.effect} 
-                                    guList={guList} 
-                                    setExpandedId={setExpandedId} 
-                                    clearAll={clearAll} 
+                                    onGuClick={handleGuLinkClick}
                                   />
                                   <br />
                                   <Markdown remarkPlugins={[remarkGfm]}>{gu.description}</Markdown>
+                                  {(gu.previousRank || gu.nextRank) && (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '15px' }}>
+                                      {gu.previousRank && (
+                                        <div>
+                                          <div style={{ fontSize: '0.75em', opacity: 0.7, marginBottom: '5px' }}>Previous Rank(s):</div>
+                                          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+                                            {gu.previousRank.split(',').map(name => name.trim()).map((name, i) => (
+                                              <button
+                                                key={i}
+                                                className="effect-inline-button"
+                                                style={{ padding: '5px 10px', cursor: 'pointer' }}
+                                                onClick={() => handleGuLinkClick(name)}
+                                              >
+                                                {name}
+                                              </button>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                      {gu.nextRank && (
+                                        <div>
+                                          <div style={{ fontSize: '0.75em', opacity: 0.7, marginBottom: '5px' }}>Next Rank(s):</div>
+                                          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+                                            {gu.nextRank.split(',').map(name => name.trim()).map((name, i) => (
+                                              <button
+                                                key={i}
+                                                className="effect-inline-button"
+                                                style={{ padding: '5px 10px', cursor: 'pointer' }}
+                                                onClick={() => handleGuLinkClick(name)}
+                                              >
+                                                {name}
+                                              </button>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
                                 </div>
                                 <div className="meta-row">
                                   <div className="meta-chip food">
@@ -756,10 +792,10 @@ const GuDashboard = () => {
                                     <div className="steed-actions">
                                       <div className="steed-actions-label">Combat Actions</div>
                                       <p className="steed-actions-text">{getCombatActions(gu.steed.combatActions).map((action, index) => (
-                                        <>
-                                          <Markdown key={index}>{action}</Markdown>
+                                        <React.Fragment key={index}>
+                                          <Markdown>{action}</Markdown>
                                           <br />
-                                        </>
+                                        </React.Fragment>
                                       ))}</p>
                                     </div>
                                   )}
