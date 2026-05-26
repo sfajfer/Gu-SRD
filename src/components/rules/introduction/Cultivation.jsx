@@ -12,9 +12,9 @@ const Cultivation = () => {
     ];
 
     const HoursBankedNeededData = [
-        { target: "Middle Stage", wall: "Light Membrane", needed: "100" },
-        { target: "Upper Stage", wall: "Water Membrane", needed: "200" },
-        { target: "Peak Stage", wall: "Stone Membrane", needed: "400" },
+        { target: "Middle Stage", wall: "Light Membrane", needed: "50 * Rank" },
+        { target: "Upper Stage", wall: "Water Membrane", needed: "100 * Rank" },
+        { target: "Peak Stage", wall: "Stone Membrane", needed: "200 * Rank" },
     ];
 
     const aptitudeData = [
@@ -168,11 +168,11 @@ const Cultivation = () => {
                     You can expend primeval stones to hasten your cultivation, and you may do so to assist in breaking through both small and large realms. Every 2 sequential hours spent cultivating to break through a small realm, you can expend {"{10, 100, 1,000, 10,000, 100,000}"} primeval stones. If you do so, you bank 5 additional hours.
                 </p>
                 <p className="rule-text">
-                    For every {"{10, 100, 1,000, 10,000, N/A}"} primeval stones you expend when cultivating to break through to the next rank, it takes 1 less hour of cultivation.
+                    For every {"{N/A, 100, 1,000, 10,000, 100,000}"} primeval stones you expend when cultivating to break through to the next rank, it takes 1 less hour of cultivation.
                 </p>
 
                 <p className="rule-text">
-                    If your Aptitude is too low to break through to the next rank, you can consume {"{100, 1,000, 10,000, 100,000, 1,000,000}"} primeval stones to consider your Aptitude 1 grade higher during this cultivation session. You may do this multiple times.
+                    If your Aptitude is too low to break through to the next rank, you can consume {"{N/A, 1,000, 10,000, 100,000, 1,000,000}"} primeval stones to consider your Aptitude 1 grade higher during this cultivation session. You may do this multiple times.
                 </p>
                 <p className="rule-text">
                     If your cultivation is interrupted, divide the number of primeval stones that would have been expended had you been successful by the total number of hours you would have cultivated to find how many stones you consumed each hour. Multiply that figure by the number of hours your cultivated before being interrupted to find how many stones you expended.
