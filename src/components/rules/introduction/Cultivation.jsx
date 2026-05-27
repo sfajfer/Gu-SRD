@@ -58,7 +58,7 @@ const Cultivation = () => {
                     When you’re attempting to break through a small realm, the walls retain any damage done by your primeval essence; thus you can slowly break through over time.
                 </p>
                 <p className="rule-text">
-                    For every 2 sequential hours that you spend cultivating, make a Cultivation skill test. You bank a number of hours according to the Aptitude vs Hours Banked table whether or not you succeed, but on a failure, you take 1 damage to your soul. On a critical success, you bank twice as many hours of cultivation as you normally would.
+	                For every 2 sequential hours that you spend cultivating, make a Cultivation skill test. You bank a number of hours according to the Aptitude vs Hours Banked table whether or not you succeed, but on a failure, you take damage to your soul equal to the number of degrees of failure on the test, with fumbles counting as an additional degree of failure. On a critical success, you bank an additional hour of cultivation.
                 </p>
                 <p className="rule-text">
                     When your banked hours reach the number you need to break through to the next realm, you lose all banked hours and your rank increases by a small realm. When you successfully break through a small realm, your maximum portions of primeval essence is doubled but you retain your current number of portions.
