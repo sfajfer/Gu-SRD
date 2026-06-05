@@ -23,22 +23,12 @@ const RunningTheGame = () => {
                     To run the game, you will need a full set of dice including a d4, d6, d8, d10, td10, d12, and d20. Additionally, each player will need a character sheet and something to write with. This game is intended to be played with miniatures on a grid.
                 </p>
 
-                <p className="rule-subheading">The Game Master</p>
+                <p className="rule-subheading">Quirks</p>
                 <p className="rule-text">
-                    Your role as GM is difficult, but ultimately rewarding. Your most important job is making sure everyone at the table is having fun, but that includes yourself. Come to an agreement with your players before running the game to see what you and them want to get out of the game. 
+                    This system has some mechanics that don't work like most ttrpgs. Stealth does not exist as a skill, for example; whoever is trying to sneak will specify what they are doing to stay undetected, and then whoever is able to perceive them makes an Awareness skill test with a bonus or penalty depending on the circumstances. See <Link className="rule-link" to="/rules/actions-and-the-initiative-the-turn">Actions and the Initiative</Link> for more details.
                 </p>
                 <p className="rule-text">
-                    Also, remember that it is not you against the players. You’re playing the antagonists and will certainly try to kill them. But you’re also creating a challenge for the players to surmount, and you have the right to be excited when they do.
-                </p>
-
-                <p className="rule-subheading">Storyteller</p>
-                <p className="rule-text">
-                    You are the story. If your players are staying in the clan’s walls and quietly cultivating, it’s your fault if they grow bored and don’t know what to do. Maybe an overbearing elder puts his hand on the scale, improving one player’s cultivation and suppressing another’s. A beast tide could put their cultivation on hold as they struggle to defend the clan and gain battle merits. And it’s worth knowing where each event fits into your larger campaign. The Gu World is massive and dangerous, so what are the villains doing in the meantime?
-                </p>
-
-                <p className="rule-subheading">Rulemaker</p>
-                <p className="rule-text">
-                    There are lots of edge cases where a rule just doesn’t work. When that happens, you make a ruling on how it should work. Listen to your player’s input if they don’t agree, but you have the final say as GM.
+                    Another unique aspect are the Attitude (basically charisma) based skills; player characters are the only things that can make Attitude based skill tests such as Persuasion and Deception; when NPCs are trying to persuade, deceive, intimidate, or haggle with a player character, it is entirely up to the player what their reaction is, so long as they aren't being influenced by a Gu effect. When NPCs try to do the same to other NPCs, it's up to the GM whether or not the target is swayed.
                 </p>
 
                 <p className="rule-subheading">Awarding Experience</p>

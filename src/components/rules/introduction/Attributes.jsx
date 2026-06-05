@@ -76,6 +76,9 @@ const Attributes = () => {
                     <strong className="rule-bold">Luck</strong> - Players begin with 1 maximum luck point. Luck can be spent to force you or another creature to reroll a skill test directly after the roll, or to add a -50 bonus to a skill test you’re making, before the roll. If you’ve expended a luck point on a skill test, you cannot spend another on the same skill test. You regain luck points up to your maximum at the start of each session.
                 </p>
                 <p className="rule-text">
+                    Non-player characters do not usually have any luck points, but feel free to give tougher enemies one or even multiple if they're meant to be especially strong.
+                </p>
+                <p className="rule-text">
                     <strong className="rule-bold">Activations</strong> - When you take the Activate Gu Combat Action, you can activate a number of Gu equal to your Activations. You have a number of Activations equal to 5% of (Wisdom + Cognition), rounding down to a minimum of 1. To make this calculation easier, consider that for every 20 score you have in both attributes, this number will increase by 1. Shang Liu has a Cognition of 46 and a Wisdom of 37. With a total of 83 and every 20 combined score giving 1 Activation, brings his total Activations to 4.
                 </p>
                 <p className="rule-text">
