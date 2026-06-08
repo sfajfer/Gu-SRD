@@ -23,7 +23,7 @@ const Ranges = () => {
                     The range of a targeted attack refers to how many meters of movement would have to be expended to reach the square of a valid target. This includes targeted area of effect attacks, such as lobbing a bomb to a square within range.
                 </p>
                 <p className="rule-text">
-                    If an effect targets a creature, it can target anything living and thinking. Anything that isn't a creature is considered an object. If the effect just says to pick a target, the target can be a creature or object.
+                    If an effect targets a creature, it can target anything living and capable of thought (i.e. no plants). Anything that isn't a creature or Gu is considered an object. If the effect just says to pick a target, the target can be a creature or object.
                 </p>
 
                 <p className="rule-subheading">Touch</p>

@@ -49,6 +49,11 @@ const CharacterCreation = () => {
                 <p className="rule-text">
                     If your character reaches age 100 without increasing their lifespan, they die.
                 </p>
+
+                <p className="rule-subheading">Finding a Build</p>
+                <p className="rule-text">
+                    Since Gu have to be fed, it can be financially draining to have a large collection covering every possible situation. Until they have a steady source of income, most Gu Masters just try to cover attack, defense, healing, and movement with their Gu, and perhaps a few for utility. It is of course possible to rely on your teammates for one or more of those categories, but it's worth noting that support Gu that only affect yourself are usually more potent than those that target others.
+                </p>
             </main>
         </div>
     );
