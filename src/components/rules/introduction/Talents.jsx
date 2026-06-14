@@ -11,7 +11,12 @@ const Talents = () => {
             name: "Agile Strikes",
             cost: "20 experience",
             req: "Fundamental Wind",
-            desc: "Whenever you add your Strength Attribute to the damage of an attack, you may instead use your Athletics skill."
+            desc: "Whenever you would add your Strength Attribute to the damage of an attack, you may instead use your Athletics skill."
+        },
+        {
+            name: "Bow Training",
+            cost: "10 experience",
+            desc: "You can use bows with a draw weight 40 kilograms higher than you would normally be able to."
         },
         {
             name: "Charger",
@@ -30,6 +35,11 @@ const Talents = () => {
             cost: "60 experience",
             req: "none",
             desc: "Your Attitude attribute is permanently increased by 5 and you gain advantage on Deception skill tests."
+        },
+        {
+            name: "Dagger Training",
+            cost: "15 experience",
+            desc: "You score a critical hit on Close Combat skill tests made with daggers if the number on the die is 20% of your Close Combat skill or less."
         },
         {
             name: "Flurry",
@@ -146,16 +156,20 @@ const Talents = () => {
             desc: "Awareness skill tests made to perceive you are made with a +20 penalty."
         },
         {
-            name: "Spear Master",
+            name: "Spear Training",
             cost: "20 experience",
-            req: "none",
-            desc: "When you hit a creature with a weapon attack using a spear for the first time each turn, you may immediately make a second weapon attack with the same spear. The second attack must be made with one hand and can be against any target within range."
+            desc: "Can be purchased twice\n\n While wielding a single spear and no other weapons, you may make an additional attack with a spear whenever you take the Melee Attack Combat Action to attack with a spear, so long as you switch how many hands you are wielding the spear with (2 handed -> 1 handed, or vice versa). This additional attack can be made at any point during your turn."
         },
         {
-            name: "Swordsman",
+            name: "Staff Training",
             cost: "20 experience",
+            desc: "Can be purchased twice\n\n You gain advantage on Close Combat skill tests made to block an attack while wielding a staff. Additionally, you gain a -20 bonus to and deal 3 additional force damage on called shot attack rolls made with a staff."
+        },
+        {
+            name: "Sword Training",
+            cost: "5 experience",
             req: "Fundamental Sword",
-            desc: "You have a -10 bonus to attack rolls made with swords and skill tests made to parry an attack while wielding a sword."
+            desc: "Can be purchased twice if you have Intermediate Sword Path Attainment, and up to 3 times if you have Master Sword Path Attainment\n\n You may make an additional attack with a sword whenever you take the Melee Attack Combat Action to attack with a sword. This additional attack can be made at any point during your turn, and does not count towards your total attacks when Multi-weapon Fighting. Additionally, you gain a -20 bonus to Close Combat skill tests made to parry an attack while wielding a sword."
         },
         {
             name: "Tough",
@@ -170,10 +184,10 @@ const Talents = () => {
             desc: "Once per turn, when you activate a Fire Path Gu of the same rank as you, you may expend twice its primeval essence cost to activate a Fire Path Gu of a lower rank than you for free, without spending an activation."
         },
         {
-            name: "Weapon Training",
+            name: "Gu Training",
             cost: "15 experience",
             req: "none",
-            desc: "Can be purchased up to 3 times\n\nWhen you purchase this talent, pick a class of mundane weapons (daggers, swords, spears, staves, or bows) or a single Gu.\n\nYou gain a -10 bonus on Close Combat and Ranged Attack skill tests made with the chosen weapon for each time you’ve purchased this talent and selected that weapon. Higher ranked versions of a Gu are typically close enough in form to the original for the bonus to apply to them."
+            desc: "Can be purchased up to 3 times\n\nWhen you purchase this talent, pick a single Gu.\n\nYou gain a -10 bonus on Close Combat and Ranged Attack skill tests made with the chosen Gu for each time you’ve purchased this talent and selected that weapon."
         },
         {
             name: "Well Fed",

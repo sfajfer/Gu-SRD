@@ -33,7 +33,7 @@ const Flying = () => {
 
                 <p className="rule-subheading">Dive</p>
                 <p className="rule-text">
-                    You must be at least 5 meters above the ground to perform a Dive. Make a Flying skill test. On a success, you dive down a distance of up to triple your flying speed, and can move up to your flying speed in meters forward. When you finish a Dive, you may make a single weapon or punch attack or activate a Gu with a range of touch targeting a creature within your melee range. Whether you do or not, you can try to execute a Land maneuver or else rise 1 meter directly upward at the end of the dive.
+                    You must be at least 5 meters above the ground to perform a Dive. Make a Flying skill test. On a success, you dive down a distance of up to triple your flying speed, and can move up to your flying speed in meters forward. When you finish a Dive, you may expend your *Combat Action* to make a single weapon or punch attack or use an *Activation* to activate a Gu with a range of touch targeting a creature within your melee range. Whether you do or not, you can try to execute a Land maneuver or else rise 1 meter directly upward at the end of the dive.
                 </p>
                 <p className="rule-text">
                     If you make a weapon or punch attack at the end of your dive, it deals additional force damage equal to your flying speed.

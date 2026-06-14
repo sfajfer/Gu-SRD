@@ -55,7 +55,7 @@ const Cultivation = () => {
 
                 <p className="rule-subheading">Small Realms</p>
                 <p className="rule-text">
-                    When you’re attempting to break through a small realm, the walls retain any damage done by your primeval essence; thus you can slowly break through over time.
+                    When you’re attempting to break through a small realm, the walls do not regenerate; thus you can slowly break through over time.
                 </p>
                 <p className="rule-text">
 	                For every 2 sequential hours that you spend cultivating, make a Cultivation skill test. You bank a number of hours according to the Aptitude vs Hours Banked table whether or not you succeed, but on a failure, you take damage to your soul equal to the number of degrees of failure on the test, with fumbles counting as an additional degree of failure. On a critical success, you bank an additional hour of cultivation.

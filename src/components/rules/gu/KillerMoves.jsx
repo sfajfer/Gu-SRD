@@ -75,7 +75,7 @@ const KillerMoves = () => {
 
                 <p className="rule-subheading">Shields</p>
                 <p className="rule-text">
-                    If your killer move has the [Shield] keyword, it has a total pool of hit points equal to the sum of the current hit points of all [Shield] Gu involved; any damage assigned to the killer move's hit points are dealt to the component Gu when you stop deactivating the killer move or if the killer move's hit points are reduced to 0. When this happens, you must assign the damage to any number of [Shield] Gu in the killer move in any way you wish to divide it, but of course you cannot assign more damage to a Gu than its current hit points.
+                    If your killer move has the [Shield] keyword, damage that it blocks can be assigned freely to any core [Shield] Gu in the killer move, following the ordinary [Shield] keyword rules.
                 </p>
 
                 <p className="rule-subheading">Restrictions</p>
@@ -101,7 +101,7 @@ const KillerMoves = () => {
 
                 <p className="rule-subheading">Activating a Killer Move</p>
                 <p className="rule-text">
-                    Killer moves can be activated with the Activate a Killer Move Combat Action, but can be quite taxing on the soul depending on their complexity. Pick a killer move for which you have all the Gu and enough primeval essence for all activations. For every activation in the killer move over your Activations attribute, take 1 damage to your soul. The killer move activates, applying its effect. If the killer move has the [Sustained] keyword, you take 1 damage to your soul any time you activate a Gu while sustaining the killer move.
+                    Killer moves can be activated with the Activate a Killer Move Combat Action, but can be quite taxing on the soul depending on their complexity. Pick a killer move for which you have all the Gu and enough primeval essence for all activations. For every activation in the killer move over your Activations attribute, take 1 damage to your soul. The killer move activates, applying its effect. If the killer move has the [Sustained] keyword, you take 1 damage to your soul any time you activate a Gu while sustaining the killer move, and the killer move immediately deactivates if any core or supplementary Gu dies.
                 </p>
             </main>
         </div>

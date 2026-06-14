@@ -54,7 +54,7 @@ const CombatActions = () => {
 
                 <p className="rule-subheading">Grapple</p>
                 <p className="rule-text">
-                    Select an enemy of equal or lesser size in an adjacent square. Roll an opposed <Link className="rule-link" to="/rules/skills#athletics">Athletics</Link> skill test against them. If you win, The creature is restrained and now occupies the same square as you while restrained in this way. While you are grappling a creature, you may not make kicking attacks and the number of free hands you can make punch attacks with using the Melee Attack action is reduced by 1.
+                    Select an enemy of equal or lesser size in an adjacent square. Roll an opposed <Link className="rule-link" to="/rules/skills#athletics">Athletics</Link> skill test against them. If you win, The creature is *restrained* and now occupies the same square as you while restrained in this way. While you are grappling a creature, you may not make kicking attacks and the number of free hands you can make punch attacks with using the Melee Attack *Combat Action* is reduced by 1.
                 </p>
                 <p className="rule-text">
                     You may expend your movement to make an <Link className="rule-link" to="/rules/skills#athletics">Athletics</Link> skill test, with a +10 penalty for every 50 kilograms the grappled target weighs. On a success, you can move up to half your movement (rounded down).
