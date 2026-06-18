@@ -44,17 +44,16 @@ const RunningTheGame = () => {
                     Combat encounters can be judged by the Challenge Rating (CR) of all creatures in the encounter. The lowest CR a creature can have is 0, representing mortal threats like common wolves and humans without any Gu. 
                 </p>
                 <p className="rule-text">
-                    CR then jumps to 11. The first digit represents the rank of the threat, and the 2nd digit represents the estimated strength of the threat from 1-5. 
+                    Challenge Rating then jumps to 11. The first digit represents the rank of the threat, and the 2nd digit represents the estimated strength of the threat from 1-4. 
                 </p>
                 <p className="rule-text" style={{ paddingLeft: '20px', borderLeft: '2px solid #444', textIndent: '0' }}>
                     • <strong>1</strong> represents initial stage<br />
                     • <strong>2</strong> middle stage<br />
                     • <strong>3</strong> upper stage<br />
                     • <strong>4</strong> peak stage<br />
-                    • <strong>5</strong> means the threat is especially strong for its rank and may even be able to challenge weaker threats in the rank above it.
                 </p>
                 <p className="rule-text">
-                    CR caps at 54, for no mortal Gu Master could ever pose a threat to a Gu Immortal.
+                    When designing encounters, it's easy enough to compare power levels by checking the Challenge Ratings of the party and comparing it to the Challenge Ratings of the enemies. If a threat is a rank above any party member's, it poses a deadly challenge. If a threat is 2 ranks above the party, it should be nearly impossible for them to face it without outside assistance or extensive preparation. CR caps at 54; it is advised to use immortal threats and Gu Immortals sparingly and with the proper deference. They are godlike existences compared to even the strongest rank 5 Gu Masters.
                 </p>
             </main>
         </div>
