@@ -3,37 +3,73 @@ import { Link } from 'react-router-dom';
 import { searchIndex } from '../searchIndex'; // Adjust this path if necessary
 import './Styles.css';
 
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+
+const SECTIONS = [
+  {
+    title: 'Introduction',
+    desc: 'Basic rules of the world, character creation, and progression',
+    chapters: [
+      'The Aperture', 'Primeval Essence', 'Primeval Stones',
+      'The World', 'The Dice Mechanic', 'Running the Game',
+      'Character Creation', 'Attributes', 'Skills', 'Cultivation',
+      'Downtime', 'Talents', 'Refinement Techniques', 'Attainment'
+    ]
+  },
+  {
+    title: 'Gu',
+    desc: 'How Gu work, how to create them, and how to combine their effects into killer moves.',
+    chapters: [
+      'Gu', 'Refinement Recipes', 'Creating Unique Gu', 'Gu Keywords', 'Path Compatibilities',
+      'Enslavement Path (Unfinished)', 'Killer Moves',
+      'Formations (Unfinished)', 'Gu Houses (Unfinished)'
+    ]
+  },
+  {
+    title: 'Combat',
+    desc: 'Actions, movement, damage, and the battlefield',
+    chapters: [
+      'Actions and the Initiative, The Turn', 'Movement', 'Flying',
+      'Combat Actions', 'Reactions', 'Damage', 'Ranges', 'High Ground',
+      'Cover', 'Light', 'Status Effects'
+    ]
+  },
+  { title: 'Gear', desc: 'Equipment and outfitting', chapters: ['Gear', 'Rock Gambling'] },
+  { title: 'Bestiary', desc: '', chapters: ['Beasts'] }
+];
+
+const ChevronIcon = ({ open }) => (
+  <span className={`directory-chevron${open ? ' open' : ''}`}>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  </span>
+);
+
 const RulesDirectory = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [openSections, setOpenSections] = useState(() => SECTIONS.map(() => true));
 
-  const slugify = (text) => 
+  const slugify = (text) =>
     (text || '')
         .toLowerCase()
         .replace(/[^\w ]+/g, '')
         .replace(/ +/g, '-');
 
-  const groups = [
-    [
-      "The Aperture", "Primeval Essence", "Primeval Stones", 
-      "The World", "The Dice Mechanic", "Running the Game", 
-      "Character Creation", "Attributes", "Skills", "Cultivation", 
-      "Downtime", "Talents", "Refinement Techniques", "Attainment"
-    ],
-    [
-      "Gu", "Refinement Recipes", "Creating Unique Gu", "Gu Keywords", "Path Compatibilities", 
-      "Enslavement Path (Unfinished)", "Killer Moves", 
-      "Formations (Unfinished)", "Gu Houses (Unfinished)"
-    ],
-    [
-      "Combat", "Actions and the Initiative, The Turn", "Movement", "Flying", 
-      "Combat Actions", "Reactions", "Damage", "Ranges", "High Ground", 
-      "Cover", "Light"
-    ],
-    ["Status Effects"],
-    ["Gear"],
-    ["Rock Gambling"],
-    ["Beasts"]
-  ];
+  const toggleSection = (idx) => {
+    setOpenSections((prev) => prev.map((val, i) => (i === idx ? !val : val)));
+  };
+
+  const allOpen = openSections.every(Boolean);
+  const toggleAll = () => setOpenSections(SECTIONS.map(() => !allOpen));
+
+  const scrollToSection = (idx) => {
+    setOpenSections((prev) => prev.map((val, i) => (i === idx ? true : val)));
+    // Wait a tick so the section is expanded before scrolling to it
+    requestAnimationFrame(() => {
+      document.getElementById(`rules-section-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
 
   const getSearchTokens = (term) => term.toLowerCase().trim().split(/\s+/).filter(t => t.length > 0);
 
@@ -41,10 +77,10 @@ const RulesDirectory = () => {
   const rawResults = searchIndex.filter(page => {
     const tokens = getSearchTokens(searchTerm);
     if (tokens.length === 0) return false;
-    
+
     const title = (page.title || '').toLowerCase();
     const content = (page.content || '').toLowerCase();
-    
+
     return tokens.every(token => title.includes(token) || content.includes(token));
   });
 
@@ -61,7 +97,7 @@ const RulesDirectory = () => {
   const getSnippetAndHighlight = (content, term) => {
     const safeContent = content || '';
     const tokens = getSearchTokens(term);
-    
+
     if (tokens.length === 0) return safeContent.slice(0, 140) + '...';
 
     const lowerContent = safeContent.toLowerCase();
@@ -79,7 +115,7 @@ const RulesDirectory = () => {
     const start = Math.max(0, earliestIdx - 60);
     const end = Math.min(safeContent.length, earliestIdx + 80);
     let snippet = safeContent.slice(start, end);
-    
+
     if (start > 0) snippet = '...' + snippet;
     if (end < safeContent.length) snippet = snippet + '...';
 
@@ -87,7 +123,7 @@ const RulesDirectory = () => {
     const regex = new RegExp(`(${escapedTokens.join('|')})`, 'gi');
     const parts = snippet.split(regex);
 
-    return parts.map((part, i) => 
+    return parts.map((part, i) =>
       tokens.includes(part.toLowerCase()) ? (
         <mark key={`highlight-${i}`} style={{ background: '#c19b41', color: '#000', borderRadius: '2px', padding: '0 2px', fontWeight: 'bold' }}>
           {part}
@@ -105,120 +141,137 @@ const RulesDirectory = () => {
           <div className="gu-title">RULES DIRECTORY</div>
           <div className="gu-subtitle">Master of Gu SRD</div>
         </div>
-        <Link to="/" className="rule-directory-button" style={{ textDecoration: 'none' }}>
-          Gu Index
-        </Link>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <a
+            href="/pdfs/Southern Border Master of Gu.pdf"
+            download
+            className="rule-directory-button"
+            style={{ textDecoration: 'none' }}
+          >
+            Download PDF
+          </a>
+          <Link to="/" className="rule-directory-button" style={{ textDecoration: 'none' }}>
+            Gu Index
+          </Link>
+        </div>
+
       </header>
 
       <main className="gu-main" style={{ padding: '20px' }}>
         <div className="rules-container" style={{ maxWidth: '800px', margin: '0 auto' }}>
-          
-          <div style={{ marginBottom: '30px' }}>
+
+          <div className="directory-search-wrap">
             <input
               type="text"
               placeholder="Search all rules content (e.g., 'luck', 'stealth')..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px 16px',
-                fontSize: '1.1rem',
-                borderRadius: '8px',
-                border: '1px solid #444',
-                background: '#222',
-                color: '#e0e0e0',
-                boxSizing: 'border-box',
-                outline: 'none',
-                transition: 'border-color 0.2s'
-              }}
-              onFocus={(e) => e.target.style.borderColor = '#c19b41'}
-              onBlur={(e) => e.target.style.borderColor = '#444'}
+              className="directory-search"
             />
           </div>
 
           {isSearching ? (
             <div className="search-results">
-              <h3 style={{ color: '#c19b41', marginBottom: '15px', fontSize: '1.3rem' }}>
+              <h3 className="directory-results-header">
                 Search Results ({searchResults.length})
               </h3>
-              
+
               {searchResults.length > 0 ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="directory-results-list">
                   {searchResults.map((result, index) => (
-                    <Link 
-                      key={`${result.title || 'untitled'}-${index}`} 
+                    <Link
+                      key={`${result.title || 'untitled'}-${index}`}
                       to={`/rules/${slugify(result.title)}`}
-                      className="rule-link"
-                      style={{ 
-                        display: 'block',
-                        color: '#e0e0e0', 
-                        textDecoration: 'none', 
-                        fontSize: '1.15rem',
-                        padding: '14px 16px',
-                        background: '#1a1a1a',
-                        borderRadius: '6px',
-                        borderLeft: '4px solid #c19b41',
-                        transition: 'background 0.2s, transform 0.1s'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#252525';
-                        e.currentTarget.style.transform = 'translateX(4px)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#1a1a1a';
-                        e.currentTarget.style.transform = 'translateX(0)';
-                      }}
+                      className="directory-result-card"
                     >
-                      <div style={{ fontWeight: 'bold', color: '#fff', marginBottom: '6px' }}>
+                      <div className="directory-result-title">
                         {result.title}
                       </div>
-                      <div style={{ fontSize: '0.95rem', color: '#b0b0b0', lineHeight: '1.4' }}>
+                      <div className="directory-result-snippet">
                         {getSnippetAndHighlight(result.content, searchTerm)}
                       </div>
                     </Link>
                   ))}
                 </div>
               ) : (
-                <div style={{ color: '#888', fontSize: '1.1rem', textAlign: 'center', marginTop: '40px' }}>
+                <div className="directory-empty">
                   No rules matches found for "{searchTerm}".
                 </div>
               )}
             </div>
           ) : (
-            groups.map((group, groupIdx) => (
-              <React.Fragment key={`group-${groupIdx}`}>
-                <div className="rules-group" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {group.map((rule) => (
-                    rule === "Combat" ? (
-                      <div key={`header-${rule}`} style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#c19b41', marginTop: '5px' }}>
-                        Combat
+            <>
+              <nav className="directory-jumpnav">
+                {SECTIONS.map((section, idx) => (
+                  <span
+                    key={`jump-${idx}`}
+                    className="directory-jump-pill"
+                    onClick={() => scrollToSection(idx)}
+                  >
+                    <span className="num">{ROMAN[idx]}</span> {section.title}
+                  </span>
+                ))}
+              </nav>
+
+              <div className="directory-toolbar">
+                <button type="button" className="directory-toggle-all" onClick={toggleAll}>
+                  {allOpen ? 'Collapse All' : 'Expand All'}
+                </button>
+              </div>
+
+              {SECTIONS.map((section, idx) => {
+                const isOpen = openSections[idx];
+                const isSingle = section.chapters.length === 1;
+                return (
+                  <div key={`section-${idx}`} id={`rules-section-${idx}`} className="directory-section">
+                    <div
+                      className="directory-section-header"
+                      onClick={() => toggleSection(idx)}
+                      role="button"
+                      aria-expanded={isOpen}
+                    >
+                      <div className="directory-section-num">{ROMAN[idx]}</div>
+                      <div className="directory-section-titles">
+                        <div className="directory-section-title">{section.title}</div>
+                        <div className="directory-section-desc">{section.desc}</div>
                       </div>
-                    ) : (
-                      <Link 
-                        key={`link-${rule}`} 
-                        to={`/rules/${slugify(rule)}`}
-                        className="rule-link"
-                        style={{ 
-                          color: '#e0e0e0', 
-                          textDecoration: 'none', 
-                          fontSize: '1.1rem',
-                          padding: '4px 8px',
-                          borderRadius: '4px',
-                          transition: 'background 0.2s'
-                        }}
-                        onMouseEnter={(e) => e.target.style.background = '#333'}
-                        onMouseLeave={(e) => e.target.style.background = 'transparent'}
-                      >
-                        {rule}
-                      </Link>
-                    )
-                  ))}
-                </div>
-                {groupIdx < groups.length - 1 && (
-                  <hr style={{ border: '0', borderTop: '1px solid #444', margin: '25px 0' }} />
-                )}
-              </React.Fragment>
-            ))
+                      <div className="directory-section-count">
+                        {section.chapters.length} {section.chapters.length === 1 ? 'page' : 'chapters'}
+                      </div>
+                      <ChevronIcon open={isOpen} />
+                    </div>
+
+                    {isOpen && (
+                      <div className="directory-section-body">
+                        {isSingle ? (
+                          <Link
+                            to={`/rules/${slugify(section.chapters[0])}`}
+                            className="directory-single-link"
+                          >
+                            {section.chapters[0]}
+                          </Link>
+                        ) : (
+                          <div className="directory-grid">
+                            {section.chapters.map((rule, chapterIdx) => (
+                              <Link
+                                key={`link-${rule}`}
+                                to={`/rules/${slugify(rule)}`}
+                                className="directory-chapter-link"
+                              >
+                                <span className="directory-chapter-index">
+                                  {String(chapterIdx + 1).padStart(2, '0')}
+                                </span>
+                                <span>{rule}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </>
           )}
         </div>
       </main>

@@ -32,17 +32,19 @@ const Attainment = () => {
                 </p>
                 <p className="rule-text">
                     You become familiar with the core teachings of [Path], and you gain the following benefits:<br />
-                    •    You gain an additional Bonus Action that can only be used to activate a single [Path] Gu on your turn.<br />
+                    •    You gain a -20 bonus to all Refinement and Knowledge (Gu) skill tests to refine or identify [Path] Gu.<br />
+                    •    You gain a -20 bonus to Refinement skill tests made to improve or create refinement recipes for [Path] Gu.<br />
                     •    You can improve refinement recipes for [Path] Gu.<br />
                     •    You can deduce killer moves whose core Gu includes [Path] Gu.
                 </p>
 
                 <strong className="rule-text" style={{ display: 'block', fontSize: '1.2rem', marginTop: '25px', color: '#c19b41' }}>Intermediate</strong>
                 <p className="rule-text" style={{ fontStyle: 'italic', opacity: 0.8, marginBottom: '10px' }}>
-                    Threshold: 120 experience
+                    Threshold: 100 experience
                 </p>
                 <p className="rule-text">
                     Your understanding of [Path] has reached a qualitative change, and you gain the following benefits:<br />
+                    •    You gain an additional Bonus Action that can only be used to activate a single [Path] Gu on your turn.<br />
                     •    You gain a -20 bonus to all Refinement and Knowledge (Gu) skill tests to refine or identify [Path] Gu.<br />
                     •    You gain a -20 bonus to Refinement skill tests made to improve or create refinement recipes for [Path] Gu.<br />
                     •    You gain a -10 bonus on Deduction skill tests made to deduce killer moves if they have a [Path] Gu in its core.<br />

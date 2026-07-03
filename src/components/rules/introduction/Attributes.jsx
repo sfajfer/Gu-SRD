@@ -23,19 +23,19 @@ const Attributes = () => {
                     Primary attributes are a generalized measure of your body and mind. The base values of each of your skills are derived from these attributes. All Attribute scores start at 20 before you spend any experience to improve them. Improving an attribute also increases the value of all derived <Link className="rule-link" to="/rules/skills">skills</Link> and secondary attributes.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Agility</strong> - Agility is used to dodge attacks, fight in close quarters, and to maneuver in the air.
+                    <strong className="rule-bold">Agility</strong> - Agility is used to dodge attacks, fight in close quarters, and to maneuver in the air. Every 20 points of Agility increases your Movement and the number of Reactions you can take each turn by 1.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Fortitude</strong> - Fortitude determines your Hit Points, Perseverance, and Strength.
+                    <strong className="rule-bold">Fortitude</strong> - Fortitude determines your Hit Points, Strength, and is a major factor in your Perseverance.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Cognition</strong> - Your intelligence and reasoning skills. Used to create refinement recipes, remember information, and to fight in both close and ranged combat.
+                    <strong className="rule-bold">Cognition</strong> - The speed at which you think and make decisions. Used to create killer moves, refinement recipes, and to fight in ranged combat. Every 20 points of Cognition increases the number of Gu you can activate each turn by 1.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Wisdom</strong> - Wisdom increases your speed of cultivation, how often you succeed when refining Gu, and <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> of your surroundings.
+                    <strong className="rule-bold">Wisdom</strong> - Wisdom increases your speed of cultivation, how often you succeed when refining Gu, and <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> of your surroundings. It also represents your accumulated knowledge of the world. Every 20 points of Wisdom increases the number of Gu you can activate each turn by 1.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Attitude</strong> - Attitude represents your understanding of human nature, relationships, and emotions. A higher attitude makes it easier to deceive and persuade others, and to know when others are deceiving you. It also is a minor factor in your Perseverance.
+                    <strong className="rule-bold">Attitude</strong> - Attitude represents your understanding of human nature, relationships, and emotions. A higher attitude makes it easier to deceive and persuade others, and to know when others are deceiving you. It also is a minor factor in your Perseverance and determines how strong your Soul is.
                 </p>
 
                 <p className="rule-subheading">Secondary Attributes</p>
@@ -55,16 +55,16 @@ const Attributes = () => {
                     If your Strength attribute is ever reduced to 0, you immediately fall unconscious. If it remains 0 for a minute straight, you die.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Perseverance</strong> - Your Perseverance is your ability to endure great pain and stress, and is equal to the sum of your Fortitude and 1/2 of your Attitude, rounded down. Perseverance is rolled when you hit 0 Hit Points.
+                    <strong className="rule-bold">Perseverance</strong> - Your Perseverance is your ability to endure great pain and stress, and is equal to the sum of your Fortitude and half of your Attitude, rounded down. Perseverance is rolled when you hit 0 Hit Points.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold" style={{ color: '#603dd4' }}>Soul</strong> - Your Soul score is a literal representation of the strength of your soul. Your starting Soul value is 10, and if your current soul is ever less than half of its maximum (rounded down), you have the fatigued condition until your soul is restored to at least half strength. Refining Gu, cultivating, and controlling beast groups all drain the strength of your soul, while sleeping restores it. Many Soul Path Gu also use the strength of your soul to determine their strength when activated. If your current soul ever hits 0 points, you die. When you sleep, your soul recovers 10% of its maximum (rounded down) for every hour spent sleeping. Sleeping for at least 10 hours fully rejuvenates your soul, regardless of rounding.
+                    <strong className="rule-bold" style={{ color: '#603dd4' }}>Soul</strong> - Your Soul score is a literal representation of the strength of your soul. Your starting Soul value is 6 + 20% of your Attitude, and if your current soul is ever less than half of its maximum (rounded down), you have the fatigued condition until your soul is restored to at least half strength. Refining Gu, cultivating, and controlling beast groups all drain the strength of your soul, while sleeping restores it. Many Soul Path Gu also use the strength of your soul to determine their strength when activated. If your current soul ever hits 0 points, you die. When you sleep, your soul recovers 10% of its maximum (rounded down) for every hour spent sleeping. Sleeping for at least 10 hours fully rejuvenates your soul, regardless of rounding.
                 </p>
                 <p className="rule-text">
-                    Your soul begins at 10, the single-man soul. Many Soul Path Gu can strengthen your soul and increase this value. Whenever your soul takes 1/2 or more of its maximum value in soul damage (rounded down) on a single turn, roll 1d6 and reduce the maximum value of your soul by that amount.
+                    Your base soul value is 6 + 20% of your Attitude, and represents the single-man soul. Many Soul Path Gu can strengthen your soul and increase this value. Whenever your soul takes half or more of its maximum value in soul damage (rounded down) on a single turn, roll 1d6 and reduce the maximum value of your soul by that amount.
                 </p>
                 <p className="rule-text">
-                    When your soul reaches strength 100, you have the ten-man soul. It has the proper strength to sustain damage; you no longer lose maximum soul when you take more than 1/2 of your souls maximum in soul damage.
+                    When your soul reaches strength 100, you have the ten-man soul. It has the proper strength to sustain damage; you no longer lose maximum soul when you take more than half of your soul's maximum in soul damage.
                 </p>
                 <p className="rule-text">
                     When your soul reaches strength 1,000, you have the hundred-man soul. If you have not refined your soul using Gu, this is the maximum strength achievable. If your soul increases in strength above 1009 without being refined, your soul explodes and you die, with resurrection being impossible.
@@ -79,7 +79,10 @@ const Attributes = () => {
                     Non-player characters do not usually have any luck points, but feel free to give tougher enemies one or even multiple if they're meant to be especially strong.
                 </p>
                 <p className="rule-text">
-                    <strong className="rule-bold">Activations</strong> - When you take the Activate Gu Combat Action, you can activate a number of Gu equal to your Activations. You have a number of Activations equal to 5% of (Wisdom + Cognition), rounding down to a minimum of 1. To make this calculation easier, consider that for every 20 score you have in both attributes, this number will increase by 1. Shang Liu has a Cognition of 46 and a Wisdom of 37. With a total of 83 and every 20 combined score giving 1 Activation, brings his total Activations to 4.
+                    <strong className="rule-bold">Activations</strong> - When you take the Activate Gu Combat Action, you can activate a number of Gu equal to your Activations. You have a number of Activations equal to 5% of (Cognition + Wisdom), rounding down to a minimum of 1.
+                </p>
+                <p className="rule-text">
+                    <strong className="rule-bold">Reactions</strong> - Reactions are a major factor in combat, and you can make up to 1 + 5% of your Agility (rounded down) Reactions each turn. Reactions can be used to dodge attacks, counterattack, and to activate certain Gu in response to an enemy’s actions.
                 </p>
                 <p className="rule-text">
                     <strong className="rule-bold">Aptitude</strong> - Your Gu Master’s aptitude is incredibly important to their cultivation and battle strength. A higher aptitude means greater primeval essence, meaning your Gu Master can fight for longer and cultivate quicker. Aptitude is mostly immutable, but some Gu exist to raise or even lower a Gu Master’s aptitude.
