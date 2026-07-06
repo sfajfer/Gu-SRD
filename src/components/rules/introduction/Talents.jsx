@@ -175,7 +175,7 @@ const Talents = () => {
             name: "Tough",
             cost: "60 experience",
             req: "none",
-            desc: "Cannot be learned through downtime\n\nYour base hit points are equal to twice your Fortitude."
+            desc: "Cannot be learned through downtime\n\nYour base hit points are equal to twice your Fortitude. Increasing your Fortitude Attribute costs only 5 experience per point, even when increasing it beyond 50."
         },
         {
             name: "Twice as Bright, Twice as Fast",
