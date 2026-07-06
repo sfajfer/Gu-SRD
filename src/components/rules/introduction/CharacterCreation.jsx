@@ -5,11 +5,11 @@ import '../../Styles.css';
 const CharacterCreation = () => {
 
     const sizeCreationData = [
-        { rank: 'Tiny', mod: 'The size of an insect. Attack rolls against [Tiny] targets have a +40 penalty and [Tiny] creatures have their Close Combat skill reduced by 20.'},
-        { rank: 'Small', mod: 'The size of a child. Attack rolls against [Small] targets have a +20 penalty and [Small] creatures have their Close Combat skill reduced by 10.' },
+        { rank: 'Tiny', mod: 'The size of an insect. Attack rolls against [Tiny] targets have a +40 penalty and [Tiny] creatures have their base Close Combat skill reduced by 20.'},
+        { rank: 'Small', mod: 'The size of a child. Attack rolls against [Small] targets have a +20 penalty and [Small] creatures have their base Close Combat skill reduced by 10.' },
         { rank: 'Medium', mod: 'The size of a man. No modifiers.' },
-        { rank: 'Large', mod: '[Large] things take up 4 squares when outside of an aperture. Attack rolls against [Large] targets have a -20 bonus and [Large] creatures have their Close Combat skill increased by 10.' },
-        { rank: 'Huge', mod: '[Huge] things take up 9 or more squares when outside of an aperture. Attack rolls against [Huge] targets have a -40 bonus and [Huge] creatures have their Close Combat skill increased by 40.' }
+        { rank: 'Large', mod: '[Large] things take up 4 squares when outside of an aperture. Attack rolls against [Large] targets have a -20 bonus and [Large] creatures have their base Close Combat skill increased by 20.' },
+        { rank: 'Huge', mod: '[Huge] things take up 9 or more squares when outside of an aperture. Attack rolls against [Huge] targets have a -40 bonus and [Huge] creatures have their base Close Combat skill increased by 40.' }
     ];
 
     return (

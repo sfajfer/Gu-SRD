@@ -50,10 +50,10 @@ const ActionsAndTheTurn = () => {
 
                 <p className="rule-subheading">Reactions</p>
                 <p className="rule-text">
-                    Reactions are a very important part of the action economy. Almost all creatures, including you, have a base of 2 Reactions each turn. You can react to any action, event, or effect that you perceive, and you may do so at any time, during your own or another creature's turn. Your total Reactions are replenished at the start of each of your turns up to your maximum (base 2). You cannot use multiple Reactions to the same trigger, for example, dodging and activating a shield Gu when an attack hits you.
+                    You can react to any action, event, or effect that you perceive, and may do so at any time, during your own or another creature's turn. Your total Reactions are replenished at the start of each of your turns up to your maximum (base 1 + 5% of your Agility, rounded down). You cannot use multiple Reactions to the same trigger, for example, dodging and activating a shield Gu when an attack hits you. Gu activations are imperceptible and cannot be reacted to; you must react to the effects of the Gu, such as when you're hit by an attack from it, an area of effect is created, or when an enemy is healed.
                 </p>
                 <p className="rule-text">
-                    Since Reactions can be taken to any trigger, deciding when to use them is a crucial part of combat. Since the <Link className="rule-link" to="/rules/reactions#dodge">Dodge</Link> Reaction moves you, it can be used when an enemy approaches to stay out of reach, or even on your own turn to close a bit more distance.
+                    Reactions can be taken to any trigger, making the decision of when to use them a crucial part of combat. Since the <Link className="rule-link" to="/rules/reactions#dodge">Dodge</Link> Reaction moves you, it can be used when an enemy approaches to stay out of reach, or even on your own turn to close a bit more distance.
                 </p>
             </main>
         </div>
