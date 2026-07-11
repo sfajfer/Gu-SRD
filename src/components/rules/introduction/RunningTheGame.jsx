@@ -41,7 +41,13 @@ const RunningTheGame = () => {
 
                 <p className="rule-subheading">Encounter Difficulty</p>
                 <p className="rule-text">
-                    Combat encounters can be judged by the Challenge Rating (CR) of all creatures in the encounter. The lowest CR a creature can have is 0, representing mortal threats like common wolves and humans without any Gu. 
+                    Combat encounters can be judged by the <i>Battle Strength</i> of all creatures in the encounter. The lowest <i>Battle Strength</i> a creature can have is 1, representing a common Chaff beast like an insect or bird. For the <i>Battle Strength</i> of beasts, see Chapter 5: Southern Border. The base <i>Battle Strength</i> for a Gu Master is &#123;10, 100, 500, 5,000, 50,000&#125;.
+                </p>
+                <p className="rule-text">
+                    The base <i>Battle Strength</i> assumes the Gu Master has some Gu already of the previous rank, except of course for rank 1 Gu Masters. This base value is increased by 10% for every 100 maximum portions of primeval essence in their aperture. <i>Battle Strength</i> is then increased by however many Gu the Gu Master has of the same rank as themselves, with each Gu adding &#123;50, 100, 250, 1,000, 20,000&#125; to the total <i>Battle Strength</i>.
+                </p>
+                <p className="rule-text">    
+                    This number is not a perfect representation since Gu Masters might have higher statistics or advanced killer moves, but it gives a good idea of how strong a threat is compared to the players. If the <i>Battle Strength</i> of the threat is more than double the combined <i>Battle Strength</i> of the party, the encounter is considered deadly. If it is less than half, it is considered trivial.
                 </p>
                 <p className="rule-text">
                     Challenge Rating then jumps to 11. The first digit represents the rank of the threat, and the 2nd digit represents the estimated strength of the threat from 1-4. 

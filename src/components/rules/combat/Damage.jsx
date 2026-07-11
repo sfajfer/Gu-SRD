@@ -121,6 +121,27 @@ const Damage = () => {
                     When falling from a height of more than 2 meters, you take 3 force damage for every meter you fell.
                 </p>
 
+                <p className="rule-subheading">Collision</p>
+                <p className="rule-text">
+                    A collision occurs when a creature or object moving at a high speed hits another creature or object. In this section, the <em>projectile</em> refers to the creature or object in motion while the <em>defender</em> refers to the creature or object being struck. A collision can be called specifically by the GM, such as if you jumped on a creature or if a boulder is launched at a creature. Usually, though, they occur when explicitly stated by a Gu or effect, such as running into a creature or wall with a burst-movement Gu, or a boar charging a target. If the collision results from a fall, both parties take the full damage of the fall in addition to collision damage.
+                </p>
+
+                <strong className="rule-bold" style={{ textAlign: 'left' }}>Creature vs. Creature</strong>
+                <p className="rule-text">
+                    When a creature <em>projectile</em> collides with a creature <em>defender</em>, the <em>projectile</em> stops in the closest unoccupied square adjacent to the <em>defender</em>, and both creatures take force damage equal to half the other creature's Fortitude Attribute, rounded down to a minimum of 1 force damage.
+                </p>
+                <p className="rule-text">
+                    <strong>Excessive Size Difference:</strong> If one of the creature's Fortitude Attribute is at least double that of the other creature, they take no damage from the collision. If that creature was also the <em>projectile</em>, the <em>defender</em> is instead moved to an adjacent unoccupied square of their choice that is not in the moving creature's trajectory, and the <em>projectile</em> doesn't get stopped by the collision — it just continues as if it had not struck anything, triggering any subsequent collisions like normal.
+                </p>
+
+                <strong className="rule-bold" style={{ textAlign: 'left' }}>Object Collisions</strong>
+                <p className="rule-text">
+                    When a creature is the <em>projectile</em> and an object the <em>defender</em>, the creature takes force damage equal to the hit points of the object and the object takes force damage equal to half the creature's Fortitude Attribute. If the object is destroyed or is more than a single size smaller than the creature, the creature continues as if it had not struck the object, triggering any subsequent collisions like normal. Otherwise, it stops in the closest square adjacent to the creature.
+                </p>
+                <p className="rule-text">
+                    When an object is the <em>projectile</em> and either a creature or an object is the <em>defender</em>, the <em>defender</em> takes force damage equal to 25% of the <em>projectile</em>'s weight in kilograms. If the damage dealt to the <em>defender</em> is enough to instantly kill or to destroy it, the <em>projectile</em> continues as if it had not struck the <em>defender</em>, triggering any subsequent collisions like normal. Otherwise, it stops in the closest square adjacent to the creature.
+                </p>
+
                 <p className="rule-subheading">Injury</p>
                 <p className="rule-text">
                     When a creature takes damage to their hit points greater than or equal to half their maximum (rounded down), some damage types apply a special effect.

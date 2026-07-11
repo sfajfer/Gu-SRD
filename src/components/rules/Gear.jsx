@@ -117,6 +117,11 @@ const Gear = () => {
                     Items that are not intended to be used as weapons deal 4 force or rending damage, depending on the sharpness of the item, and deal 1 additional force damage for every 20 points you have in Strength.
                 </p>
 
+                <p className="rule-subheading">Weapon Coating</p>
+                <p className="rule-text">
+                    Weapons and ammunition can be coated in toxins harvested from beasts or produced by Gu. Daggers, swords, spears, and arrows can all be coated to apply the effect of the coating to a creature whenever they deal damage to that creature's hit points. One dose of a coating can coat a weapon or five pieces of ammunition. The coating wears off after hitting any target five times, or a single time with a piece of ammunition.
+                </p>
+
                 <p className="rule-subheading">Special Rules</p>
                 <p className="rule-text">
                     A creature must be wielding a weapon with the proper number of hands to benefit from any special rules.

@@ -59,7 +59,7 @@ const TheDiceMechanic = () => {
 
                 <p className="rule-subheading">Penalties and Bonuses</p>
                 <p className="rule-text">
-                    Penalties and bonuses are a number added or subtracted from the number you roll on the die during a skill test. The GM can add either to represent the difficulty of the check, using the table below as a guideline. Penalties and bonuses do not have to be round multiples of 10, but they typically are.
+                    Penalties and bonuses are a number added or subtracted from the number you roll on the die during a skill test. The GM can add either to represent the difficulty of the check, using the table below as a guideline. Many Gu and conditions will also apply penalties or bonuses that are added on top of the difficulty. Penalties and bonuses do not have to be round multiples of 10, but they typically are.
                 </p>
 
                 <div className="gu-table-wrap" style={{ marginTop: '30px', marginBottom: '30px' }}>

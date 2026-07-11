@@ -56,7 +56,7 @@ const Skills = () => {
                     Dodge is used as a Reaction to avoid attacks made against you, either melee or ranged.
                 </p>
                 <p className="rule-text">
-                    When you succeed a Dodge skill test, you MUST move at least 1 meter and at most 1/2 your movement (rounded down) in any direction.
+                    When you succeed a Dodge skill test, you MUST move at least 1 meter and at most half of your movement (rounded down) in any direction, even through another creature's space (as long as you don't end in its space). If you succeed with at least 3 degrees of success, this movement does not have to be in a straight line.
                 </p>
 
                 <p id="flying" className="rule-subheading">Flying (Agi)</p>

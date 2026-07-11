@@ -22,7 +22,10 @@ const StatusEffects = () => {
                 <div className="status-effect-text">
                     <p className="rule-subheading">Ablaze</p>
                     <p className="rule-text">
-                    A creature with the <i>ablaze</i> condition is completely engulfed in flames. An <i>ablaze</i> creature cannot have or gain the burning condition. If a creature with the <i>burning</i> condition gains the <i>ablaze</i> condition, the <i>burning</i> condition is removed. At the start of each of their turns, the creature takes 30 heat damage. If a human or variant human takes heat damage to their hit points on a turn from the <i>ablaze</i> condition, at the end of the turn they must succeed a Perseverance attribute test or else fall unconscious. For creatures and Gu invulnerable or resistant to heat damage, consider damage dealt by the <i>ablaze</i> condition to be of the rank of the Gu that applied the <i>ablaze</i> condition, or rank 1 if the fire was natural. Being submerged in water removes the <i>ablaze</i> condition.
+                    A creature with the <i>ablaze</i> condition is completely engulfed in flames. An <i>ablaze</i> creature cannot have or gain the burning condition. If a creature with the <i>burning</i> condition gains the <i>ablaze</i> condition, the <i>burning</i> condition is removed. At the start of each of their turns, the creature takes 30 heat damage. If a human or variant human takes heat damage to their hit points on a turn from the <i>ablaze</i> condition, at the end of the turn they must succeed a Perseverance attribute test or else fall unconscious. For creatures and Gu invulnerable or resistant to heat damage, consider damage dealt by the <i>ablaze</i> condition to be of the rank of the Gu that applied the <i>ablaze</i> condition, or rank 1 if the fire was natural. Being submerged in liquid removes the <i>ablaze</i> condition.
+                    </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> When a Horde gains the <i>ablaze</i> condition, they immediately lose the burning condition if they have it. At the start of each of its turns, the Horde takes 120 heat damage, increasing by 120 heat damage each turn. If a Horde is invulnerable or resistant to heat damage, consider damage dealt by the <i>ablaze</i> condition to be of the rank of the Gu that applied the <i>ablaze</i> condition, or rank 1 if the fire was natural. Being submerged in liquid removes the <i>ablaze</i> condition, as does taking the <i>disperse</i> order.
                     </p>
                 </div>
                  <br />
@@ -48,6 +51,9 @@ const StatusEffects = () => {
                     <p className="rule-text">
                     Some effects like smoke and steam may say they obscure the vision of creatures inside. This does not give the creature the <i>blinded</i> condition; it means all other targets have full cover from them, until the creature leaves the area of effect or uses an [<strong>Investigative: Sight</strong>] Gu to see through the effect.
                     </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> A blinded Horde cannot see and makes half as many attacks as it normally would (rounded down to a minimum of 1), and cannot make <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> skill tests that rely on sight.
+                    </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
@@ -55,12 +61,18 @@ const StatusEffects = () => {
                     <p className="rule-text">
                     Burning creatures take 10 heat damage at the start of each of their turns. For targets invulnerable or resistant to heat damage, consider damage dealt by the burning condition to be of the rank of the Gu that applied the burning condition, or rank 1 if the fire was natural. Being submerged in water removes the burning condition. A creature can use their Combat Action to roll around on the ground, removing the burning condition.
                     </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> At the start of each of its turns, a Horde with the burning condition takes 60 heat damage and rolls 1d2. On a 1, the Horde gains the <i>ablaze</i> condition. For targets invulnerable or resistant to heat damage, consider damage dealt by the burning condition to be of the rank of the Gu that applied the burning condition, or rank 1 if the fire was natural. Being submerged in water removes the burning condition, as does taking the disperse order.
+                    </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Dazed</p>
                     <p className="rule-text">
-                    A dazed creature has their Activations attribute reduced by 2 and gains a +10 penalty to all <Link className="rule-link" to="/rules/skills#dodge">Dodge</Link> skill tests. At the end of their turn, they lose the dazed condition.
+                    A dazed creature has their Activations attribute and the number of Reactions they can take each turn reduced by 2. At the end of their turn, they lose the dazed condition.
+                    </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> A Horde with the dazed condition has its Number of Attacks statistic reduced by 1, to a minimum of 0. At the end of its turn, it loses the dazed condition.
                     </p>
                 </div>
                  <br />
@@ -69,12 +81,21 @@ const StatusEffects = () => {
                     <p className="rule-text">
                     A deafened creature cannot hear, has resistance to sonic damage regardless of the rank of the effect, and cannot make <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> tests that rely on hearing.
                     </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> A deafened Horde cannot hear, has resistance to sonic damage regardless of the rank of the effect, and cannot make <Link className="rule-link" to="/rules/skills#atwareness">Awareness</Link> tests that rely on hearing.
+                    </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Doused</p>
                     <p className="rule-text">
-                    When a creature gains the doused condition, they immediately lose the burning and ablaze conditions if they have one of them. A creature with the doused condition is vulnerable to shock damage, resistant to heat damage, and immune to the burning condition. If a doused creature takes heat damage, they lose the doused condition. The doused condition lasts for 10 minutes.
+                    When a creature gains the doused condition, they immediately lose the burning and ablaze conditions if they have one of them. A creature with the doused condition is vulnerable to cold and shock damage, resistant to heat damage, and immune to the burning condition. If a doused creature takes heat damage, they lose the doused condition. The doused condition lasts for 10 minutes.
+                    </p>
+                    <p className="rule-text">
+                        <strong>Cold Snap:</strong> If a doused creature takes at least 10 cold damage to their hit points in a single turn, they must succeed a Perseverance attibute test or else fall unconscious.
+                    </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> When a Horde gains the doused condition, they immediately lose the burning and ablaze conditions if they have one of them. A Horde with the doused condition is vulnerable to cold and shock damage, resistant to heat damage, and immune to the burning condition. If a doused Horde takes heat damage, they lose the doused condition. The doused condition lasts for 10 minutes.
                     </p>
                 </div>
                  <br />
@@ -93,12 +114,18 @@ const StatusEffects = () => {
                     <p className="rule-text">
                     If a creature can detect an invisible creature via hearing, smell, or detect [Investigative] Gu, the Dodge penalty against their attacks is reduced to +20, and they become a valid target for attacks; attack rolls made against a detected invisible creature are made with a +20 penalty.
                     </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> Every beast in a Horde must be invisible for the Horde to be considered invisible. If the beast comprising the Horde is [Small] or larger, it can still be heard and smelled by nearby creatures unless it is also inaudible or odorless, respectively.
+                    </p>
                 </div>
                  <br />
                 <div className="status-effect-text">
                     <p className="rule-subheading">Poisoned</p>
                     <p className="rule-text">
                     Poison can have any number of effects, and a creature can gain multiple instances of the poisoned condition so long as each is unique.
+                    </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> Most instances of the poisoned condition will also specify what effect they have on Hordes, if any. 
                     </p>
                 </div>
                  <br />
@@ -120,6 +147,9 @@ const StatusEffects = () => {
                     <p className="rule-subheading">Stunned</p>
                     <p className="rule-text">
                     A stunned creature cannot move or take Combat Actions, Bonus Actions or Reactions. At the end of their turn, they lose the stunned condition and gain the dazed condition.
+                    </p>
+                    <p className="rule-text">
+                        <strong>Horde Effect:</strong> A stunned Horde cannot move, receive orders, or attack. At the end of its turn, it loses the stunned condition and gains the dazed condition.
                     </p>
                 </div>
             </p>
