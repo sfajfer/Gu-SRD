@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../Styles.css';
 
-const Gear = () => {
+const Objects = () => {
     const armorData = [
         { armor: "Leather", dt: "4", hp: "20", dodge: "+10", movement: "–" },
         { armor: "Iron", dt: "8", hp: "32", dodge: "+30", movement: "1" },
+        { armor: "Silk", dt: "4", hp: "10", dodge: "–", movement: "–" },
         { armor: "Shield", dt: "4", hp: "15", dodge: "+10", movement: "–" }
     ];
 
@@ -25,11 +26,24 @@ const Gear = () => {
         { draw: "cont.", minStr: "cont.", damage: "cont.", range: "cont." }
     ];
 
+    const materialData = [
+        { material: "Paper", dt: "1" },
+        { material: "Bamboo", dt: "2" },
+        { material: "Wood", dt: "2" },
+        { material: "Silk", dt: "4" },
+        { material: "Stone", dt: "5" },
+        { material: "Jade", dt: "6" },
+        { material: "Iron", dt: "8" },
+        { material: "Bronze", dt: "10" },
+        { material: "Gold", dt: "12" },
+        { material: "Steel", dt: "15" }
+    ];
+
     return (
         <div className="gu-shell">
             <header className="gu-topbar">
                 <div>
-                    <div className="gu-title">Gear</div>
+                    <div className="gu-title">Objects</div>
                     <div className="gu-subtitle">Master of Gu SRD</div>
                 </div>
                 <Link to="/rules" className="rule-directory-button" style={{ textDecoration: 'none' }}>
@@ -40,6 +54,41 @@ const Gear = () => {
             <main className="gu-main" style={{ padding: '20px' }}>
                 <h1 className="rule-heading">Gear</h1>
 
+                <p className="rule-subheading">Objects</p>
+                <p className="rule-text">
+                    Everything except for creatures and Gu are objects. Objects all have a size, as well as a weight in kilograms. The material objects are made of determines their Damage Threshold (DT) — that is, how much damage it can take before the object takes structural damage. Damage beyond the DT is dealt to the object's hit points, which are determined by its size. To find an object's hit points, start with its DT. For [Tiny] objects, that will be the final HP. For every size above [Tiny], double the value.
+                </p>
+                <p className="rule-text">
+                    <em>A [Medium] stone boulder has a DT of 5 from its material. [Medium] is 2 sizes above [Tiny] so the DT gets doubled twice: 5 → 10 → 20 hit points. Including the DT, the stone shatters if dealt 25 points of damage.</em>
+                </p>
+                <p className="rule-text">
+                    Some common materials are listed below:
+                </p>
+
+                {/* Material DT Table */}
+                <div className="gu-table-wrap" style={{ marginBottom: '20px' }}>
+                    <table className="gu-table">
+                        <thead>
+                            <tr>
+                                <th style={{ backgroundColor: '#e67e22', color: 'black', textAlign: 'center', width: '50%' }}>Material</th>
+                                <th style={{ backgroundColor: '#2980b9', color: 'white', textAlign: 'center' }}>DT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {materialData.map((row, idx) => (
+                                <tr key={idx} className="gu-row">
+                                    <td style={{ textAlign: 'center', fontWeight: '500' }}>{row.material}</td>
+                                    <td style={{ textAlign: 'center' }}>{row.dt}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                <strong className="rule-bold" style={{ textAlign: 'left' }}>Walls</strong>
+                <p className="rule-text">
+                    The maximum HP of a wall is determined by its thickness rather than its size. Walls are separated into 1 square meter sections on the grid. The wall has 5 hit points for every centimeter it is thick, multiplied by the DT of its material. Walls thinner than a centimeter have a maximum HP equal to the DT of its material.                
+                </p>
                 <p className="rule-subheading">Armor</p>
                 <p className="rule-text">
                     Armor is seldom seen in the Gu world, except when used by mortals. Armor is heavy and lacks the defensive strength of even some Rank 1 Gu, and thus has little demand. Still, some Gu Masters will use the effects of Gu to augment their armor for better protection.
@@ -187,4 +236,4 @@ const Gear = () => {
     );
 };
 
-export default Gear;
+export default Objects;

@@ -43,7 +43,7 @@ import Reactions from './components/rules/combat/Reactions';
 
 // General Rules Components
 import StatusEffects from './components/rules/StatusEffects';
-import Gear from './components/rules/Gear';
+import Objects from './components/rules/Gear';
 import RockGambling from './components/rules/RockGambling';
 import Beasts from './components/rules/Beasts';
 
@@ -99,7 +99,7 @@ function App() {
 
           {/* Group 4-7: General System Systems */}
           <Route path="/rules/status-effects" element={<StatusEffects />} />
-          <Route path="/rules/gear" element={<Gear />} />
+          <Route path="/rules/objects" element={<Objects />} />
           <Route path="/rules/rock-gambling" element={<RockGambling />} />
           <Route path="/rules/beasts" element={<Beasts />} />
         </Routes>

@@ -34,7 +34,7 @@ const SECTIONS = [
       'Cover', 'Light', 'Status Effects'
     ]
   },
-  { title: 'Gear', desc: 'Equipment and outfitting', chapters: ['Gear', 'Rock Gambling'] },
+  { title: 'Objects', desc: 'Equipment and outfitting', chapters: ['Objects', 'Rock Gambling'] },
   { title: 'Bestiary', desc: '', chapters: ['Beasts'] }
 ];
 

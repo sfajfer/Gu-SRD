@@ -1029,3 +1029,138 @@ tr.gu-expanded-row {
   .directory-section-title { font-size: 1rem; }
   .directory-section-header { padding: 14px 16px; }
 }
+
+/* Beast Class Dropdown */
+.beast-class-dropdown {
+    margin-left: 15px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+    transition: box-shadow var(--transition), border-color var(--transition);
+}
+
+.beast-class-dropdown:focus, .beast-class-dropdown:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.beast-class-dropdown option {
+    background: var(--bg-base);
+    color: var(--text-primary);
+}
+
+/* 11-Column Grid Layout for Top Attributes */
+.statblock-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr) 1.2fr;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.st-cell {
+    padding: 10px 4px;
+    text-align: center;
+    border-right: 1px solid var(--border-dim);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.st-cell:nth-child(11n) {
+    border-right: none;
+}
+
+.st-cell.header {
+    background: var(--bg-raised);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-dim);
+}
+
+.st-cell.value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Touch styles for Fortitude and Fort. Mult. to share the cell border visually */
+.st-cell.touch-right {
+    border-right: none;
+    padding-right: 0;
+    justify-content: flex-end;
+}
+.st-cell.touch-right::after {
+    content: " |";
+    color: var(--border);
+    margin-left: 8px;
+}
+
+.st-cell.touch-left {
+    padding-left: 0;
+    border-left: none;
+    justify-content: flex-start;
+}
+.st-cell.touch-left.header::before, .st-cell.touch-left.value::before {
+    content: ""; /* Space placeholder */
+    margin-right: 8px;
+}
+
+.st-cell.empty {
+    background: transparent;
+}
+
+/* Secondary Statblock Sections (Flight, Horde Rules) */
+.statblock-section {
+    background: var(--bg-base);
+    border: 1px solid rgba(52,211,153,0.15);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.statblock-section .section-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-dim);
+    padding-bottom: 6px;
+}
+
+.section-flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.section-flex-row span strong {
+    color: var(--text-primary);
+    margin-right: 4px;
+}
+
+/* Override expanded grids for mobile spacing if needed */
+@media (max-width: 900px) {
+    .statblock-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .st-cell:nth-child(11n) { border-right: 1px solid var(--border-dim); }
+    .st-cell.touch-right::after { content: none; }
+    .st-cell.touch-right { justify-content: center; padding-right: 4px; border-right: 1px solid var(--border-dim); }
+    .st-cell.touch-left { justify-content: center; padding-left: 4px; }
+    .st-cell.touch-left::before { margin-right: 0; }
+}
