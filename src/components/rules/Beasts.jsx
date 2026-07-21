@@ -3,16 +3,9 @@ import { Link } from 'react-router-dom';
 import '../Styles.css';
 import beastList from '../../assets/beast-index.json';
 
-// --- Shared Helpers ---
-function splitEntry(text) {
-    const idx = text.indexOf(' - ');
-    if (idx === -1) return { label: null, body: text };
-    return { label: text.slice(0, idx), body: text.slice(idx + 3) };
-}
-
 function isFlying(features) {
     for (const feature of features) {
-        const {label, body} = splitEntry(feature);
+        const {label, content: body} = parseLabelAndContent(feature);
         if (label && label.toLowerCase().includes('flier')) {
             return true;
         }
@@ -20,19 +13,138 @@ function isFlying(features) {
     return false;
 }
 
-const EntryList = ({ items, className }) => {
+// --- Formula Tooltip ---
+// Small, dependency-free hover/focus tooltip. Wraps any child (a bolded
+// scaling value, a stat header label, etc.) and reveals `formula` on
+// hover or keyboard focus. No extra package needed - see note below.
+const FormulaTooltip = ({ formula, children }) => {
+    if (!formula) return children;
+    return (
+        <span className="beast-tooltip" tabIndex={0}>
+            {children}
+            <span className="beast-tooltip-bubble" role="tooltip">{formula}</span>
+        </span>
+    );
+};
+
+// --- Attribute Scaling (bracket) parsing ---
+// Maps the abbreviations used inside beast-index.json bracket formulas
+// (e.g. "[2 + 20% Str]") to the beast's current primary attributes.
+// "Str" (Strength) mirrors Fortitude in this ruleset.
+function getAttributeValue(abbr, beast, mod) {
+    const primary = beast.primaryAttributes || {};
+    const lookup = {
+        att: primary.att,
+        wis: primary.wis,
+        cog: primary.cog,
+        agi: primary.agi,
+        fort: primary.fort,
+        str: primary.fort,
+    };
+    const base = lookup[abbr.trim().toLowerCase()];
+    if (base === undefined || base === null) return null;
+    // Beast Kings add a flat bonus to every primary attribute, which
+    // flows into any attribute-based scaling in features/combat actions.
+    return base + (mod?.attr || 0);
+}
+
+// Evaluates a bracket formula like "2 + 20% Str" against a beast's stats.
+// Flat terms are added as-is; percent terms are computed against the
+// referenced attribute and multiplied by the Beast King's Attribute
+// Scaling multiplier (mod.scale), per the King class rules.
+function evaluateFormula(formula, beast, mod) {
+    const scale = mod?.scale ?? 1;
+    const termRegex = /([+-])?\s*(\d+(?:\.\d+)?)\s*(%)?\s*([A-Za-z]+)?/g;
+    let total = 0;
+    let match;
+    while ((match = termRegex.exec(formula)) !== null) {
+        const [full, signRaw, numRaw, pct, attr] = match;
+        if (!numRaw) continue;
+        const sign = signRaw === '-' ? -1 : 1;
+        const num = parseFloat(numRaw);
+        if (pct && attr) {
+            const attrVal = getAttributeValue(attr, beast, mod);
+            total += attrVal === null ? 0 : sign * (num / 100) * attrVal * scale;
+        } else {
+            total += sign * num;
+        }
+    }
+    return Math.floor(total);
+}
+
+// Splits body text on bracket formulas, replacing each with a bolded,
+// tooltip-enabled computed value while leaving surrounding text intact.
+function renderBodyWithFormulas(text, beast, mod) {
+    const regex = /\[([^\]]+)\]/g;
+    const nodes = [];
+    let lastIndex = 0;
+    let match;
+    let key = 0;
+    while ((match = regex.exec(text)) !== null) {
+        if (match.index > lastIndex) {
+            nodes.push(text.slice(lastIndex, match.index));
+        }
+        const formula = match[1];
+        const value = evaluateFormula(formula, beast, mod);
+        const scale = mod?.scale ?? 1;
+        const tooltipText = scale > 1
+            ? `${formula}  (×${scale} Attribute Scaling applied)`
+            : formula;
+        nodes.push(
+            <FormulaTooltip key={`f-${key++}`} formula={tooltipText}>
+                <strong className="beast-scaling-value">{value}</strong>
+            </FormulaTooltip>
+        );
+        lastIndex = regex.lastIndex;
+    }
+    if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+    return nodes;
+}
+
+const EntryList = ({ items, className, beast, mod }) => {
     return (
         <ul className={className}>
             {items.map((item, i) => {
-                const { label, body } = splitEntry(item);
+                const { label, content: body } = parseLabelAndContent(item);
+                console.log(label, body);
                 return (
                     <li key={i} className="beast-entry">
-                        {label && <span className="beast-entry-name">{label}</span>}
-                        <span className="beast-entry-body">{body}</span>
+                        {label && <span className="beast-entry-name"><strong>{label}</strong></span>} -&nbsp;
+                        <span className="beast-entry-body">{renderBodyWithFormulas(body, beast, mod)}</span>
                     </li>
                 );
             })}
         </ul>
+    );
+};
+
+// --- Stat grid header formulas ---
+// Purely descriptive - shown in a tooltip on hover/focus so players can
+// see how a derived secondary attribute or skill is calculated, even
+// when the formula is as simple as a straight attribute copy.
+const STAT_FORMULAS = {
+    'Fort. Mult.': 'Base Fortitude Multiplier × Beast King Multiplier',
+    'Max HP': 'Fortitude × Fortitude Multiplier',
+    'Reactions': 'Base Reactions + 5% Agility',
+    '# Attacks': 'Base Number of Attacks + Beast King Bonus Attacks',
+    'Size': 'Base Size adjusted by Beast King size stages',
+    'Awareness': '= Wisdom',
+    'Ranged Atk': '= Cognition',
+    'Close Combat': '= Agility',
+    'Dodge': '= Agility',
+    'Athletics': '50% Agility + 50% Strength',
+    'Strength': '= Fortitude',
+    'Max Soul': 'Base Soul + 20% Attitude',
+    'Movement': 'Base Movement + 5% Agility',
+    'Perseverance': '50% Attitude + Fortitude',
+};
+
+const StatHeader = ({ label, className }) => {
+    const formula = STAT_FORMULAS[label];
+    return (
+        <div className={`st-cell header ${className ?? ''}`.trim()}>
+            {formula ? <FormulaTooltip formula={formula}>{label}</FormulaTooltip> : label}
+        </div>
     );
 };
 
@@ -90,21 +202,32 @@ function adjustSize(baseSize, stages) {
     return baseSize;
 }
 
-function resolve(obj, ...keys) {
-    if (!obj) return 'PH';
-    for (let key of keys) {
-        if (obj[key] !== undefined && obj[key] !== null && obj[key] !== '') {
-            return obj[key];
-        }
-    }
-    return 'PH';
-}
-
 function applyMath(base, val, isMult = false) {
     if (base === 'PH') return 'PH';
     let num = Number(base);
     if (isNaN(num)) return base;
     return isMult ? num * val : num + val;
+}
+
+function parseLabelAndContent(inputString) {
+  if (!inputString) return { label: '', content: '' };
+  
+  // Clean up any edge whitespace first
+  const cleanInput = inputString.trim();
+
+  // 1. Matches text before " - " OR 2. Matches the first title-case word
+  // In both cases, the rest of the string is captured in the second group
+  const match = cleanInput.match(/^(.*?)\s*-\s*(.*)$/) || cleanInput.match(/^([A-Z][a-z]+)(.*)$/);
+
+  if (match) {
+    return {
+      label: match[1].trim(),   // "Weak Nose" or "Tiger"
+      content: match[2].trim()  // "The Lightning Wolf..." or "The Mound Tiger..."
+    };
+  }
+
+  // Fallback if the string doesn't match either pattern
+  return { label: '', content: inputString };
 }
 
 // Statblock Subcomponent
@@ -113,11 +236,66 @@ const ExpandedStatblock = ({ beast }) => {
     const primary = beast.primaryAttributes || {};
     const secondary = beast.secondaryAttributes || {};
     const horde = beast.hordeRules || {};
-    const flying = isFlying(beast.features) ? primary.agility * 2 : null;
 
-    const grade = resolve(horde, 'grade');
+    // --- Primary Attributes ---
+    const attitude = primary.att;
+
+    const wisdom = primary.wis;
+
+    const cognition = primary.cog;
+
+    const agility = primary.agi;
+
+    const fortitude = primary.fort;
+
+    // --- Secondary Attributes ---
+    const fortitudeMultiplier = secondary['fortitude Multiplier'];
+
+    const maxHp = Math.floor(fortitude * fortitudeMultiplier);
+
+    const reactions = secondary.reactions + Math.floor(0.05 * agility);
+
+    const numberOfAttacks = secondary['number of Attacks'];
+
+    const size = secondary.size;
+
+    const awareness = wisdom;
+
+    const rangedAttack = cognition;
+
+    const closeCombat = agility;
+
+    const dodge = agility;
+
+    const strength = fortitude;
+
+    const athletics = Math.floor((0.5 * agility) + (0.5 * strength));
+
+    const maxSoul = secondary.soul + Math.floor(0.2 * attitude);
+
+    const movement = secondary.movement + Math.floor(0.05 * agility);
+
+    const perseverance = Math.floor(0.5 * attitude) + fortitude;
+
+    const primaryAttack = secondary['primary Attack'];
+
+    // --- Horde Rules ---
+    const grade = horde.grade;
+
+    const upkeep = horde.upkeep;
+
+    // --- Flight ---
+    // Note: `flying` (below) is a computed number, not an object with speed/maneuvers/skill
+    // fields, so these have always rendered as placeholders. Preserved as-is.
+    const flySpeed = 'PH';
+    const maneuvers = 'PH';
+    const flyingSkill = 'PH';
+
+    const flying = isFlying(beast.features) ? primary.agility * 2 : primary.agility;
+    const hasFlier = isFlying(beast.features);
+
     const isMutated = (grade === 'Mutated');
-    const [selectedClass, setSelectedClass] = useState(isMutated ? 'Mutated Beast King' : 'Ordinary');
+    const [selectedClass, setSelectedClass] = useState('Ordinary');
 
     const options = isMutated
         ? ['Ordinary', 'Mutated Beast King']
@@ -138,7 +316,7 @@ const ExpandedStatblock = ({ beast }) => {
             {/* Header Area */}
             <div className="beast-statblock-header">
                 <div className="beast-statblock-titles">
-                    <span className="beast-name">{beast.name}</span>
+                    <span className="beast-name"><strong style={{ color: 'var(--accent)', fontSize: '25px', textAlign: 'left' }}>{beast.name}</strong></span>
                     <select
                         className="beast-class-dropdown"
                         value={currentClass}
@@ -156,87 +334,97 @@ const ExpandedStatblock = ({ beast }) => {
             {/* Main Stats Grid */}
             <div className="statblock-grid">
                 {/* --- Row 1 Headers --- */}
-                <div className="st-cell header">Attitude</div>
-                <div className="st-cell header">Wisdom</div>
-                <div className="st-cell header">Cognition</div>
-                <div className="st-cell header">Agility</div>
-                <div className="st-cell header touch-right">Fortitude</div>
-                <div className="st-cell header touch-left">Fort. Mult.</div>
-                <div className="st-cell header">Max HP</div>
-                <div className="st-cell header">Reactions</div>
-                <div className="st-cell header"># Attacks</div>
-                <div className="st-cell header">Size</div>
-                <div className="st-cell header">Grade</div>
+                <StatHeader label="Attitude" />
+                <StatHeader label="Wisdom" />
+                <StatHeader label="Cognition" />
+                <StatHeader label="Agility" />
+                <StatHeader label="Fortitude" className="touch-right" />
+                <StatHeader label="Fort. Mult." className="touch-left" />
+                <StatHeader label="Max HP" />
+                <StatHeader label="Reactions" />
+                <StatHeader label="# Attacks" />
+                <StatHeader label="Size" />
+                <StatHeader label="Grade" />
 
                 {/* --- Row 1 Values --- */}
-                <div className="st-cell value">{applyMath(resolve(primary, 'att', 'attitude'), mod.attr)}</div>
-                <div className="st-cell value">{applyMath(resolve(primary, 'wis', 'wisdom'), mod.attr)}</div>
-                <div className="st-cell value">{applyMath(resolve(primary, 'cog', 'cognition'), mod.attr)}</div>
-                <div className="st-cell value">{applyMath(resolve(primary, 'agi', 'agility'), mod.attr)}</div>
-                <div className="st-cell value touch-right">{applyMath(resolve(primary, 'fort', 'fortitude'), mod.attr)}</div>
-                <div className="st-cell value touch-left">{applyMath(resolve(secondary, 'fortitudeMultiplier', 'fortitude Multiplier', 'fortMult'), mod.fort, true)}</div>
-                <div className="st-cell value">{resolve(secondary, 'maxHp', 'max hp', 'hp')}</div>
-                <div className="st-cell value">{resolve(secondary, 'reactions')}</div>
-                <div className="st-cell value">{applyMath(resolve(secondary, 'numberOfAttacks', 'number of Attacks', 'attacks'), mod.attacks)}</div>
-                <div className="st-cell value">{adjustSize(resolve(secondary, 'size'), mod.size)}</div>
+                <div className="st-cell value">{applyMath(attitude, mod.attr)}</div>
+                <div className="st-cell value">{applyMath(wisdom, mod.attr)}</div>
+                <div className="st-cell value">{applyMath(cognition, mod.attr)}</div>
+                <div className="st-cell value">{applyMath(agility, mod.attr)}</div>
+                <div className="st-cell value touch-right">{applyMath(fortitude, mod.attr)}</div>
+                <div className="st-cell value touch-left">{applyMath(fortitudeMultiplier, mod.fort, true)}</div>
+                <div className="st-cell value">{maxHp}</div>
+                <div className="st-cell value">{reactions}</div>
+                <div className="st-cell value">{applyMath(numberOfAttacks, mod.attacks)}</div>
+                <div className="st-cell value">{adjustSize(size, mod.size)}</div>
                 <div className="st-cell value" style={{ color: 'var(--accent)' }}>{grade}</div>
 
                 {/* --- Row 2 Headers --- */}
-                <div className="st-cell header">Awareness</div>
-                <div className="st-cell header">Ranged Atk</div>
-                <div className="st-cell header">Close Combat</div>
-                <div className="st-cell header">Dodge</div>
-                <div className="st-cell header touch-right">Athletics</div>
-                <div className="st-cell header touch-left">Strength</div>
-                <div className="st-cell header">Max Soul</div>
-                <div className="st-cell header">Movement</div>
-                <div className="st-cell header">Perseverance</div>
-                <div className="st-cell header">Primary Atk</div>
+                <StatHeader label="Awareness" />
+                <StatHeader label="Ranged Atk" />
+                <StatHeader label="Close Combat" />
+                <StatHeader label="Dodge" />
+                <StatHeader label="Athletics" className="touch-right" />
+                <StatHeader label="Strength" className="touch-left" />
+                <StatHeader label="Max Soul" />
+                <StatHeader label="Movement" />
+                <StatHeader label="Perseverance" />
+                <StatHeader label="Primary Atk" />
                 <div className="st-cell empty"></div> {/* Filler for col 11 */}
 
                 {/* --- Row 2 Values --- */}
-                <div className="st-cell value">{resolve(secondary, 'awareness')}</div>
-                <div className="st-cell value">{resolve(secondary, 'rangedAttack', 'ranged Attack')}</div>
-                <div className="st-cell value">{resolve(secondary, 'closeCombat', 'close Combat')}</div>
-                <div className="st-cell value">{resolve(secondary, 'dodge')}</div>
-                <div className="st-cell value touch-right">{resolve(secondary, 'athletics')}</div>
-                <div className="st-cell value touch-left">{resolve(secondary, 'strength')}</div>
-                <div className="st-cell value">{resolve(secondary, 'maxSoul', 'max soul', 'soul')}</div>
-                <div className="st-cell value">{resolve(secondary, 'movement')}</div>
-                <div className="st-cell value">{resolve(secondary, 'perseverance')}</div>
-                <div className="st-cell value">{resolve(secondary, 'primaryAttack', 'primary Attack')}</div>
+                <div className="st-cell value">{awareness}</div>
+                <div className="st-cell value">{rangedAttack}</div>
+                <div className="st-cell value">{closeCombat}</div>
+                <div className="st-cell value">{dodge}</div>
+                <div className="st-cell value touch-right">{athletics}</div>
+                <div className="st-cell value touch-left">{strength}</div>
+                <div className="st-cell value">{maxSoul}</div>
+                <div className="st-cell value">{movement}</div>
+                <div className="st-cell value">{perseverance}</div>
+                <div className="st-cell value">{primaryAttack}</div>
                 <div className="st-cell empty"></div>
             </div>
 
             {/* Flying Section */}
-            {flying && (
+            {hasFlier && (
             <div className="statblock-section">
                 <div className="section-title">Flight</div>
-                <div className="section-flex-row">
-                    <span><strong>Fly Speed:</strong> {resolve(flying, 'speed', 'flySpeed')}</span>
-                    <span><strong>Maneuvers:</strong> {resolve(flying, 'maneuvers')}</span>
-                    <span><strong>Flying Skill:</strong> {resolve(flying, 'skill', 'flyingSkill')}</span>
+                <div className="section-flex-column">
+                    <span><strong>Fly Speed:</strong> {flySpeed}</span>
+                    <span><strong>Maneuvers:</strong> {maneuvers}</span>
+                    <span><strong>Flying Skill:</strong> {flying}</span>
                 </div>
             </div>
             )}
             {/* Horde Rules Section */}
             <div className="statblock-section">
                 <div className="section-title">Horde Rules</div>
-                <div className="section-flex-row">
-                    <span><strong>Upkeep:</strong> {resolve(horde, 'upkeep')}</span>
+                <div className="section-flex-column">
+                    <span><strong>Upkeep:</strong> {upkeep}</span>
                     <span>
                         <strong>Primary Biomes:</strong>{' '}
-                        {horde.primaryBiomes?.length ? horde.primaryBiomes.map(b => <BiomeTag key={b} name={b} variant="primary" />) : 'PH'}
+                        {horde.primaryBiomes?.length ? horde.primaryBiomes.map(b => (
+                            <span key={b}>
+                                <BiomeTag name={b} variant="primary" />
+                                {horde.primaryBiomes.indexOf(b) < horde.primaryBiomes.length - 1 ? ', ' : ''}
+                            </span>
+                        )) : 'None'}
                     </span>
                     <span>
                         <strong>Secondary Biomes:</strong>{' '}
-                        {horde.secondaryBiomes?.length ? horde.secondaryBiomes.map(b => <BiomeTag key={b} name={b} variant="secondary" />) : 'PH'}
+                        {horde.secondaryBiomes?.length ? horde.secondaryBiomes.map(b => (
+                            <span key={b}>
+                                <BiomeTag name={b} variant="secondary" />
+                                {horde.secondaryBiomes.indexOf(b) < horde.secondaryBiomes.length - 1 ? ', ' : ''}
+                            </span>
+                        )) : 'None'}
                     </span>
                 </div>
                 {horde.features && horde.features.length > 0 && (
                     <div className="beast-section mt-1">
                         <div className="beast-section-title" style={{ fontSize: '11px', marginTop: '8px' }}>Horde Features</div>
-                        <EntryList items={horde.features} className="beast-feature-list" />
+                        <EntryList items={horde.features} className="beast-feature-list" beast={beast} mod={mod} />
                     </div>
                 )}
             </div>
@@ -244,22 +432,22 @@ const ExpandedStatblock = ({ beast }) => {
             {/* Features & Actions */}
             {computedFeatures.length > 0 && (
                 <div className="beast-section">
-                    <div className="beast-section-title">Features</div>
-                    <EntryList items={computedFeatures} className="beast-feature-list" />
+                    <div className="beast-section-title"><strong>Features</strong></div>
+                    <EntryList items={computedFeatures} className="beast-feature-list" beast={beast} mod={mod} />
                 </div>
             )}
 
             {beast.combatActions && beast.combatActions.length > 0 && (
                 <div className="beast-section">
-                    <div className="beast-section-title">Combat Actions</div>
-                    <EntryList items={beast.combatActions} className="beast-action-list" />
+                    <div className="beast-section-title"><strong>Combat Actions</strong></div>
+                    <EntryList items={beast.combatActions} className="beast-action-list" beast={beast} mod={mod} />
                 </div>
             )}
 
             {horde.orders && horde.orders.length > 0 && (
                 <div className="beast-section">
-                    <div className="beast-section-title">Unique Horde Orders</div>
-                    <EntryList items={horde.orders} className="beast-action-list" />
+                    <div className="beast-section-title"><strong>Unique Horde Orders</strong></div>
+                    <EntryList items={horde.orders} className="beast-action-list" beast={beast} mod={mod} />
                 </div>
             )}
         </div>
@@ -394,7 +582,7 @@ const Beasts = () => {
                                                 <>
                                                     <td className="cell-cost col-cost">{secondary.size}</td>
                                                     <td className="cell-range col-range">{secondary.movement}</td>
-                                                    <td className="cell-health col-health">{horde.upkeep}</td>
+                                                    <td className="cell-upkeep col-upkeep">{horde.upkeep}</td>
                                                 </>
                                             )}
                                         </tr>
