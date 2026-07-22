@@ -88,7 +88,7 @@ function renderBodyWithFormulas(text, beast, mod) {
         const value = evaluateFormula(formula, beast, mod);
         const scale = mod?.scale ?? 1;
         const tooltipText = scale > 1
-            ? `${formula}  (×${scale} Attribute Scaling applied)`
+            ? `${formula}  (×${scale})`
             : formula;
         nodes.push(
             <FormulaTooltip key={`f-${key++}`} formula={tooltipText}>
