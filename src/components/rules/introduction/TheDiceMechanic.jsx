@@ -51,7 +51,7 @@ const TheDiceMechanic = () => {
                     Tests are rolled on a d100; to roll a d100, roll a d10 and a td10. The td10 represents the tens place while the d10 represents the ones place. So if you roll an 80 and a 5, your roll is 85. Rolling a 10 on the d10 is just a zero, so rolling 90 and 10 would just be 90. Finally, rolling 00 on the td10 and a 10 on the d10 is 100.
                 </p>
                 <p className="rule-text">
-                    When you take an action, the GM decides what skill that action is related to, determines penalties or bonuses, and then you roll a d100. If your result is equal to or lower than your skill, you succeeded, and can determine degrees of success if they effect the outcome of the action.
+                    When you take an action, the GM decides what skill that action is related to, determines penalties or bonuses, and then you roll a d100. If your result is equal to or lower than your skill, you succeeded, and can determine degrees of success if they effect the outcome of the action. Attack rolls are always made with either the <strong>Close Combat</strong> or <strong>Ranged Attack</strong> skill, depending on if the target is within 2 meters.
                 </p>
                 <p className="rule-text">
                     If the result is higher than your skill, you fail, and the GM determines the consequences.

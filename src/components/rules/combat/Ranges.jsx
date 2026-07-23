@@ -20,10 +20,10 @@ const Ranges = () => {
 
                 <p className="rule-subheading">Targeted Attacks</p>
                 <p className="rule-text">
-                    The range of a targeted attack refers to how many meters of movement would have to be expended to reach the square of a valid target. This includes targeted area of effect attacks, such as lobbing a bomb to a square within range.
+                    The range of an attack refers to how many meters of movement would have to be expended to reach the square of a valid target.
                 </p>
                 <p className="rule-text">
-                    If an effect targets a creature, it can target anything living and capable of thought (i.e. no plants). Anything that isn't a creature or Gu is considered an object. If the effect just says to pick a target, the target can be a creature or object.
+                    If an effect targets a creature, it can target anything living and capable of thought (i.e. no plants). Anything that isn't a creature or Gu is considered an object. If the effect just says to pick a target, the target can be a creature, object, Gu, or even a square, occupied or not.
                 </p>
 
                 <p className="rule-subheading">Touch</p>
@@ -45,7 +45,7 @@ const Ranges = () => {
                             Cone
                         </strong>
                         <p className="rule-text">
-                            A 3 meter long cone will spread to any square that could be reached using 3 meters of movement between two adjacent diagonals or cardinal directions.
+                            A 3 meter long cone will spread to any square that could be reached using 3 meters of movement between two adjacent diagonals or cardinal directions. If the creator occupies multiple squares, they pick a square that they occupy and treat that square as the origin of the cone. Even if the cone intersects with one of the creator's squares, the creator is not considered to be in the area of effect.
                         </p>
                         <div style={{ marginTop: '15px', padding: '10px', background: '#1a1a1a', borderRadius: '6px', border: '1px solid #333', textAlign: 'center' }}>
                             <p style={{ color: '#888', fontStyle: 'italic', marginBottom: '10px' }}>Valid 3-meter cones</p>
@@ -68,8 +68,7 @@ const Ranges = () => {
                             Line
                         </strong>
                         <p className="rule-text">
-                            Lines have a height, width, and length. If the height is not specified, it is the same as the width. Usually, lines originate from the square in front of the Gu Master creating it, but some Gu such as Fire Curtain Gu allow the user to choose a source square. In that case, the source and end of the line must both be within the range of the Gu.
-                        </p>
+                            Lines have a height, width, and length. If the height is not specified, it is the same as the width. Usually, lines originate from a square of the creator's choice that they occupy, but some Gu such as Fire Curtain Gu allow the user to choose a source square. In that case, the source and end of the line must both be within the range of the Gu.                        </p>
                         <div style={{ marginTop: '15px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
                             <div style={{ padding: '10px', background: '#1a1a1a', borderRadius: '6px', border: '1px solid #333', textAlign: 'center' }}>
                                 <p style={{ color: '#888', fontStyle: 'italic', marginBottom: '10px' }}>Valid 4-meter lines</p>
@@ -106,7 +105,7 @@ const Ranges = () => {
                             Radius
                         </strong>
                         <p className="rule-text">
-                            Circular areas of effect will originate from a source square and have a radius. If an area of effect has a radius of 3 meters, it will affect the source square and any square that could be reached using 3 meters of movement from the source square. This translates to a square with a side length of 7 meters.
+                            Circular areas of effect will originate from a source square and have a radius. If an area of effect has a radius of 3 meters, it will affect the source square and any square that could be reached using 3 meters of movement from the source square. This translates to a square with a side length of 7 meters. Creatures that occupy multiple squares pick a square they occupy to act as the source when the radius is centered on them.
                         </p>
                         <div style={{ marginTop: '15px', padding: '10px', background: '#1a1a1a', borderRadius: '6px', border: '1px solid #333', textAlign: 'center' }}>
                             <p style={{ color: '#888', fontStyle: 'italic', marginBottom: '10px' }}>A 3-meter radius</p>

@@ -34,7 +34,7 @@ const Skills = () => {
 
                 <p id="close-combat" className="rule-subheading">Close Combat (1/2 Agi + 1/2 Cog)</p>
                 <p className="rule-text">
-                    Close Combat does not only include fighting hand-to-hand, it relates to any fighting that occurs within 2 meters of you. Your attack rolls made against targets within 2 meters of you are made with the Close Combat skill. Melee attacks are always made with your Close Combat skill.
+                    Close Combat does not only include fighting hand-to-hand, it relates to any fighting that occurs within 2 meters of you. Your attack rolls made against targets within 2 meters of you are made with the Close Combat skill. Melee attacks are always made with your Close Combat skill, regardless of range.
                 </p>
 
                 <p id="ranged-attack" className="rule-subheading">Ranged Attack (Cog)</p>

@@ -18,7 +18,7 @@ const Reactions = () => {
             <main className="gu-main" style={{ padding: '20px' }}>
                 <h1 className="rule-heading">Reactions</h1>
                 <p className="rule-text">
-                    You can react to any action, event, or effect that you perceive, and may do so at any time, during your own or another creature's turn. Your total Reactions are replenished at the start of each of your turns up to your maximum (base 1 + 5% of your Agility, rounded down). You cannot use multiple Reactions to the same trigger, for example, dodging and activating a shield Gu when an attack hits you. Gu activations are imperceptible and cannot be reacted to; you must react to the effects of the Gu, such as when you're hit by an attack from it, an area of effect is created, or when an enemy is healed.
+                    You can react to any action or event that you perceive besides your own actions, and may do so at any time, during your own or another creature's turn. Your total Reactions are replenished at the start of each of your turns up to your maximum (base 1 + 5% of your Agility, rounded down). You cannot use multiple Reactions to the same trigger, for example, dodging and activating a shield Gu when an attack hits you. Gu activations are imperceptible and cannot be reacted to; you must react to the effects of the Gu, such as when you're hit by an attack from it, an area of effect is created, or when an enemy is healed.
                 </p>
 
                 <p className="rule-subheading">Activate a [Defensive] Gu</p>
