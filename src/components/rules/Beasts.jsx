@@ -88,7 +88,7 @@ function renderBodyWithFormulas(text, beast, mod) {
         const value = evaluateFormula(formula, beast, mod);
         const scale = mod?.scale ?? 1;
         const tooltipText = scale > 1
-            ? `${formula}  (×${scale} Attribute Scaling applied)`
+            ? `${formula}  (×${scale})`
             : formula;
         nodes.push(
             <FormulaTooltip key={`f-${key++}`} formula={tooltipText}>
@@ -106,7 +106,6 @@ const EntryList = ({ items, className, beast, mod }) => {
         <ul className={className}>
             {items.map((item, i) => {
                 const { label, content: body } = parseLabelAndContent(item);
-                console.log(label, body);
                 return (
                     <li key={i} className="beast-entry">
                         {label && <span className="beast-entry-name"><strong>{label}</strong></span>} -&nbsp;
@@ -211,7 +210,7 @@ function applyMath(base, val, isMult = false) {
 
 function parseLabelAndContent(inputString) {
   if (!inputString) return { label: '', content: '' };
-  
+
   // Clean up any edge whitespace first
   const cleanInput = inputString.trim();
 
@@ -233,68 +232,9 @@ function parseLabelAndContent(inputString) {
 // Statblock Subcomponent
 const ExpandedStatblock = ({ beast }) => {
 
-    const primary = beast.primaryAttributes || {};
-    const secondary = beast.secondaryAttributes || {};
     const horde = beast.hordeRules || {};
 
-    // --- Primary Attributes ---
-    const attitude = primary.att;
-
-    const wisdom = primary.wis;
-
-    const cognition = primary.cog;
-
-    const agility = primary.agi;
-
-    const fortitude = primary.fort;
-
-    // --- Secondary Attributes ---
-    const fortitudeMultiplier = secondary['fortitude Multiplier'];
-
-    const maxHp = Math.floor(fortitude * fortitudeMultiplier);
-
-    const reactions = secondary.reactions + Math.floor(0.05 * agility);
-
-    const numberOfAttacks = secondary['number of Attacks'];
-
-    const size = secondary.size;
-
-    const awareness = wisdom;
-
-    const rangedAttack = cognition;
-
-    const closeCombat = agility;
-
-    const dodge = agility;
-
-    const strength = fortitude;
-
-    const athletics = Math.floor((0.5 * agility) + (0.5 * strength));
-
-    const maxSoul = secondary.soul + Math.floor(0.2 * attitude);
-
-    const movement = secondary.movement + Math.floor(0.05 * agility);
-
-    const perseverance = Math.floor(0.5 * attitude) + fortitude;
-
-    const primaryAttack = secondary['primary Attack'];
-
-    // --- Horde Rules ---
-    const grade = horde.grade;
-
-    const upkeep = horde.upkeep;
-
-    // --- Flight ---
-    // Note: `flying` (below) is a computed number, not an object with speed/maneuvers/skill
-    // fields, so these have always rendered as placeholders. Preserved as-is.
-    const flySpeed = 'PH';
-    const maneuvers = 'PH';
-    const flyingSkill = 'PH';
-
-    const flying = isFlying(beast.features) ? primary.agility * 2 : primary.agility;
-    const hasFlier = isFlying(beast.features);
-
-    const isMutated = (grade === 'Mutated');
+    const isMutated = (horde.grade === 'Mutated');
     const [selectedClass, setSelectedClass] = useState('Ordinary');
 
     const options = isMutated
@@ -304,6 +244,62 @@ const ExpandedStatblock = ({ beast }) => {
     // Enforce selection constraint if grade mutates via external updates
     const currentClass = options.includes(selectedClass) ? selectedClass : 'Ordinary';
     const mod = KING_CLASSES[currentClass];
+
+    // --- All derived stats recomputed from scratch any time the beast
+    // itself changes OR the selected Beast King class changes. Every
+    // downstream value (max HP, reactions, athletics, etc.) is derived
+    // here from the *King-adjusted* primary attributes rather than the
+    // raw base attributes, so switching classes now properly cascades.
+    const stats = useMemo(() => {
+        const primary = beast.primaryAttributes || {};
+        const secondary = beast.secondaryAttributes || {};
+
+        // --- Primary Attributes (King bonus applied up front) ---
+        const attitude = applyMath(primary.att, mod.attr);
+        const wisdom = applyMath(primary.wis, mod.attr);
+        const cognition = applyMath(primary.cog, mod.attr);
+        const agility = applyMath(primary.agi, mod.attr);
+        const fortitude = applyMath(primary.fort, mod.attr);
+
+        // --- Secondary Attributes (now driven by adjusted primaries) ---
+        const fortitudeMultiplier = applyMath(secondary['fortitude Multiplier'], mod.fort, true);
+        const maxHp = Math.floor(fortitude * fortitudeMultiplier);
+        const reactions = secondary.reactions + Math.floor(0.05 * agility);
+        const numberOfAttacks = applyMath(secondary['number of Attacks'], mod.attacks);
+        const size = adjustSize(secondary.size, mod.size);
+
+        const awareness = wisdom;
+        const rangedAttack = cognition;
+        const closeCombat = agility;
+        const dodge = agility;
+        const strength = fortitude;
+        const athletics = Math.floor((0.5 * agility) + (0.5 * strength));
+        const maxSoul = secondary.soul + Math.floor(0.2 * attitude);
+        const movement = secondary.movement + Math.floor(0.05 * agility);
+        const perseverance = Math.floor(0.5 * attitude) + fortitude;
+        const primaryAttack = secondary['primary Attack'];
+
+        // --- Flight (uses adjusted agility; fixes prior `primary.agility`
+        // typo that always evaluated to undefined) ---
+        const hasFlier = isFlying(beast.features);
+        const flying = hasFlier ? agility * 2 : agility;
+
+        return {
+            attitude, wisdom, cognition, agility, fortitude,
+            fortitudeMultiplier, maxHp, reactions, numberOfAttacks, size,
+            awareness, rangedAttack, closeCombat, dodge, strength, athletics,
+            maxSoul, movement, perseverance, primaryAttack, hasFlier, flying,
+        };
+    }, [beast, mod]);
+
+    // --- Horde Rules (unaffected by King class) ---
+    const grade = horde.grade;
+    const upkeep = horde.upkeep;
+
+    // --- Flight placeholders (kept as-is; these fields aren't objects
+    // in the source data, so they've always rendered as placeholders) ---
+    const flySpeed = 'PH';
+    const maneuvers = 'PH';
 
     // Inject the selected class effect as the first feature
     const kingFeatureText = mod.text ? mod.text.replace(/\[beast\]/g, beast.name || 'beast') : null;
@@ -347,16 +343,16 @@ const ExpandedStatblock = ({ beast }) => {
                 <StatHeader label="Grade" />
 
                 {/* --- Row 1 Values --- */}
-                <div className="st-cell value">{applyMath(attitude, mod.attr)}</div>
-                <div className="st-cell value">{applyMath(wisdom, mod.attr)}</div>
-                <div className="st-cell value">{applyMath(cognition, mod.attr)}</div>
-                <div className="st-cell value">{applyMath(agility, mod.attr)}</div>
-                <div className="st-cell value touch-right">{applyMath(fortitude, mod.attr)}</div>
-                <div className="st-cell value touch-left">{applyMath(fortitudeMultiplier, mod.fort, true)}</div>
-                <div className="st-cell value">{maxHp}</div>
-                <div className="st-cell value">{reactions}</div>
-                <div className="st-cell value">{applyMath(numberOfAttacks, mod.attacks)}</div>
-                <div className="st-cell value">{adjustSize(size, mod.size)}</div>
+                <div className="st-cell value">{stats.attitude}</div>
+                <div className="st-cell value">{stats.wisdom}</div>
+                <div className="st-cell value">{stats.cognition}</div>
+                <div className="st-cell value">{stats.agility}</div>
+                <div className="st-cell value touch-right">{stats.fortitude}</div>
+                <div className="st-cell value touch-left">{stats.fortitudeMultiplier}</div>
+                <div className="st-cell value">{stats.maxHp}</div>
+                <div className="st-cell value">{stats.reactions}</div>
+                <div className="st-cell value">{stats.numberOfAttacks}</div>
+                <div className="st-cell value">{stats.size}</div>
                 <div className="st-cell value" style={{ color: 'var(--accent)' }}>{grade}</div>
 
                 {/* --- Row 2 Headers --- */}
@@ -373,27 +369,27 @@ const ExpandedStatblock = ({ beast }) => {
                 <div className="st-cell empty"></div> {/* Filler for col 11 */}
 
                 {/* --- Row 2 Values --- */}
-                <div className="st-cell value">{awareness}</div>
-                <div className="st-cell value">{rangedAttack}</div>
-                <div className="st-cell value">{closeCombat}</div>
-                <div className="st-cell value">{dodge}</div>
-                <div className="st-cell value touch-right">{athletics}</div>
-                <div className="st-cell value touch-left">{strength}</div>
-                <div className="st-cell value">{maxSoul}</div>
-                <div className="st-cell value">{movement}</div>
-                <div className="st-cell value">{perseverance}</div>
-                <div className="st-cell value">{primaryAttack}</div>
+                <div className="st-cell value">{stats.awareness}</div>
+                <div className="st-cell value">{stats.rangedAttack}</div>
+                <div className="st-cell value">{stats.closeCombat}</div>
+                <div className="st-cell value">{stats.dodge}</div>
+                <div className="st-cell value touch-right">{stats.athletics}</div>
+                <div className="st-cell value touch-left">{stats.strength}</div>
+                <div className="st-cell value">{stats.maxSoul}</div>
+                <div className="st-cell value">{stats.movement}</div>
+                <div className="st-cell value">{stats.perseverance}</div>
+                <div className="st-cell value">{stats.primaryAttack}</div>
                 <div className="st-cell empty"></div>
             </div>
 
             {/* Flying Section */}
-            {hasFlier && (
+            {stats.hasFlier && (
             <div className="statblock-section">
                 <div className="section-title">Flight</div>
                 <div className="section-flex-column">
                     <span><strong>Fly Speed:</strong> {flySpeed}</span>
                     <span><strong>Maneuvers:</strong> {maneuvers}</span>
-                    <span><strong>Flying Skill:</strong> {flying}</span>
+                    <span><strong>Flying Skill:</strong> {stats.flying}</span>
                 </div>
             </div>
             )}
