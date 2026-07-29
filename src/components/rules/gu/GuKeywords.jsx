@@ -29,6 +29,19 @@ const GuKeywords = () => {
 
     const keywordsData = [
         {
+            name: "Burst Movement",
+            desc: (
+                <>
+                    <p className="rule-text">
+                        When activated, [Burst Movement] Gu move the user some distance instantaneously. They can be activated as a Reaction. If activated in reaction to an attack that doesn\'t have the [Undodgeable] keyword, the triggering attack is avoided. If it was an area of effect attack, it is only avoided if the movement removes you from the affected area.
+                    </p>
+                    <p className="rule-text">
+                        As long as it is not a teleport effect, movement from [Burst Movement] Gu triggers collisions.
+                    </p>
+                </>
+            )
+        },
+        {
             name: "Deductive",
             desc: (
                 <>

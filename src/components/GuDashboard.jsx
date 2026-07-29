@@ -63,6 +63,7 @@ const FOOD_COSTS_GENERIC = [
 ]
 
 const KEYWORD_FILTERS = [
+  { key: 'Burst Movement',      label: 'Burst Movement',       match: kws => kws.some(k => k.toLowerCase() === 'burst movement') },
   { key: 'Deductive',      label: 'Deductive',       match: kws => kws.some(k => k.toLowerCase() === 'deductive') },
   { key: 'Dao',            label: 'Dao',             match: kws => kws.some(k => k.toLowerCase() === 'dao') },
   { key: 'Defensive',      label: 'Defensive',       match: kws => kws.some(k => k.toLowerCase() === 'defensive') },
