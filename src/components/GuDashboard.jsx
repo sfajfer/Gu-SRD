@@ -6,6 +6,7 @@ import axios from 'axios';
 import guData from '../assets/gu-index.json';
 import './Styles.css';
 import KEYWORD_DESCRIPTIONS from '../assets/KEYWORD_DESCRIPTIONS';
+import UpgradeTreeModal from './UpgradeTreeModal';
 
 const PATHS = [
   'Blood Path','Dark Path','Earth Path','Enslavement Path','Fire Path',
@@ -278,6 +279,7 @@ const GuDashboard = () => {
   const [rankExpanded, setRankExpanded] = useState(false);
   const [pathExpanded, setPathExpanded] = useState(false);
   const [keywordsExpanded, setKeywordsExpanded] = useState(false);
+  const [treeModalGu, setTreeModalGu] = useState(null);
 
   useEffect(() => {
     const handleResize = () => setScreenWidth(window.innerWidth);
@@ -701,6 +703,16 @@ const GuDashboard = () => {
                                 </div>
 
                                 <span className="type-badge">{gu.type}</span>
+                                {(gu.previousRank || gu.nextRank) && (
+                                  <button
+                                    type="button"
+                                    className="effect-inline-button upgrade-tree-button"
+                                    style={{ marginLeft: '8px' }}
+                                    onClick={() => setTreeModalGu(gu.name)}
+                                  >
+                                    ⛓ Upgrade Tree
+                                  </button>
+                                )}
 
                                 <div className="expand-section-title">Effect</div>
                                 <div className="effect-box">
@@ -813,6 +825,18 @@ const GuDashboard = () => {
           </div>
         </main>
       </div>
+
+      {treeModalGu && (
+        <UpgradeTreeModal
+          guList={guList}
+          rootName={treeModalGu}
+          onClose={() => setTreeModalGu(null)}
+          onSelectGu={name => {
+            setTreeModalGu(null);
+            handleGuLinkClick(name);
+          }}
+        />
+      )}
     </div>
   );
 };

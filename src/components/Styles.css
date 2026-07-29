@@ -755,8 +755,22 @@ tr.gu-expanded-row {
         }
 
     .gu-expanded-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+
+      button {
+        background-color: var(--button);
+        color: var(--accent);
+        border: none;
+        border-radius: var(--radius-sm);
+        padding: 3px;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+
+      button:hover {
+        background-color: var(--button-hover);
+      }
     }
 
     .cell-name {
