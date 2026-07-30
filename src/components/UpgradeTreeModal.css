@@ -89,6 +89,7 @@
   background:
     radial-gradient(circle at 1px 1px, #24242f 1px, transparent 1px) 0 0 / 24px 24px,
     #101017;
+  pointer-events: auto;
 }
 
 .ut-canvas-wrap:active {
@@ -98,6 +99,8 @@
 .ut-canvas {
   position: relative;
   transform-origin: 0 0;
+  pointer-events: auto;
+  touch-action: none;
 }
 
 .ut-edges {
@@ -106,6 +109,7 @@
   left: 0;
   pointer-events: none;
   overflow: visible;
+  touch-action: none;
 }
 
 .ut-edge {

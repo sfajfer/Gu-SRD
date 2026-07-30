@@ -131,11 +131,8 @@ const UpgradeTreeModal = ({ guList, rootName, onClose, onSelectGu }) => {
 
   const handlePointerDown = useCallback(
     e => {
-      // Let a clickable Gu node handle its own click. Capturing the
-      // pointer here would (on desktop mouse) redirect the resulting
-      // click event to this wrapper instead of the button, so the
-      // node's onClick would never fire.
-      if (e.target.closest && e.target.closest('.ut-node-gu')) return;
+      // Let a clickable Gu node handle its own click.
+      if (e.target.closest('.ut-node-gu')) return;
 
       e.currentTarget.setPointerCapture(e.pointerId);
       pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -254,6 +251,7 @@ const UpgradeTreeModal = ({ guList, rootName, onClose, onSelectGu }) => {
                   className="ut-edges"
                   width={layout.width + 80}
                   height={layout.height + 80}
+                  style={{ pointerEvents: 'none' }}
                 >
                   <defs>
                     <marker
