@@ -65,6 +65,7 @@ const NodeBox = ({ node, rect, isRoot, onClick }) => {
       <span className="ut-node-meta">
         {rankLabel}
         {gu?.type ? ` · ${gu.type}` : ''}
+        {gu?.path ? ` · ${gu.path}` : ''}
       </span>
     </button>
   );
@@ -74,7 +75,19 @@ const UpgradeTreeModal = ({ guList, rootName, onClose, onSelectGu }) => {
   const containerRef = useRef(null);
   const [scale, setScale] = useState(0.85);
   const [offset, setOffset] = useState({ x: 40, y: 40 });
-  const dragState = useRef(null);
+  // Live-mutated refs so pointer handlers always see the latest values
+  // without needing to be recreated (and re-subscribed) every render.
+  const scaleRef = useRef(scale);
+  const offsetRef = useRef(offset);
+  scaleRef.current = scale;
+  offsetRef.current = offset;
+
+  // pointerId -> {x, y} in client (viewport) coordinates, for every
+  // finger/pointer currently down on the canvas.
+  const pointers = useRef(new Map());
+  // Snapshot taken whenever the number of active pointers changes
+  // (1 -> pan anchor, 2 -> pinch anchor).
+  const gesture = useRef(null);
 
   const graph = useMemo(() => buildUpgradeGraph(guList), [guList]);
   const chain = useMemo(() => getConnectedChain(graph, rootName), [graph, rootName]);
@@ -85,31 +98,96 @@ const UpgradeTreeModal = ({ guList, rootName, onClose, onSelectGu }) => {
     return [...chain.nodes.values()].filter(n => n.kind === 'missing').map(n => n.name);
   }, [chain]);
 
+  const midpoint = pts => ({
+    x: (pts[0].x + pts[1].x) / 2,
+    y: (pts[0].y + pts[1].y) / 2,
+  });
+  const distance = pts => Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+
+  // (Re)snapshot the gesture anchor from the current set of active
+  // pointers, so a finger being added/removed mid-gesture never causes
+  // a jump - only what happens *after* this point moves anything.
+  const resetGestureAnchor = useCallback(() => {
+    const pts = [...pointers.current.values()];
+    if (pts.length === 1) {
+      gesture.current = {
+        mode: 'pan',
+        start: pts[0],
+        startOffset: offsetRef.current,
+      };
+    } else if (pts.length >= 2) {
+      const [a, b] = pts;
+      gesture.current = {
+        mode: 'pinch',
+        startDist: distance([a, b]),
+        startMid: midpoint([a, b]),
+        startOffset: offsetRef.current,
+        startScale: scaleRef.current,
+      };
+    } else {
+      gesture.current = null;
+    }
+  }, []);
+
   const handlePointerDown = useCallback(
     e => {
-      dragState.current = { startX: e.clientX, startY: e.clientY, offset };
+      // Let a clickable Gu node handle its own click. Capturing the
+      // pointer here would (on desktop mouse) redirect the resulting
+      // click event to this wrapper instead of the button, so the
+      // node's onClick would never fire.
+      if (e.target.closest && e.target.closest('.ut-node-gu')) return;
+
       e.currentTarget.setPointerCapture(e.pointerId);
+      pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      resetGestureAnchor();
     },
-    [offset]
+    [resetGestureAnchor]
   );
 
   const handlePointerMove = useCallback(e => {
-    if (!dragState.current) return;
-    const { startX, startY, offset: startOffset } = dragState.current;
-    setOffset({
-      x: startOffset.x + (e.clientX - startX),
-      y: startOffset.y + (e.clientY - startY),
-    });
-  }, []);
+    if (!pointers.current.has(e.pointerId)) return;
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const g = gesture.current;
+    if (!g) return;
 
-  const handlePointerUp = useCallback(e => {
-    dragState.current = null;
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch {
-      /* noop */
+    if (g.mode === 'pan') {
+      const cur = [...pointers.current.values()][0];
+      setOffset({
+        x: g.startOffset.x + (cur.x - g.start.x),
+        y: g.startOffset.y + (cur.y - g.start.y),
+      });
+    } else if (g.mode === 'pinch') {
+      const pts = [...pointers.current.values()];
+      if (pts.length < 2) return;
+      const [a, b] = pts;
+      const newDist = distance([a, b]);
+      const newMid = midpoint([a, b]);
+      const rawScale = g.startScale * (newDist / g.startDist);
+      const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, rawScale));
+      // Keep the point under the pinch midpoint stationary on screen:
+      // offset' = mid - (mid - offset) * (newScale/startScale), plus
+      // whatever the midpoint itself has translated by.
+      const ratio = newScale / g.startScale;
+      setOffset({
+        x: newMid.x - (g.startMid.x - g.startOffset.x) * ratio,
+        y: newMid.y - (g.startMid.y - g.startOffset.y) * ratio,
+      });
+      setScale(newScale);
     }
   }, []);
+
+  const endPointer = useCallback(
+    e => {
+      pointers.current.delete(e.pointerId);
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {
+        /* noop */
+      }
+      resetGestureAnchor();
+    },
+    [resetGestureAnchor]
+  );
 
   const handleWheel = useCallback(e => {
     e.preventDefault();
@@ -159,8 +237,9 @@ const UpgradeTreeModal = ({ guList, rootName, onClose, onSelectGu }) => {
               ref={containerRef}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
-              onPointerUp={handlePointerUp}
-              onPointerLeave={handlePointerUp}
+              onPointerUp={endPointer}
+              onPointerCancel={endPointer}
+              onPointerLeave={endPointer}
               onWheel={handleWheel}
             >
               <div

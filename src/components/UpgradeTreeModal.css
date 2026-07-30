@@ -83,6 +83,9 @@
   overflow: hidden;
   position: relative;
   cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
   background:
     radial-gradient(circle at 1px 1px, #24242f 1px, transparent 1px) 0 0 / 24px 24px,
     #101017;
